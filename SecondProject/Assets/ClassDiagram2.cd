@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PlayerInteraction" Collapsed="true">
+    <Position X="3" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AESECACAACBAACAAAAAAAAAAAEAAAAAAAAgYAAAAAAA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerInteractioin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="0.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAAAAECAAAAQIBAAAAAAAABQAQgEAAAAABABkAAA=</HashCode>
+      <FileName>Assets\Script\Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerManager" Collapsed="true">
+    <Position X="2" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAQEAAAAECAIAAAEAAAAAAEIAgAAAAAIAgAAAABAAAA=</HashCode>
+      <FileName>Assets\Script\Player\PlayerManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
