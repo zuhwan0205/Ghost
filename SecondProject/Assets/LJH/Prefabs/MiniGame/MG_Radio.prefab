@@ -481,9 +481,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5803668889243504297}
   - component: {fileID: 6628724903436945708}
+  - component: {fileID: 4983158258132121587}
   - component: {fileID: 6456392532707214929}
   - component: {fileID: 2776282997687338808}
-  - component: {fileID: 4983158258132121587}
   m_Layer: 5
   m_Name: Dial
   m_TagString: Untagged
@@ -518,6 +518,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5818728652163651798}
   m_CullTransparentMesh: 1
+--- !u!114 &4983158258132121587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5818728652163651798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c3cf6005bd17d8458ad6c991e20b9aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniGamePanel: {fileID: 0}
+  sensitivity: 0.07
+  targetFrequency: 0
+  frequencyTolerance: 0.1
+  frequencyText: {fileID: 1291349865013427798}
+  staticNoise: {fileID: 7858593026087307755}
 --- !u!114 &6456392532707214929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,23 +621,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4983158258132121587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5818728652163651798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c3cf6005bd17d8458ad6c991e20b9aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivity: 0.07
-  targetFrequency: 0
-  frequencyTolerance: 0.1
-  frequencyText: {fileID: 1291349865013427798}
-  staticNoise: {fileID: 7858593026087307755}
 --- !u!1 &6407714017741430569
 GameObject:
   m_ObjectHideFlags: 0

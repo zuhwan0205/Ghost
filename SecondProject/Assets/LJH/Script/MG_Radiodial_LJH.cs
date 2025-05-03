@@ -1,78 +1,111 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class MG_Radio_LJH : MonoBehaviour, IBeginDragHandler, IDragHandler
+public class MG_Radio_LJH : MonoBehaviour, IMiniGame, IBeginDragHandler, IDragHandler
 {
-    public float sensitivity = 0.01f; // 회전 민감도 조절
-    public float targetFrequency = 0f;
-    public float frequencyTolerance = 0.1f;
-
-    public TMP_Text frequencyText;
-    public AudioSource staticNoise;
+    [SerializeField] private GameObject miniGamePanel;
+    [SerializeField] private float sensitivity = 0.01f;
+    [SerializeField] private float targetFrequency = 0f;
+    [SerializeField] private float frequencyTolerance = 0.1f;
+    [SerializeField] private TMP_Text frequencyText;
+    [SerializeField] private AudioSource staticNoise;
 
     private RectTransform dialRect;
     private float totalRotation = 0f;
     private float currentFreq = 0f;
     private float displayedFreq = 0f;
-
     private Vector2 prevMousePos;
+    private bool isGameActive = false;
+    private Interactable currentInteractable;
 
-    public static event Action OnRadioEnd;
+    public bool IsActive => isGameActive;
 
-    void Start()
+    private void Awake()
     {
         dialRect = GetComponent<RectTransform>();
+        miniGamePanel.SetActive(false);
+    }
+
+    private void Start()
+    {
         currentFreq = 130f;
         displayedFreq = 130f;
         frequencyText.text = "130.0";
     }
 
+    public void StartMiniGame(Interactable interactable)
+    {
+        if (isGameActive)
+            return;
+
+        currentInteractable = interactable;
+        miniGamePanel.SetActive(true);
+        isGameActive = true;
+        totalRotation = 0f;
+        currentFreq = 130f;
+        displayedFreq = 130f;
+        frequencyText.text = "130.0";
+        staticNoise.Play();
+    }
+
+    public void CancelGame()
+    {
+        if (!isGameActive)
+            return;
+
+        isGameActive = false;
+        miniGamePanel.SetActive(false);
+        staticNoise.Stop();
+        currentInteractable = null;
+    }
+
+    public void CompleteGame()
+    {
+        isGameActive = false;
+        miniGamePanel.SetActive(false);
+        staticNoise.Stop();
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            dialRect, eventData.position, eventData.pressEventCamera, out prevMousePos);
+        if (!isGameActive)
+            return;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(dialRect, eventData.position, eventData.pressEventCamera, out prevMousePos);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Vector2 currentMousePos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            dialRect, eventData.position, eventData.pressEventCamera, out currentMousePos);
+        if (!isGameActive)
+            return;
 
-        // 현재 위치와 이전 위치 사이의 각도 차이 계산
+        Vector2 currentMousePos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(dialRect, eventData.position, eventData.pressEventCamera, out currentMousePos);
+
         float angleDelta = Vector2.SignedAngle(prevMousePos, currentMousePos);
         totalRotation += angleDelta * sensitivity;
 
-        // 회전 값을 적용
         dialRect.localEulerAngles = new Vector3(0, 0, -totalRotation);
-
-        // 주파수 계산: 오른쪽으로 돌리면 증가하고, 왼쪽으로 돌리면 감소
         currentFreq = Mathf.Max(0f, 130f - totalRotation);
 
-        // 주파수 차이 계산
         float diff = Mathf.Abs(currentFreq - targetFrequency);
         staticNoise.volume = Mathf.Clamp01(diff / 10f);
 
         if (diff < frequencyTolerance)
         {
-            CompleteFrequencyMatch();
+            FindObjectOfType<MiniGameManager>().CompleteMiniGame("Radio", currentInteractable);
         }
 
         prevMousePos = currentMousePos;
     }
-    
-    void Update()
+
+    private void Update()
     {
+        if (!isGameActive)
+            return;
+
         displayedFreq = Mathf.Lerp(displayedFreq, currentFreq, Time.deltaTime * 10f);
         frequencyText.text = $"{displayedFreq:F1}";
-    }
-
-    void CompleteFrequencyMatch()
-    {
-        staticNoise.Stop();
-        Debug.Log("정상 주파수 연결됨");
-        OnRadioEnd?.Invoke();
     }
 }

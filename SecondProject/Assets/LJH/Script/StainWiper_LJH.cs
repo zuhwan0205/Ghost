@@ -1,65 +1,81 @@
 using UnityEngine;
 
-public class StainWiper : MonoBehaviour
+public class StainWiper : MonoBehaviour, IMiniGame
 {
     private Camera cam;
     private Vector2 lastSwipePos;
     private float swipeThreshold = 0.1f;
-    private bool hasSwipedOnce = false; // <- 처음 스와이프 감지 여부
-    public static StainWiper Instance;
-    public int cleanCount = 0;
+    private bool hasSwipedOnce = false;
+    private bool isGameActive = false;
+    private Interactable currentInteractable;
+    private int cleanCount = 0;
+    private string gameId;
 
     private void Awake()
     {
-        Instance = this;
+        cam = Camera.main;
+        gameObject.SetActive(false);
     }
 
-    
-    private void Start()
+    public void StartMiniGame(Interactable interactable)
     {
-        cam = Camera.main;
+        if (isGameActive)
+            return;
+
+        currentInteractable = interactable;
+        gameId = interactable.miniGameId; // miniGameId로 미니게임 구분
+        gameObject.SetActive(true);
+        isGameActive = true;
+        cleanCount = 0;
+        hasSwipedOnce = false;
     }
-    
+
+    public void CancelGame()
+    {
+        if (!isGameActive)
+            return;
+
+        isGameActive = false;
+        gameObject.SetActive(false);
+        cleanCount = 0;
+        currentInteractable = null;
+    }
+
+    public void CompleteGame()
+    {
+        isGameActive = false;
+        gameObject.SetActive(false);
+        cleanCount = 0;
+    }
+
+    public bool IsActive => isGameActive;
+
     private void Update()
     {
-        Vector2 inputPos = Vector2.zero;
-        bool isTouching = false;
+        if (!isGameActive)
+            return;
 
-#if UNITY_EDITOR
-        if (Input.GetMouseButton(0))
+        Vector2 inputPos;
+        if (!InputHandler.GetInputPosition(out inputPos, cam))
         {
-            inputPos = cam.ScreenToWorldPoint(Input.mousePosition);
-            isTouching = true;
+            hasSwipedOnce = false;
+            return;
         }
-#else
-    if (Input.touchCount > 0)
-    {
-        inputPos = cam.ScreenToWorldPoint(Input.GetTouch(0).position);
-        isTouching = true;
-    }
-#endif
 
-        if (isTouching)
+        if (!hasSwipedOnce)
         {
-            if (!hasSwipedOnce)
-            {
-                lastSwipePos = inputPos;
-                hasSwipedOnce = true;
-            }
-
-            if (Vector2.Distance(inputPos, lastSwipePos) > swipeThreshold)
-            {
-                TryClean(inputPos);
-                lastSwipePos = inputPos;
-            }
+            lastSwipePos = inputPos;
+            hasSwipedOnce = true;
         }
-        else
+
+        if (Vector2.Distance(inputPos, lastSwipePos) > swipeThreshold)
         {
-            hasSwipedOnce = false; // 손을 뗐을 때 초기화
+            TryClean(inputPos);
+            lastSwipePos = inputPos;
         }
     }
 
-    void TryClean(Vector2 position)
+    private void TryClean(Vector2 position)
     {
         Collider2D hit = Physics2D.OverlapPoint(position);
         if (hit != null && hit.TryGetComponent(out Stain stain))
@@ -69,6 +85,16 @@ public class StainWiper : MonoBehaviour
         else if (hit != null && hit.TryGetComponent(out Dust_LJH dust))
         {
             dust.Clean(position);
+        }
+    }
+
+    public void OnCleanCompleted()
+    {
+        cleanCount++;
+        int requiredCount = gameId == "Mannequin" ? 3 : 4; // 미니게임별 완료 조건
+        if (cleanCount >= requiredCount)
+        {
+            FindObjectOfType<MiniGameManager>().CompleteMiniGame(gameId, currentInteractable);
         }
     }
 }

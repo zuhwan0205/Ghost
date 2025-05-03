@@ -5,13 +5,13 @@ public class DragGlass : MonoBehaviour
     private Vector3 offset;
     private bool isDragging = false;
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         isDragging = true;
     }
 
-    void OnMouseDrag()
+    private void OnMouseDrag()
     {
         if (!isDragging) return;
 
@@ -19,12 +19,7 @@ public class DragGlass : MonoBehaviour
         transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
     }
 
-    void OnMouseUp()
-    {
-        isDragging = false;
-    }
-    
-    public void ForceStopDragging()
+    private void OnMouseUp()
     {
         isDragging = false;
     }
