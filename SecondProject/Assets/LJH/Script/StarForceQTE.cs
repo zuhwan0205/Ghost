@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StarforceQTE : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class StarforceQTE : MonoBehaviour
     private bool goingRight = true;
     private bool isQTEActive = false;
     private float minX, maxX;
+    
+    public static event Action OnEndStarForceQTE;
 
     void Start()
     {
@@ -60,6 +64,7 @@ public class StarforceQTE : MonoBehaviour
             {
                 Debug.Log("성공");
                 isQTEActive = false;
+                OnEndStarForceQTE?.Invoke();
             }
             else
             {

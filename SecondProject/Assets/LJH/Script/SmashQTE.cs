@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class SmashQTE : MonoBehaviour
 
     private float currentGauge = 0f;
     private bool isQTEActive = false;
+    
+    public static event Action OnEndSmashQTE;
 
     void Start()
     {
@@ -52,6 +55,6 @@ public class SmashQTE : MonoBehaviour
         isQTEActive = false;
         qteSlider.gameObject.SetActive(false);
         Debug.Log("QTE 성공!");
-        // TODO: 성공 시 처리할 이벤트 호출
+        OnEndSmashQTE?.Invoke();
     }
 }
