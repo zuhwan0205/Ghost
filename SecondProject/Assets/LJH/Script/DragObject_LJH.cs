@@ -7,6 +7,7 @@ public class DragGlass : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log($"OnMouseDown called on {gameObject.name}, Tag: {gameObject.tag}");
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         isDragging = true;
     }
@@ -21,6 +22,7 @@ public class DragGlass : MonoBehaviour
 
     private void OnMouseUp()
     {
+        Debug.Log($"OnMouseUp called on {gameObject.name}");
         isDragging = false;
     }
 }

@@ -238,12 +238,9 @@ MonoBehaviour:
   item: {fileID: 0}
   coin: {fileID: 0}
   isVendingMachine: 0
-  isDirtyMirror: 1
-  isWireBox: 0
+  miniGameId: MirrorCleaning
   cleanMirror: {fileID: 4107980012041893581}
   closedWireBox: {fileID: 0}
-  cleaningGame: {fileID: 0}
-  wiringGameManager: {fileID: 0}
 --- !u!1 &6130200625237627276
 GameObject:
   m_ObjectHideFlags: 0

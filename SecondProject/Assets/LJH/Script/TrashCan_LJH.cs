@@ -15,6 +15,11 @@ public class TrashCan : MonoBehaviour
                 FindFirstObjectByType<MiniGameManager>().OnSocketCompleted("Glass");
             }
         }
+        else if (other.CompareTag("Vent_Trash"))
+        {
+            Destroy(other.gameObject);
+            FindFirstObjectByType<MiniGameManager>().OnVentTrashCleaned(); // 카운트 증가 요청
+        }
     }
 
     public void ResetCount()

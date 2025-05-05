@@ -19,31 +19,50 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
     private float cleanTimer = 0f;
     private Interactable currentInteractable;
     private Camera mainCamera;
+    private bool isInitialized = false;
 
     private void Awake()
     {
         mainCamera = Camera.main;
-        gameObject.SetActive(false);
+        Debug.Log($"Awake: {gameObject.name} 활성화 상태 - {gameObject.activeSelf}");
+        Debug.Log($"Canvas 부모 오브젝트 활성화 상태: {transform.root.gameObject.activeSelf}");
+        Initialize();
     }
 
-    private void Start()
+    private void Initialize()
     {
-        if (dirtImage == null || dirtImage.texture == null)
+        if (isInitialized) return;
+
+        Debug.Log("Initialize 메서드 실행 시작.");
+
+        if (dirtImage == null)
         {
-            Debug.LogError("DirtImage 또는 텍스처가 설정되지 않았습니다!");
+            Debug.LogError("DirtImage가 인스펙터에서 설정되지 않았습니다!");
+            return;
+        }
+        if (dirtImage.texture == null)
+        {
+            Debug.LogError("DirtImage에 텍스처가 설정되지 않았습니다!");
             return;
         }
 
         Texture2D tempTexture = dirtImage.texture as Texture2D;
-        if (tempTexture == null || !tempTexture.isReadable)
+        if (tempTexture == null)
         {
-            Debug.LogError("DirtImage 텍스처가 Texture2D 형식이 아니거나 Read/Write가 꺼져 있습니다!");
+            Debug.LogError("DirtImage 텍스처가 Texture2D 형식이 아닙니다!");
+            return;
+        }
+        if (!tempTexture.isReadable)
+        {
+            Debug.LogError("DirtImage 텍스처의 Read/Write Enabled가 꺼져 있습니다! 텍스처 설정을 확인하세요.");
             return;
         }
 
         originalTexture = new Texture2D(tempTexture.width, tempTexture.height, TextureFormat.RGBA32, false);
         originalTexture.SetPixels(tempTexture.GetPixels());
         originalTexture.Apply();
+        Debug.Log("OriginalTexture 초기화 완료.");
+        isInitialized = true;
     }
 
     public void StartMiniGame(Interactable interactable)
@@ -54,9 +73,45 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
             return;
         }
 
+        Initialize();
+
+        if (originalTexture == null)
+        {
+            Debug.LogError("OriginalTexture가 초기화되지 않았습니다! 유니티 설정 확인 필요.");
+            return;
+        }
+
         currentInteractable = interactable;
         gameObject.SetActive(true);
         dirtRect = dirtImage.GetComponent<RectTransform>();
+
+        if (dirtRect == null)
+        {
+            Debug.LogError("DirtImage에 RectTransform 컴포넌트가 없습니다!");
+            return;
+        }
+
+        Debug.Log($"StartMiniGame: {gameObject.name} 활성화 - {gameObject.activeSelf}, DirtImage 활성화 - {dirtImage.gameObject.activeSelf}");
+        Debug.Log($"DirtImage 위치: {dirtRect.anchoredPosition}, 크기: {dirtRect.sizeDelta}, 앵커: {dirtRect.anchorMin}, {dirtRect.anchorMax}");
+        Debug.Log($"DirtImage Texture: {dirtImage.texture != null}, Color: {dirtImage.color}");
+
+        if (dirtImage.gameObject.activeSelf)
+        {
+            Debug.Log("DirtImage가 활성화됨.");
+        }
+        else
+        {
+            dirtImage.gameObject.SetActive(true);
+            Debug.Log("DirtImage를 수동으로 활성화함.");
+        }
+
+        if (ragImage != null)
+        {
+            var ragRect = ragImage.GetComponent<RectTransform>();
+            Debug.Log($"RagImage 위치: {ragRect.anchoredPosition}, 크기: {ragRect.sizeDelta}");
+            Debug.Log($"RagImage Texture: {ragImage.texture != null}, Color: {ragImage.color}");
+            ragImage.gameObject.SetActive(true);
+        }
 
         if (dirtTexture != null)
         {
@@ -69,6 +124,7 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
         dirtTexture.SetPixels(originalTexture.GetPixels());
         dirtTexture.Apply();
         dirtImage.texture = dirtTexture;
+        Debug.Log($"DirtImage에 새 텍스처 적용됨: {dirtImage.texture != null}");
 
         totalAlpha = 0f;
         foreach (var pixel in dirtTexture.GetPixels())
@@ -79,6 +135,7 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
 
         isGameActive = true;
         cleanTimer = 0f;
+        Debug.Log("MirrorCleaningGame 시작!");
     }
 
     public void CancelGame()
@@ -117,11 +174,19 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
     private void Update()
     {
         if (!isGameActive)
+        {
+            Debug.Log("게임 비활성화 상태: isGameActive == false");
             return;
+        }
 
         Vector2 mousePos;
-        if (!InputHandler.GetInputPosition(out mousePos, mainCamera, true, dirtRect))
+        bool inputSuccess = InputHandler.GetInputPosition(out mousePos, mainCamera, true, dirtRect);
+        Debug.Log($"InputHandler 결과: {inputSuccess}, 마우스 위치: {mousePos}, Canvas Rect: {dirtRect.rect}, DirtRect 활성화: {dirtRect.gameObject.activeSelf}");
+
+        if (!inputSuccess)
+        {
             return;
+        }
 
         if (ragImage != null)
         {
@@ -129,13 +194,23 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
             if (ragRect != null)
             {
                 ragRect.anchoredPosition = mousePos;
+                Debug.Log($"RagImage 위치 업데이트: {mousePos}, RagImage 활성화: {ragImage.gameObject.activeSelf}");
             }
+            else
+            {
+                Debug.LogWarning("RagImage의 RectTransform 없음");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("RagImage가 null임");
         }
 
         Rect rect = dirtRect.rect;
         Vector2 anchoredPos = dirtRect.anchoredPosition;
         Rect adjustedRect = new Rect(anchoredPos.x + rect.x, anchoredPos.y + rect.y, rect.width, rect.height);
         bool isMouseInRect = adjustedRect.Contains(mousePos);
+        Debug.Log($"마우스 영역 체크: {isMouseInRect}, 조정된 Rect: {adjustedRect}");
 
         cleanTimer += Time.deltaTime;
         bool isMouseButtonDown = Input.GetMouseButton(0);
@@ -145,6 +220,7 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
         {
             CleanDirt(mousePos);
             cleanTimer = 0f;
+            Debug.Log("CleanDirt 실행");
         }
     }
 
@@ -196,7 +272,7 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
 
         if (currentAlpha / totalAlpha <= cleanThreshold)
         {
-            FindFirstObjectByType<MiniGameManager>().CompleteMiniGame("MirrorCleaning", currentInteractable); // 107줄 수정
+            FindFirstObjectByType<MiniGameManager>().CompleteMiniGame("MirrorCleaning", currentInteractable);
         }
     }
 

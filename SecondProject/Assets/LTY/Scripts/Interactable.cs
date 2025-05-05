@@ -6,7 +6,7 @@ public class Interactable : MonoBehaviour
     public Item item;
     public Coin coin;
     public bool isVendingMachine = false;
-    public string miniGameId; // MiniGameManager에 전달할 ID
+    public string miniGameId; // "Glass" 또는 "Vent"로 설정 확인
     public GameObject cleanMirror;
     public GameObject closedWireBox;
     private bool isMiniGameCompleted = false;
@@ -19,11 +19,12 @@ public class Interactable : MonoBehaviour
             return;
         }
 
-        Player player = FindFirstObjectByType<Player>(); // 22줄 수정
+        Player player = FindFirstObjectByType<Player>();
 
         if (!string.IsNullOrEmpty(miniGameId))
         {
-            FindFirstObjectByType<MiniGameManager>().StartMiniGame(miniGameId, this); // 26줄 수정
+            Debug.Log($"Starting minigame: {miniGameId} with interactable: {this}");
+            FindFirstObjectByType<MiniGameManager>().StartMiniGame(miniGameId, this);
             return;
         }
 

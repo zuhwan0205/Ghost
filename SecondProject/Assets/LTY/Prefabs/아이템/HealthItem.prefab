@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5614356861425672667
 Transform:
   m_ObjectHideFlags: 0
@@ -141,9 +141,6 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: 437070e105fd14c4b921f99169d47163, type: 2}
   coin: {fileID: 0}
   isVendingMachine: 0
-  isDirtyMirror: 0
-  isWireBox: 0
+  miniGameId: 
   cleanMirror: {fileID: 0}
   closedWireBox: {fileID: 0}
-  cleaningGame: {fileID: 0}
-  wiringGameManager: {fileID: 0}

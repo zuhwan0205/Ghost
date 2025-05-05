@@ -493,69 +493,11 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &535356953 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 629916774689305356, guid: f7c9e647db81aed40bbe119dd2c8519b, type: 3}
-  m_PrefabInstance: {fileID: 9113753353761183258}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1cf20ef02f9c754ea51897fc4a9104a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &555324690 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8535719812019480547, guid: baf659e654940054f8772b86a0b4a0b9, type: 3}
   m_PrefabInstance: {fileID: 1510535700}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &600722101
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 600722102}
-  - component: {fileID: 600722103}
-  m_Layer: 0
-  m_Name: SocketMiniGame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &600722102
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600722101}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &600722103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600722101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf63eb946738a714c9f6054f900fe96f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  miniGamePanel: {fileID: 931014179}
-  lightSocket: {fileID: 535356953}
-  propellerSocket: {fileID: 0}
 --- !u!114 &628051925 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4004994064831303857, guid: 418f304d40599cc4f9c4fc6293a12534, type: 3}
@@ -711,17 +653,6 @@ MonoBehaviour:
   miniGameId: Glass
   cleanMirror: {fileID: 0}
   closedWireBox: {fileID: 0}
---- !u!114 &831357215 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6188165184710596053, guid: c1569fbeff1b4784f9d854c6dae4a209, type: 3}
-  m_PrefabInstance: {fileID: 469463091377329099}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &846238457 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6608623551749760776, guid: 8622401d88d5977449481fe88c7d32e3, type: 3}
@@ -837,10 +768,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaminaItem
       objectReference: {fileID: 0}
-    - target: {fileID: 6266072572915823419, guid: 901e017d44089464e8cc0543031e16b7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -857,10 +784,6 @@ PrefabInstance:
     - target: {fileID: 3930753577037207929, guid: f4d365ab1678e4d41a74e014f24ef956, type: 3}
       propertyPath: m_Name
       value: Coin (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3930753577037207929, guid: f4d365ab1678e4d41a74e014f24ef956, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8798599789745431911, guid: f4d365ab1678e4d41a74e014f24ef956, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1121,10 +1044,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthItem
       objectReference: {fileID: 0}
-    - target: {fileID: 4465284401185716543, guid: 49097dc476de7f7478c277b18914761e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5614356861425672667, guid: 49097dc476de7f7478c277b18914761e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.48
@@ -1314,11 +1233,10 @@ MonoBehaviour:
   miniGameId: Mannequin
   cleanMirror: {fileID: 0}
   closedWireBox: {fileID: 0}
---- !u!114 &1471793418
+--- !u!114 &1471793418 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7969736063168887298, guid: c1569fbeff1b4784f9d854c6dae4a209, type: 3}
+  m_PrefabInstance: {fileID: 469463091377329099}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209639421}
   m_Enabled: 1
@@ -1326,11 +1244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f6d87346a3b0242af34e4ceac53aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dirtImage: {fileID: 2025105558}
-  ragImage: {fileID: 831357215}
-  cleanRadius: 0.3
-  cleanSpeed: 0.5
-  cleanThreshold: 0.1
 --- !u!114 &1487739736 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 295494743549402396, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
@@ -1577,6 +1490,10 @@ PrefabInstance:
     - target: {fileID: 8535719812019480547, guid: baf659e654940054f8772b86a0b4a0b9, type: 3}
       propertyPath: m_Name
       value: MiniGameCanvas_wire
+      objectReference: {fileID: 0}
+    - target: {fileID: 8535719812019480547, guid: baf659e654940054f8772b86a0b4a0b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1915,52 +1832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1821150034
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1821150035}
-  - component: {fileID: 1821150036}
-  m_Layer: 0
-  m_Name: GlassMiniGame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1821150035
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821150034}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1821150036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821150034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1344b998322eac408871a669845c2fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  miniGamePanel: {fileID: 1958634078}
-  trashCan: {fileID: 1878075051}
 --- !u!114 &1849890418 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7685525301080332464, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
@@ -2119,17 +1990,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4d365ab1678e4d41a74e014f24ef956, type: 3}
---- !u!114 &1878075051 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7237898372961795368, guid: 447b5131d0ce05e43b57b8f57d318153, type: 3}
-  m_PrefabInstance: {fileID: 3897045331691164618}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12db93fad677bad408d1f4914c729197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1901130374 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4850838636254170429, guid: 63fd6695a35b9fb4c90d550accad8175, type: 3}
@@ -2170,17 +2030,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2025105558 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8738870593365252018, guid: c1569fbeff1b4784f9d854c6dae4a209, type: 3}
-  m_PrefabInstance: {fileID: 469463091377329099}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2037738973
@@ -2266,16 +2115,16 @@ MonoBehaviour:
     miniGameScript: {fileID: 160702690}
   - gameId: Vent
     panel: {fileID: 846238457}
-    miniGameScript: {fileID: 1821150036}
+    miniGameScript: {fileID: 0}
   - gameId: Mannequin
     panel: {fileID: 1901130374}
     miniGameScript: {fileID: 334899224}
   - gameId: Glass
     panel: {fileID: 1958634078}
-    miniGameScript: {fileID: 1821150036}
+    miniGameScript: {fileID: 0}
   - gameId: Light
     panel: {fileID: 931014179}
-    miniGameScript: {fileID: 600722103}
+    miniGameScript: {fileID: 0}
   - gameId: Carpet
     panel: {fileID: 391982070}
     miniGameScript: {fileID: 628051925}
@@ -2386,6 +2235,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2920271946190330175, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2920271946190330175, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2920271946190330175, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3771872613926671323, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2482,6 +2343,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6238698019393572356, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6238698019393572356, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6238698019393572356, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8562967095215157264, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2489,6 +2362,10 @@ PrefabInstance:
     - target: {fileID: 8694282224207560929, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
       propertyPath: m_Name
       value: UI_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8694282224207560929, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2587,14 +2464,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGameCanvas_Mirror
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4222709533555041811, guid: c1569fbeff1b4784f9d854c6dae4a209, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7706319569498525233, guid: c1569fbeff1b4784f9d854c6dae4a209, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1471793418}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1569fbeff1b4784f9d854c6dae4a209, type: 3}
 --- !u!1001 &587854115327324986
 PrefabInstance:
@@ -2604,21 +2477,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3590810334313828224, guid: d7933912b7b3b2548a21931b8d4fd64a, type: 3}
-      propertyPath: miniGameId
-      value: Wiring
-      objectReference: {fileID: 0}
-    - target: {fileID: 3590810334313828224, guid: d7933912b7b3b2548a21931b8d4fd64a, type: 3}
-      propertyPath: wiringGameManager
-      value: 
-      objectReference: {fileID: 160702690}
     - target: {fileID: 3950928176942673365, guid: d7933912b7b3b2548a21931b8d4fd64a, type: 3}
       propertyPath: m_Name
       value: WireBoxSystem
-      objectReference: {fileID: 0}
-    - target: {fileID: 3950928176942673365, guid: d7933912b7b3b2548a21931b8d4fd64a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4327326801643203476, guid: d7933912b7b3b2548a21931b8d4fd64a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2673,14 +2534,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 520130037137000601, guid: c9212fd446039f54d959e60c77a867cf, type: 3}
-      propertyPath: miniGameId
-      value: MirrorCleaning
-      objectReference: {fileID: 0}
-    - target: {fileID: 520130037137000601, guid: c9212fd446039f54d959e60c77a867cf, type: 3}
-      propertyPath: cleaningGame
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1733327347856080564, guid: c9212fd446039f54d959e60c77a867cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.27
@@ -2725,10 +2578,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MirrorSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 6130200625237627276, guid: c9212fd446039f54d959e60c77a867cf, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2745,10 +2594,6 @@ PrefabInstance:
     - target: {fileID: 3930753577037207929, guid: f4d365ab1678e4d41a74e014f24ef956, type: 3}
       propertyPath: m_Name
       value: Coin
-      objectReference: {fileID: 0}
-    - target: {fileID: 3930753577037207929, guid: f4d365ab1678e4d41a74e014f24ef956, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8798599789745431911, guid: f4d365ab1678e4d41a74e014f24ef956, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3158,6 +3003,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5467556587428616180, guid: 8622401d88d5977449481fe88c7d32e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -232
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510129642798755952, guid: 8622401d88d5977449481fe88c7d32e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 686
+      objectReference: {fileID: 0}
+    - target: {fileID: 5510129642798755952, guid: 8622401d88d5977449481fe88c7d32e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -109
+      objectReference: {fileID: 0}
     - target: {fileID: 6608623551749760776, guid: 8622401d88d5977449481fe88c7d32e3, type: 3}
       propertyPath: m_Name
       value: MG_Vent
@@ -3323,10 +3180,6 @@ PrefabInstance:
     - target: {fileID: 3960553117898616622, guid: 2c74d74b6ab293d408b5f88000e668f6, type: 3}
       propertyPath: m_Name
       value: VendingMachine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3960553117898616622, guid: 2c74d74b6ab293d408b5f88000e668f6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3666,5 +3519,3 @@ SceneRoots:
   - {fileID: 17316067}
   - {fileID: 1199657232}
   - {fileID: 2040748245}
-  - {fileID: 1821150035}
-  - {fileID: 600722102}

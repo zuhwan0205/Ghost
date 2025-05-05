@@ -2,25 +2,17 @@ using UnityEngine;
 
 public class PropellerSocket_LJH : MonoBehaviour
 {
-    private int ventTrashCount = 0;
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Vent_Trash"))
+        if (other.CompareTag("ProPeller"))
         {
-            Destroy(other.gameObject);
-            ventTrashCount++;
+            MiniGameManager manager = FindFirstObjectByType<MiniGameManager>();
+            if (manager != null && manager.GetVentTrashCount() >= 4)
+            {
+                other.transform.position = Vector2.zero;
+                other.GetComponent<DragGlass>().enabled = false;
+                manager.OnSocketCompleted("Vent");
+            }
         }
-        else if (other.CompareTag("ProPeller") && ventTrashCount >= 4)
-        {
-            other.transform.position = Vector2.zero;
-            other.GetComponent<DragGlass>().enabled = false;
-            FindFirstObjectByType<MiniGameManager>().OnSocketCompleted("Vent");
-        }
-    }
-
-    public void ResetVentTrashCount()
-    {
-        ventTrashCount = 0;
     }
 }
