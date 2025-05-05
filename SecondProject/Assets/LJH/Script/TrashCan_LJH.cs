@@ -12,7 +12,7 @@ public class TrashCan : MonoBehaviour
             cleanCount++;
             if (cleanCount >= 8)
             {
-                FindFirstObjectByType<GlassMiniGame>().OnGlassMissionCompleted(); // 17ÁÙ ¼öÁ¤
+                FindFirstObjectByType<MiniGameManager>().OnSocketCompleted("Glass");
             }
         }
     }

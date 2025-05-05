@@ -185,9 +185,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8588647740393658724}
   - component: {fileID: 3569414112797268948}
+  - component: {fileID: 3881766241949272000}
   - component: {fileID: 2796388548472082965}
   - component: {fileID: 6633667335010150309}
-  - component: {fileID: 3881766241949272000}
   m_Layer: 5
   m_Name: PropellerSocket
   m_TagString: Untagged
@@ -222,6 +222,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204361485935493927}
   m_CullTransparentMesh: 1
+--- !u!114 &3881766241949272000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204361485935493927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b256847cd9dc3647a00c9c1cce22393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2796388548472082965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,18 +310,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3881766241949272000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204361485935493927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b256847cd9dc3647a00c9c1cce22393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1768742715844139153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,6 +1200,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751664519708176815, guid: 8476ce93d5d07fa4c8508dbf456d3119, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2945271449254793794, guid: 8476ce93d5d07fa4c8508dbf456d3119, type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7677620414012019745, guid: 8476ce93d5d07fa4c8508dbf456d3119, type: 3}
