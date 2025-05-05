@@ -94,7 +94,7 @@ public class MG_Radio_LJH : MonoBehaviour, IMiniGame, IBeginDragHandler, IDragHa
 
         if (diff < frequencyTolerance)
         {
-            FindObjectOfType<MiniGameManager>().CompleteMiniGame("Radio", currentInteractable);
+            FindFirstObjectByType<MiniGameManager>().CompleteMiniGame("Radio", currentInteractable); // 128ÁÙ ¼öÁ¤
         }
 
         prevMousePos = currentMousePos;

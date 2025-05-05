@@ -28,7 +28,7 @@ public class Dust_LJH : MonoBehaviour
         if (cleanAmount >= cleanThreshold)
         {
             Destroy(gameObject);
-            FindObjectOfType<StainWiper>().OnCleanCompleted();
+            FindFirstObjectByType<StainWiper>().OnCleanCompleted(); // 31ÁÙ ¼öÁ¤
         }
     }
 }

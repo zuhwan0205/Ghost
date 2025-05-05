@@ -30,7 +30,7 @@ public class Stain : MonoBehaviour
         if (cleanAmount >= cleanThreshold)
         {
             Destroy(gameObject);
-            FindObjectOfType<StainWiper>().OnCleanCompleted();
+            FindFirstObjectByType<StainWiper>().OnCleanCompleted(); // 33ÁÙ ¼öÁ¤
         }
     }
 }

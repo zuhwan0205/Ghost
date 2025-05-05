@@ -47,6 +47,6 @@ public class GlassMiniGame : MonoBehaviour, IMiniGame
 
     public void OnGlassMissionCompleted()
     {
-        FindObjectOfType<MiniGameManager>().CompleteMiniGame("Glass", currentInteractable);
+        FindFirstObjectByType<MiniGameManager>().CompleteMiniGame("Glass", currentInteractable); // 50ÁÙ ¼öÁ¤
     }
 }

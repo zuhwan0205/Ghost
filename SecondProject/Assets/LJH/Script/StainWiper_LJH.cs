@@ -94,7 +94,7 @@ public class StainWiper : MonoBehaviour, IMiniGame
         int requiredCount = gameId == "Mannequin" ? 3 : 4; // 미니게임별 완료 조건
         if (cleanCount >= requiredCount)
         {
-            FindObjectOfType<MiniGameManager>().CompleteMiniGame(gameId, currentInteractable);
+            FindFirstObjectByType<MiniGameManager>().CompleteMiniGame(gameId, currentInteractable); // 97줄 수정
         }
     }
 }

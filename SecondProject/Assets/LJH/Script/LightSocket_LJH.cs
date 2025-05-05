@@ -8,7 +8,7 @@ public class LightSocket : MonoBehaviour
         {
             other.transform.position = transform.position;
             other.GetComponent<DragGlass>().enabled = false;
-            FindObjectOfType<SocketMiniGame>().OnSocketCompleted();
+            FindFirstObjectByType<SocketMiniGame>().OnSocketCompleted(); // 13ÁÙ ¼öÁ¤
         }
     }
 }

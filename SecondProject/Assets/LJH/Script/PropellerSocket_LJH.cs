@@ -15,7 +15,7 @@ public class PropellerSocket_LJH : MonoBehaviour
         {
             other.transform.position = Vector2.zero;
             other.GetComponent<DragGlass>().enabled = false;
-            FindObjectOfType<SocketMiniGame>().OnSocketCompleted();
+            FindFirstObjectByType<SocketMiniGame>().OnSocketCompleted(); // 20ÁÙ ¼öÁ¤
         }
     }
 }

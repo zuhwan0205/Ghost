@@ -196,7 +196,7 @@ public class MirrorCleaningGame : MonoBehaviour, IMiniGame
 
         if (currentAlpha / totalAlpha <= cleanThreshold)
         {
-            FindObjectOfType<MiniGameManager>().CompleteMiniGame("MirrorCleaning", currentInteractable);
+            FindFirstObjectByType<MiniGameManager>().CompleteMiniGame("MirrorCleaning", currentInteractable); // 107ÁÙ ¼öÁ¤
         }
     }
 

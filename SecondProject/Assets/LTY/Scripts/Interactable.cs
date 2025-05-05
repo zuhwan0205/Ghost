@@ -19,11 +19,11 @@ public class Interactable : MonoBehaviour
             return;
         }
 
-        Player player = FindObjectOfType<Player>();
+        Player player = FindFirstObjectByType<Player>(); // 22줄 수정
 
         if (!string.IsNullOrEmpty(miniGameId))
         {
-            FindObjectOfType<MiniGameManager>().StartMiniGame(miniGameId, this);
+            FindFirstObjectByType<MiniGameManager>().StartMiniGame(miniGameId, this); // 26줄 수정
             return;
         }
 

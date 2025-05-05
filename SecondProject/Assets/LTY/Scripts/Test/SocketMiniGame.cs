@@ -49,6 +49,6 @@ public class SocketMiniGame : MonoBehaviour, IMiniGame
 
     public void OnSocketCompleted()
     {
-        FindObjectOfType<MiniGameManager>().CompleteMiniGame(gameId, currentInteractable);
+        FindFirstObjectByType<MiniGameManager>().CompleteMiniGame(gameId, currentInteractable); // 52ÁÙ ¼öÁ¤
     }
 }

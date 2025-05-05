@@ -126,7 +126,7 @@ public class WiringGameManager : MonoBehaviour, IMiniGame
 
         if (allConnected)
         {
-            FindObjectOfType<MiniGameManager>().CompleteMiniGame("Wiring", interactable);
+            FindFirstObjectByType<MiniGameManager>().CompleteMiniGame("Wiring", interactable); // 129ÁÙ ¼öÁ¤
         }
     }
 }

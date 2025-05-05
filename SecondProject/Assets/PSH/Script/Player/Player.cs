@@ -103,7 +103,7 @@ public class Player : PlayerManager
         originalMoveSpeed = moveSpeed;
         originalDashSpeed = dashSpeed;
 
-        miniGameManager = FindObjectOfType<MiniGameManager>();
+        miniGameManager = FindFirstObjectByType<MiniGameManager>(); // 106줄 수정
         if (miniGameManager == null)
             Debug.LogError("MiniGameManager를 찾을 수 없습니다!");
 
