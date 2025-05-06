@@ -3,223 +3,159 @@ using UnityEngine.UI;
 
 public class MirrorCleaningGame : MonoBehaviour
 {
-    [SerializeField] private RawImage dirtImage;
-    [SerializeField] private RawImage ragImage;
-    [SerializeField] private float cleanRadius = 0.4f;
-    [SerializeField] private float cleanSpeed = 0.1f;
-    [SerializeField] private float cleanThreshold = 0.1f;
+    // Inspector에서 설정할 UI 요소와 게임 설정값
+    [SerializeField] private RawImage dirtImage; // 더러운 거울 이미지
+    [SerializeField] private RawImage ragImage; // 걸레 이미지
+    [SerializeField] private float cleanRadius = 0.4f; // 닦기 반경 (텍스처 기준)
+    [SerializeField] private float cleanSpeed = 0.1f; // 한 번 닦을 때 투명도 감소량
+    [SerializeField] private float cleanThreshold = 0.1f; // 클리어 기준 (투명도 비율)
 
-    private Texture2D dirtTexture;
-    private Texture2D originalTexture; // 원본 텍스처 복사본 저장
-    private bool isGameActive = false;
-    private float totalAlpha;
-    private float currentAlpha;
-    private RectTransform dirtRect;
-    private float cleanInterval = 0.2f;
-    private float cleanTimer = 0f;
-    private Interactable currentInteractable;
+    private Texture2D dirtTexture; // 작업용 텍스처 (닦기 처리)
+    private Texture2D originalTexture; // 원본 텍스처 (복구용)
+    private bool isGameActive = false; // 미니게임 활성화 여부
+    private float totalAlpha; // 텍스처의 초기 투명도 합계
+    private float currentAlpha; // 현재 투명도 합계
+    private RectTransform dirtRect; // dirtImage의 RectTransform
+    private float cleanInterval = 0.05f; // 닦기 간격 (초)
+    private float cleanTimer = 0f; // 닦기 타이머
+    private Interactable currentInteractable; // 미니게임을 호출한 객체
 
-    void Awake()
-    {
-        // 초기 비활성화는 에디터에서 설정으로 대체
-        // gameObject.SetActive(false);
-        // Debug.Log("MiniGameCanvas 초기 비활성화!");
-    }
-
+    // 초기화: 텍스처 설정 및 유효성 검사
     void Start()
     {
-        // 원본 텍스처 저장 및 안전성 체크
-        if (dirtImage == null)
+        // dirtImage와 텍스처가 제대로 설정되었는지 확인
+        if (dirtImage == null || dirtImage.texture == null)
         {
-            Debug.LogError("DirtImage가 설정되지 않았습니다! 유니티 에디터에서 Inspector 창을 확인하세요.");
-            return;
-        }
-
-        if (dirtImage.texture == null)
-        {
-            Debug.LogError("DirtImage에 텍스처가 할당되지 않았습니다! 유니티 에디터에서 DirtImage의 RawImage 컴포넌트를 확인하세요.");
+            Debug.LogError("DirtImage 또는 텍스처가 설정되지 않았습니다!");
             return;
         }
 
         Texture2D tempTexture = dirtImage.texture as Texture2D;
-        if (tempTexture == null)
+        if (tempTexture == null || !tempTexture.isReadable)
         {
-            Debug.LogError("DirtImage의 텍스처가 Texture2D 형식이 아닙니다! 텍스처 형식을 확인하세요.");
+            Debug.LogError("DirtImage 텍스처가 Texture2D 형식이 아니거나 Read/Write Enabled가 꺼져 있습니다!");
             return;
         }
 
-        if (!tempTexture.isReadable)
-        {
-            Debug.LogError($"텍스처 '{tempTexture.name}'의 Read/Write Enabled가 꺼져 있습니다! 유니티 에디터에서 텍스처 설정을 확인하세요.");
-            return;
-        }
-
-        // 원본 텍스처 복사본 생성 (포맷을 RGBA32로 고정)
+        // 원본 텍스처 복사 (게임 재시작 시 복구용)
         originalTexture = new Texture2D(tempTexture.width, tempTexture.height, TextureFormat.RGBA32, false);
         originalTexture.SetPixels(tempTexture.GetPixels());
         originalTexture.Apply();
-        Debug.Log($"원본 텍스처 복사 완료: 이름={originalTexture.name}, 크기={originalTexture.width}x{originalTexture.height}, Readable={originalTexture.isReadable}");
+        Debug.Log($"원본 텍스처 초기화: {originalTexture.width}x{originalTexture.height}");
     }
 
+    // 미니게임 시작: 캔버스 활성화 및 텍스처 준비
     public void StartMiniGame(Interactable interactable)
     {
-        if (isGameActive)
-        {
-            Debug.Log("미니게임 이미 진행 중!");
-            return;
-        }
+        if (isGameActive) return;
 
-        Debug.Log("StartMiniGame 시작!");
         currentInteractable = interactable;
-
-        // 캔버스 활성화 먼저 시도
-        Debug.Log("캔버스 활성화 시도!");
         gameObject.SetActive(true);
-        Debug.Log($"캔버스 활성화 상태: {gameObject.activeSelf}");
 
-        if (dirtImage == null || ragImage == null)
+        // 필수 컴포넌트 확인
+        if (dirtImage == null || ragImage == null || dirtImage.GetComponent<RectTransform>() == null)
         {
-            Debug.LogError("DirtImage 또는 RagImage가 설정되지 않았습니다!");
+            Debug.LogError("DirtImage, RagImage 또는 RectTransform이 설정되지 않았습니다!");
             gameObject.SetActive(false);
             return;
         }
-        Debug.Log("DirtImage와 RagImage 설정 확인 완료!");
 
         dirtRect = dirtImage.GetComponent<RectTransform>();
-        if (dirtRect == null)
-        {
-            Debug.LogError("DirtImage에 RectTransform 컴포넌트가 없습니다!");
-            gameObject.SetActive(false);
-            return;
-        }
-        Debug.Log($"Dirt Rect: {dirtRect.rect}");
 
-        // originalTexture가 null일 경우 재설정 시도
+        // 원본 텍스처가 없으면 재설정
         if (originalTexture == null)
         {
             Texture2D tempTexture = dirtImage.texture as Texture2D;
-            if (tempTexture == null)
+            if (tempTexture == null || !tempTexture.isReadable)
             {
-                Debug.LogError("DirtImage의 텍스처가 Texture2D 형식이 아닙니다! StartMiniGame에서 재설정 실패.");
+                Debug.LogError("OriginalTexture 재설정 실패!");
                 gameObject.SetActive(false);
                 return;
             }
-
-            if (!tempTexture.isReadable)
-            {
-                Debug.LogError($"텍스처 '{tempTexture.name}'의 Read/Write Enabled가 꺼져 있습니다! StartMiniGame에서 재설정 실패.");
-                gameObject.SetActive(false);
-                return;
-            }
-
             originalTexture = new Texture2D(tempTexture.width, tempTexture.height, TextureFormat.RGBA32, false);
             originalTexture.SetPixels(tempTexture.GetPixels());
             originalTexture.Apply();
-            Debug.Log($"StartMiniGame에서 originalTexture 재설정 완료: 이름={originalTexture.name}, 크기={originalTexture.width}x{originalTexture.height}");
-        }
-        Debug.Log("텍스처 설정 확인 완료!");
-
-        // 기존 dirtTexture가 있으면 정리
-        if (dirtTexture != null)
-        {
-            Destroy(dirtTexture);
-            dirtTexture = null;
         }
 
-        // 새로운 작업용 텍스처 생성
+        // 기존 작업용 텍스처 정리
+        if (dirtTexture != null) Destroy(dirtTexture);
+
+        // 작업용 텍스처 생성
         dirtTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
         dirtTexture.filterMode = FilterMode.Bilinear;
         dirtTexture.wrapMode = TextureWrapMode.Clamp;
-        Color[] pixels = originalTexture.GetPixels();
-        dirtTexture.SetPixels(pixels);
+        dirtTexture.SetPixels(originalTexture.GetPixels());
         dirtTexture.Apply();
-        Debug.Log($"Dirt Texture 크기: {dirtTexture.width}x{dirtTexture.height}");
+        dirtImage.texture = dirtTexture;
 
-        // dirtImage에 텍스처 설정
-        if (dirtImage != null)
-        {
-            dirtImage.texture = dirtTexture;
-            Debug.Log("dirtImage에 dirtTexture 설정 완료!");
-        }
-        else
-        {
-            Debug.LogError("dirtImage가 null입니다!");
-            gameObject.SetActive(false);
-            return;
-        }
-
+        // 초기 투명도 계산
         totalAlpha = 0f;
-        foreach (var pixel in pixels)
+        foreach (var pixel in originalTexture.GetPixels())
         {
             totalAlpha += pixel.a;
         }
         currentAlpha = totalAlpha;
-        Debug.Log($"Total Alpha: {totalAlpha}");
 
         if (totalAlpha <= 0)
         {
-            Debug.LogError("텍스처의 투명도가 0입니다! 텍스처를 확인하세요.");
+            Debug.LogError("텍스처의 투명도가 0입니다!");
             gameObject.SetActive(false);
             return;
         }
 
         isGameActive = true;
         cleanTimer = 0f;
-        Debug.Log($"isGameActive 상태: {isGameActive}");
+        Debug.Log("미니게임 시작!");
     }
 
+    // 미니게임 취소: 상태 초기화 및 캔버스 비활성화
     public void CancelGame()
     {
-        if (!isGameActive)
-        {
-            Debug.Log("미니게임이 이미 비활성화 상태입니다!");
-            return;
-        }
+        if (!isGameActive) return;
 
         isGameActive = false;
         gameObject.SetActive(false);
-        Debug.Log("미니게임 취소됨!");
 
         // 작업용 텍스처 정리
         if (dirtTexture != null)
         {
             Destroy(dirtTexture);
             dirtTexture = null;
-            Debug.Log("dirtTexture 파괴 완료!");
         }
 
-        // 원본 텍스처로 복구
+        // 원본 텍스처 복구
         if (dirtImage != null && originalTexture != null)
         {
             dirtImage.texture = originalTexture;
-            Debug.Log("dirtImage에 originalTexture 복구 완료!");
-        }
-        else
-        {
-            Debug.LogError("dirtImage 또는 originalTexture가 null입니다! 복구 실패.");
         }
 
-        // 상태 초기화
         currentInteractable = null;
         cleanTimer = 0f;
         totalAlpha = 0f;
         currentAlpha = 0f;
-        Debug.Log("취소 후 상태 초기화 완료!");
+        Debug.Log("미니게임 취소됨!");
     }
 
+    // 매 프레임 처리: 입력 감지 및 닦기 로직
     void Update()
     {
-        if (!isGameActive)
-        {
-            Debug.Log("미니게임 비활성화 상태: Update 실행 안 됨!");
-            return;
-        }
+        if (!isGameActive) return;
 
-        // 캔버스가 비활성화되었다면 활성화 보장
+        // 캔버스가 비활성화된 경우 강제 활성화
         if (!gameObject.activeSelf)
         {
-            Debug.LogWarning("캔버스가 비활성화 상태입니다! 강제로 활성화합니다.");
             gameObject.SetActive(true);
+        }
+
+        // 마우스 좌클릭 이외의 입력 감지 (키보드, 마우스 우클릭/중간 클릭)
+        bool isKeyboardInput = Input.anyKeyDown && !Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1) && !Input.GetMouseButtonDown(2);
+        bool isInvalidMouseInput = Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2);
+
+        if (isKeyboardInput || isInvalidMouseInput)
+        {
+            Debug.Log("마우스 좌클릭 이외의 입력 감지! 미니게임 종료.");
+            CancelGame();
+            return;
         }
 
         // 마우스 위치를 캔버스 로컬 좌표로 변환
@@ -227,33 +163,19 @@ public class MirrorCleaningGame : MonoBehaviour
         bool isConverted = RectTransformUtility.ScreenPointToLocalPointInRectangle(
             dirtRect, Input.mousePosition, null, out mousePos
         );
-        if (!isConverted)
-        {
-            Debug.LogError("마우스 좌표 변환 실패!");
-            return;
-        }
-        Debug.Log($"로컬 마우스 위치: {mousePos}");
+        if (!isConverted) return;
 
-        // Rag 이미지 위치 업데이트
+        // 걸레 이미지 위치 업데이트
         if (ragImage != null)
         {
             var ragRect = ragImage.GetComponent<RectTransform>();
             if (ragRect != null)
             {
                 ragRect.anchoredPosition = mousePos;
-                Debug.Log($"Rag 이미지 위치 업데이트: {mousePos}, RectTransform 위치: {ragRect.anchoredPosition}");
             }
-            else
-            {
-                Debug.LogError("ragImage에 RectTransform이 없습니다!");
-            }
-        }
-        else
-        {
-            Debug.LogError("ragImage가 null입니다!");
         }
 
-        // Dirt 영역 체크
+        // 마우스가 Dirt 이미지 영역 내에 있는지 확인
         Rect rect = dirtRect.rect;
         Vector2 anchoredPos = dirtRect.anchoredPosition;
         Rect adjustedRect = new Rect(
@@ -263,39 +185,31 @@ public class MirrorCleaningGame : MonoBehaviour
             rect.height
         );
         bool isMouseInRect = adjustedRect.Contains(mousePos);
-        Debug.Log($"Adjusted Rect: {adjustedRect}, Contains Mouse: {isMouseInRect}");
 
         cleanTimer += Time.deltaTime;
-        Debug.Log($"CleanTimer: {cleanTimer}");
 
-        bool isMouseButtonDown = Input.GetMouseButton(0);
-        bool isTimerReady = cleanTimer >= cleanInterval;
-
-        Debug.Log($"마우스 영역 안: {isMouseInRect}, 마우스 클릭: {isMouseButtonDown}, 타이머 준비: {isTimerReady}");
-
-        if (isMouseInRect && isMouseButtonDown && isTimerReady)
+        // 마우스 좌클릭 + 영역 내 + 타이머 조건 충족 시 닦기
+        if (isMouseInRect && Input.GetMouseButton(0) && cleanTimer >= cleanInterval)
         {
-            Debug.Log("먼지 닦기 시작!");
             CleanDirt(mousePos);
             cleanTimer = 0f;
         }
     }
 
+    // 거울 닦기: 마우스 위치에서 텍스처 투명도 감소
     void CleanDirt(Vector2 localPos)
     {
-        // localPos를 Dirt 텍스처의 UV 좌표로 변환
+        // 로컬 좌표를 텍스처 UV 좌표로 변환
         Rect rect = dirtRect.rect;
         Vector2 normalizedPos = new Vector2(
             (localPos.x - rect.x) / rect.width,
             (localPos.y - rect.y) / rect.height
         );
-        Debug.Log($"Normalized Pos: {normalizedPos}");
 
         Vector2 uv = new Vector2(
             normalizedPos.x * dirtTexture.width,
             normalizedPos.y * dirtTexture.height
         );
-        Debug.Log($"UV 좌표: {uv}");
 
         // 닦기 반경 계산
         int radius = Mathf.FloorToInt(cleanRadius * dirtTexture.width * 0.5f);
@@ -303,13 +217,13 @@ public class MirrorCleaningGame : MonoBehaviour
         int xMax = Mathf.Clamp((int)uv.x + radius, 0, dirtTexture.width - 1);
         int yMin = Mathf.Clamp((int)uv.y - radius, 0, dirtTexture.height - 1);
         int yMax = Mathf.Clamp((int)uv.y + radius, 0, dirtTexture.height - 1);
-        Debug.Log($"영역: xMin={xMin}, xMax={xMax}, yMin={yMin}, yMax={yMax}");
 
-        // 픽셀 블록 한 번에 가져오기
+        // 픽셀 블록 가져오기
         Color[] pixels = dirtTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
         bool textureChanged = false;
         float radiusSqr = radius * radius;
 
+        // 반경 내 픽셀의 투명도 감소
         for (int y = 0; y < yMax - yMin + 1; y++)
         {
             for (int x = 0; x < xMax - xMin + 1; x++)
@@ -334,54 +248,44 @@ public class MirrorCleaningGame : MonoBehaviour
             }
         }
 
+        // 텍스처 업데이트
         if (textureChanged)
         {
-            // 변경된 픽셀 블록만 업데이트
             dirtTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, pixels);
             dirtTexture.Apply();
-            Debug.Log("텍스처 변경 및 적용 완료!");
-        }
-        else
-        {
-            Debug.Log("텍스처 변경 없음!");
         }
 
-        Debug.Log($"현재 알파 비율: {currentAlpha / totalAlpha}");
+        // 클리어 조건 체크
         if (currentAlpha / totalAlpha <= cleanThreshold)
         {
             CompleteGame();
         }
     }
 
+    // 미니게임 완료: 상태 정리 및 Interactable 콜백 호출
     void CompleteGame()
     {
         isGameActive = false;
         gameObject.SetActive(false);
-        Debug.Log("게임 클리어! 거울이 깨끗해졌습니다.");
 
         if (currentInteractable != null)
         {
             currentInteractable.OnMiniGameCompleted();
         }
 
-        // 완료 시에도 텍스처 정리
         if (dirtTexture != null)
         {
             Destroy(dirtTexture);
             dirtTexture = null;
-            Debug.Log("dirtTexture 파괴 완료!");
         }
         if (dirtImage != null && originalTexture != null)
         {
             dirtImage.texture = originalTexture;
-            Debug.Log("dirtImage에 originalTexture 복구 완료!");
         }
-        else
-        {
-            Debug.LogError("dirtImage 또는 originalTexture가 null입니다! 복구 실패.");
-        }
+        Debug.Log("미니게임 완료: 거울 깨끗!");
     }
 
+    // 스크립트 종료 시 텍스처 정리
     void OnDestroy()
     {
         if (dirtTexture != null)
