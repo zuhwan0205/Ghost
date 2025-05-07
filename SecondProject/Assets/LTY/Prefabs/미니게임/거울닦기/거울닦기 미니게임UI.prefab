@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 394404197628992102}
   - component: {fileID: 2338306053859694547}
   m_Layer: 5
-  m_Name: MiniGameCanvas
+  m_Name: "\uAC70\uC6B8\uB2E6\uAE30 \uBBF8\uB2C8\uAC8C\uC784UI"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
