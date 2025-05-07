@@ -7,7 +7,10 @@ public class MannequinInteract : Interactable
 
     public override void Interact()
     {
-        Debug.Log("마네킹 상호작용 - 이벤트 발행");
-        OnMannequinInteracted?.Invoke();
+        if (MiniGameManagaer_LJH.Instance.isMiniGaming == false)
+        {
+            Debug.Log("마네킹 상호작용 - 이벤트 발행");
+            OnMannequinInteracted?.Invoke();
+        }
     }
 }
