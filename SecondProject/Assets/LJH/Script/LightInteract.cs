@@ -7,7 +7,11 @@ public class LightInteract : Interactable
     
     public override void Interact()
     {
-        Debug.Log("전등 상호작용 - 이벤트 발행");
-        OnLightInteract?.Invoke();
+        if (MiniGameManagaer_LJH.Instance.isMiniGaming == false)
+        {
+            Debug.Log("전등 상호작용 - 이벤트 발행");
+            OnLightInteract?.Invoke();
+        }
+        
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,8 @@ public class StarforceQTE : MonoBehaviour
     private bool goingRight = true;
     private bool isQTEActive = false;
     private float minX, maxX;
+    
+    private int successCount = 0;
     
     public static event Action OnEndStarForceQTE;
 
@@ -56,21 +59,38 @@ public class StarforceQTE : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isQTEActive = false; // 별 멈춤
+
             float starX = star.position.x;
             float zoneMin = successZone.position.x - successZone.rect.width / 2;
             float zoneMax = successZone.position.x + successZone.rect.width / 2;
 
             if (starX >= zoneMin && starX <= zoneMax)
             {
-                Debug.Log("성공");
-                isQTEActive = false;
-                OnEndStarForceQTE?.Invoke();
+                successCount++;
+                Debug.Log("성공! 총 성공 횟수: " + successCount);
+
+                if (successCount >= 3)
+                {
+                    Debug.Log("QTE 완료!");
+                    OnEndStarForceQTE?.Invoke();
+                }
+                else
+                {
+                    StartCoroutine(RestartQTEAfterDelay(0.5f));
+                }
             }
             else
             {
-                Debug.Log("실패");
-                isQTEActive = false;
+                Debug.Log("실패. 다시 시작");
+                StartCoroutine(RestartQTEAfterDelay(0.5f));
             }
         }
+    }
+    
+    private IEnumerator RestartQTEAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartQTE();
     }
 }

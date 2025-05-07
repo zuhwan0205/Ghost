@@ -25,7 +25,7 @@ public class MirrorCleaningGame : MonoBehaviour
         phoneManager = FindFirstObjectByType<PhoneManager>(FindObjectsInactive.Include);
         if (phoneManager == null)
         {
-            Debug.LogWarning("[MirrorCleaningGame] PhoneManager¸¦ Awake¿¡¼­ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+            Debug.LogWarning("[MirrorCleaningGame] PhoneManagerë¥¼ Awakeì—ì„œ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
         }
     }
 
@@ -36,73 +36,73 @@ public class MirrorCleaningGame : MonoBehaviour
             phoneManager = FindFirstObjectByType<PhoneManager>(FindObjectsInactive.Include);
             if (phoneManager == null)
             {
-                Debug.LogWarning("[MirrorCleaningGame] PhoneManager¸¦ Start¿¡¼­µµ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+                Debug.LogWarning("[MirrorCleaningGame] PhoneManagerë¥¼ Startì—ì„œë„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
             }
             else
             {
-                Debug.Log("[MirrorCleaningGame] PhoneManager¸¦ Start¿¡¼­ ¼º°øÀûÀ¸·Î Ã£À½");
+                Debug.Log("[MirrorCleaningGame] PhoneManagerë¥¼ Startì—ì„œ ì„±ê³µì ìœ¼ë¡œ ì°¾ìŒ");
             }
         }
 
         if (dirtImage == null || dirtImage.texture == null)
         {
-            Debug.LogError("DirtImage ¶Ç´Â ÅØ½ºÃ³°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            Debug.LogError("DirtImage ë˜ëŠ” í…ìŠ¤ì²˜ê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             return;
         }
 
         Texture2D tempTexture = dirtImage.texture as Texture2D;
         if (tempTexture == null || !tempTexture.isReadable)
         {
-            Debug.LogError("DirtImage ÅØ½ºÃ³°¡ Texture2D Çü½ÄÀÌ ¾Æ´Ï°Å³ª Read/Write Enabled°¡ ²¨Á® ÀÖ½À´Ï´Ù!");
+            Debug.LogError("DirtImage í…ìŠ¤ì²˜ê°€ Texture2D í˜•ì‹ì´ ì•„ë‹ˆê±°ë‚˜ Read/Write Enabledê°€ êº¼ì ¸ ìˆìŠµë‹ˆë‹¤!");
             return;
         }
 
         originalTexture = new Texture2D(tempTexture.width, tempTexture.height, TextureFormat.RGBA32, false);
         originalTexture.SetPixels(tempTexture.GetPixels());
         originalTexture.Apply();
-        Debug.Log($"¿øº» ÅØ½ºÃ³ ÃÊ±âÈ­: {originalTexture.width}x{originalTexture.height}");
+        Debug.Log($"ì›ë³¸ í…ìŠ¤ì²˜ ì´ˆê¸°í™”: {originalTexture.width}x{originalTexture.height}");
     }
 
     public void StartMiniGame(Interactable interactable)
     {
         if (isGameActive)
         {
-            Debug.Log("[MirrorCleaningGame] ¹Ì´Ï°ÔÀÓ ÀÌ¹Ì ÁøÇà Áß: È£Ãâ ¹«½Ã");
+            Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì´ë¯¸ ì§„í–‰ ì¤‘: í˜¸ì¶œ ë¬´ì‹œ");
             return;
         }
 
         currentInteractable = interactable;
-        Debug.Log($"[MirrorCleaningGame] StartMiniGame È£ÃâµÊ, interactable: {(interactable != null ? interactable.gameObject.name : "null")}");
+        Debug.Log($"[MirrorCleaningGame] StartMiniGame í˜¸ì¶œë¨, interactable: {(interactable != null ? interactable.gameObject.name : "null")}");
 
         if (phoneManager == null)
         {
             phoneManager = FindFirstObjectByType<PhoneManager>(FindObjectsInactive.Include);
             if (phoneManager == null)
             {
-                Debug.LogError("[MirrorCleaningGame] StartMiniGame¿¡¼­ PhoneManager¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+                Debug.LogError("[MirrorCleaningGame] StartMiniGameì—ì„œ PhoneManagerë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
             }
             else
             {
-                Debug.Log("[MirrorCleaningGame] StartMiniGame¿¡¼­ PhoneManager¸¦ ¼º°øÀûÀ¸·Î Ã£À½");
+                Debug.Log("[MirrorCleaningGame] StartMiniGameì—ì„œ PhoneManagerë¥¼ ì„±ê³µì ìœ¼ë¡œ ì°¾ìŒ");
             }
         }
 
         if (phoneManager != null && phoneManager.IsPhoneOpen)
         {
-            Debug.Log($"[MirrorCleaningGame] ÈŞ´ëÆù UI È°¼ºÈ­ »óÅÂ: {phoneManager.IsPhoneOpen}, ºñÈ°¼ºÈ­ ½Ãµµ");
+            Debug.Log($"[MirrorCleaningGame] íœ´ëŒ€í° UI í™œì„±í™” ìƒíƒœ: {phoneManager.IsPhoneOpen}, ë¹„í™œì„±í™” ì‹œë„");
             phoneManager.TogglePhoneScreen();
-            phoneManager.ForceClosePhoneScreen(); // °­Á¦·Î ÈŞ´ëÆù UI ´İ±â
+            phoneManager.ForceClosePhoneScreen(); // ê°•ì œë¡œ íœ´ëŒ€í° UI ë‹«ê¸°
         }
         else
         {
-            Debug.Log($"[MirrorCleaningGame] PhoneManager »óÅÂ: {(phoneManager == null ? "null" : "Á¸Àç, ÈŞ´ëÆù UI ºñÈ°¼ºÈ­µÊ")}");
+            Debug.Log($"[MirrorCleaningGame] PhoneManager ìƒíƒœ: {(phoneManager == null ? "null" : "ì¡´ì¬, íœ´ëŒ€í° UI ë¹„í™œì„±í™”ë¨")}");
         }
 
         gameObject.SetActive(true);
 
         if (dirtImage == null || ragImage == null || dirtImage.GetComponent<RectTransform>() == null)
         {
-            Debug.LogError("DirtImage, RagImage ¶Ç´Â RectTransformÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+            Debug.LogError("DirtImage, RagImage ë˜ëŠ” RectTransformì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             gameObject.SetActive(false);
             return;
         }
@@ -114,7 +114,7 @@ public class MirrorCleaningGame : MonoBehaviour
             Texture2D tempTexture = dirtImage.texture as Texture2D;
             if (tempTexture == null || !tempTexture.isReadable)
             {
-                Debug.LogError("OriginalTexture Àç¼³Á¤ ½ÇÆĞ!");
+                Debug.LogError("OriginalTexture ì¬ì„¤ì • ì‹¤íŒ¨!");
                 gameObject.SetActive(false);
                 return;
             }
@@ -141,21 +141,21 @@ public class MirrorCleaningGame : MonoBehaviour
 
         if (totalAlpha <= 0)
         {
-            Debug.LogError("ÅØ½ºÃ³ÀÇ Åõ¸íµµ°¡ 0ÀÔ´Ï´Ù!");
+            Debug.LogError("í…ìŠ¤ì²˜ì˜ íˆ¬ëª…ë„ê°€ 0ì…ë‹ˆë‹¤!");
             gameObject.SetActive(false);
             return;
         }
 
         isGameActive = true;
         cleanTimer = 0f;
-        Debug.Log("[MirrorCleaningGame] ¹Ì´Ï°ÔÀÓ ½ÃÀÛ!");
+        Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì‹œì‘!");
     }
 
     public void CancelGame()
     {
         if (!isGameActive)
         {
-            Debug.Log("[MirrorCleaningGame] ¹Ì´Ï°ÔÀÓ ÀÌ¹Ì ºñÈ°¼ºÈ­ »óÅÂ!");
+            Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì´ë¯¸ ë¹„í™œì„±í™” ìƒíƒœ!");
             return;
         }
 
@@ -177,7 +177,7 @@ public class MirrorCleaningGame : MonoBehaviour
         cleanTimer = 0f;
         totalAlpha = 0f;
         currentAlpha = 0f;
-        Debug.Log("[MirrorCleaningGame] ¹Ì´Ï°ÔÀÓ Ãë¼ÒµÊ!");
+        Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì·¨ì†Œë¨!");
     }
 
     void Update()
@@ -187,7 +187,7 @@ public class MirrorCleaningGame : MonoBehaviour
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
-            Debug.LogWarning("[MirrorCleaningGame] Äµ¹ö½º°¡ ºñÈ°¼ºÈ­ »óÅÂ¿´À½, °­Á¦ È°¼ºÈ­");
+            Debug.LogWarning("[MirrorCleaningGame] ìº”ë²„ìŠ¤ê°€ ë¹„í™œì„±í™” ìƒíƒœì˜€ìŒ, ê°•ì œ í™œì„±í™”");
         }
 
         bool isKeyboardInput = Input.anyKeyDown && !Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1) && !Input.GetMouseButtonDown(2);
@@ -195,7 +195,7 @@ public class MirrorCleaningGame : MonoBehaviour
 
         if (isKeyboardInput || isInvalidMouseInput)
         {
-            Debug.Log("[MirrorCleaningGame] ¸¶¿ì½º ÁÂÅ¬¸¯ ÀÌ¿ÜÀÇ ÀÔ·Â °¨Áö! ¹Ì´Ï°ÔÀÓ Á¾·á.");
+            Debug.Log("[MirrorCleaningGame] ë§ˆìš°ìŠ¤ ì¢Œí´ë¦­ ì´ì™¸ì˜ ì…ë ¥ ê°ì§€! ë¯¸ë‹ˆê²Œì„ ì¢…ë£Œ.");
             CancelGame();
             return;
         }
@@ -312,7 +312,7 @@ public class MirrorCleaningGame : MonoBehaviour
         {
             dirtImage.texture = originalTexture;
         }
-        Debug.Log("[MirrorCleaningGame] ¹Ì´Ï°ÔÀÓ ¿Ï·á: °Å¿ï ±ú²ı!");
+        Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì™„ë£Œ: ê±°ìš¸ ê¹¨ë—!");
     }
 
     void OnDestroy()

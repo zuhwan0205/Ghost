@@ -22,6 +22,14 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     
     //
     //public GameObject UI_Interaction;
+    public bool isMiniGaming = false;
+    private float panelCooldown = 0f;
+    public static MiniGameManagaer_LJH Instance;
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnEnable()
     {
@@ -53,6 +61,16 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         LightInteract.OnLightInteract -= LightPanelOn;
         RadioInteract.OnRadioInteract -= RadioPanelOn;
         VentInteract.OnVentInteract -= VentPanelOn;
+    }
+
+    private void Update()
+    {
+        if (panelCooldown > 0) panelCooldown -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.E) && isMiniGaming && panelCooldown <= 0f)
+        {
+            Debug.Log(isMiniGaming);
+            DisableAllPanels();
+        }
     }
 
     void GlassPanelOff()
@@ -99,24 +117,31 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         panel.SetActive(false);
+        isMiniGaming = false;
     }
 
     void MannequinPanelOn()
     {
         DisableAllPanels();
         MG_MannequinPanel.SetActive(true);
+        isMiniGaming = true;
+        panelCooldown = 0.2f;
     }
 
     void GlassPanelOn()
     {
         DisableAllPanels();
         MG_GlassPanel.SetActive(true);
+        isMiniGaming = true;
+        panelCooldown = 0.2f;
     }
 
     void LightPanelOn()
     {
         DisableAllPanels();
         MG_LightPanel.SetActive(true);
+        isMiniGaming = true;
+        panelCooldown = 0.2f;
     }
 
     void RadioPanelOn()
@@ -124,28 +149,37 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         DisableAllPanels();
         MG_RadioPanel.SetActive(true);
         //UI_Interaction.SetActive(false);
+        isMiniGaming = true;
+        panelCooldown = 0.2f;
     }
 
     void VentPanelOn()
     {
         DisableAllPanels();
         MG_VentPanel.SetActive(true);
+        isMiniGaming = true;
+        panelCooldown = 0.2f;
     }
 
     void CarpetPanelOn()
     {
         DisableAllPanels();
         MG_CarpetPanel.SetActive(true);
+        isMiniGaming = true;
+        panelCooldown = 0.2f;
     }
     
     void DisableAllPanels()
     {
-        MG_MannequinPanel.SetActive(false);
-        MG_GlassPanel.SetActive(false);
-        MG_LightPanel.SetActive(false);
-        MG_VentPanel.SetActive(false);
-        MG_RadioPanel.SetActive(false);
-        MG_CarpetPanel.SetActive(false);
-        
+        if (isMiniGaming == true)
+        {
+            MG_MannequinPanel.SetActive(false);
+            MG_GlassPanel.SetActive(false);
+            MG_LightPanel.SetActive(false);
+            MG_VentPanel.SetActive(false);
+            MG_RadioPanel.SetActive(false);
+            MG_CarpetPanel.SetActive(false);
+            isMiniGaming = false;
+        }
     }
 }

@@ -9,34 +9,34 @@ public class Interactable : MonoBehaviour
     public bool isDirtyMirror = false;
     public bool isWireBox = false;
     public GameObject cleanMirror;
-    public GameObject closedWireBox; // ´İÈù ½ºÀ§Ä¡ º¸µå ¿ÀºêÁ§Æ®
+    public GameObject closedWireBox; // ë‹«íŒ ìŠ¤ìœ„ì¹˜ ë³´ë“œ ì˜¤ë¸Œì íŠ¸
     [SerializeField] private MirrorCleaningGame cleaningGame;
     [SerializeField] private WiringGameManager wiringGameManager;
-    private bool isMiniGameCompleted = false; // ¹Ì´Ï°ÔÀÓ ¿Ï·á ¿©ºÎ
+    private bool isMiniGameCompleted = false; // ë¯¸ë‹ˆê²Œì„ ì™„ë£Œ ì—¬ë¶€
 
     void Start()
     {
-        // °Å¿ï Ã»¼Ò ¹Ì´Ï°ÔÀÓ ÃÊ±âÈ­
+        // ê±°ìš¸ ì²­ì†Œ ë¯¸ë‹ˆê²Œì„ ì´ˆê¸°í™”
         if (isDirtyMirror && cleaningGame == null)
         {
             cleaningGame = FindFirstObjectByType<MirrorCleaningGame>();
             if (cleaningGame == null)
             {
-                Debug.LogWarning("MirrorCleaningGame ½ºÅ©¸³Æ®¸¦ Scene¿¡¼­ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+                Debug.LogWarning("MirrorCleaningGame ìŠ¤í¬ë¦½íŠ¸ë¥¼ Sceneì—ì„œ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
             }
         }
 
-        // Àü¼± ¿¬°á ¹Ì´Ï°ÔÀÓ ÃÊ±âÈ­
+        // ì „ì„  ì—°ê²° ë¯¸ë‹ˆê²Œì„ ì´ˆê¸°í™”
         if (isWireBox && wiringGameManager == null)
         {
             wiringGameManager = FindFirstObjectByType<WiringGameManager>();
             if (wiringGameManager == null)
             {
-                Debug.LogWarning("WiringGameManager ½ºÅ©¸³Æ®¸¦ Scene¿¡¼­ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+                Debug.LogWarning("WiringGameManager ìŠ¤í¬ë¦½íŠ¸ë¥¼ Sceneì—ì„œ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
             }
         }
 
-        // ´İÈù ½ºÀ§Ä¡ º¸µå ÃÊ±â ºñÈ°¼ºÈ­
+        // ë‹«íŒ ìŠ¤ìœ„ì¹˜ ë³´ë“œ ì´ˆê¸° ë¹„í™œì„±í™”
         if (isWireBox && closedWireBox != null)
         {
             closedWireBox.SetActive(false);
@@ -45,48 +45,48 @@ public class Interactable : MonoBehaviour
 
     public virtual void Interact()
     {
-        // ¹Ì´Ï°ÔÀÓ ¿Ï·á ½Ã Àç»óÈ£ÀÛ¿ë ¹æÁö
+        // ë¯¸ë‹ˆê²Œì„ ì™„ë£Œ ì‹œ ì¬ìƒí˜¸ì‘ìš© ë°©ì§€
         if ((isDirtyMirror || isWireBox) && isMiniGameCompleted)
         {
-            Debug.Log("¹Ì´Ï°ÔÀÓ ÀÌ¹Ì ¿Ï·áµÊ: Ãß°¡ »óÈ£ÀÛ¿ë ºÒ°¡!");
+            Debug.Log("ë¯¸ë‹ˆê²Œì„ ì´ë¯¸ ì™„ë£Œë¨: ì¶”ê°€ ìƒí˜¸ì‘ìš© ë¶ˆê°€!");
             return;
         }
 
         Player player = Object.FindFirstObjectByType<Player>();
 
-        // Àü¼± »óÀÚ¿Í »óÈ£ÀÛ¿ë
+        // ì „ì„  ìƒìì™€ ìƒí˜¸ì‘ìš©
         if (isWireBox)
         {
-            Debug.Log("Àü¼± »óÀÚ »óÈ£ÀÛ¿ë ½ÃÀÛ!");
+            Debug.Log("ì „ì„  ìƒì ìƒí˜¸ì‘ìš© ì‹œì‘!");
             if (wiringGameManager != null)
             {
-                Debug.Log("Àü¼± ¿¬°á ¹Ì´Ï°ÔÀÓ ½ÃÀÛ È£Ãâ!");
+                Debug.Log("ì „ì„  ì—°ê²° ë¯¸ë‹ˆê²Œì„ ì‹œì‘ í˜¸ì¶œ!");
                 wiringGameManager.StartMiniGame(this);
             }
             else
             {
-                Debug.LogError("WiringGameManager ½ºÅ©¸³Æ®°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+                Debug.LogError("WiringGameManager ìŠ¤í¬ë¦½íŠ¸ê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             }
             return;
         }
 
-        // ´õ·¯¿î °Å¿ï°ú »óÈ£ÀÛ¿ë
+        // ë”ëŸ¬ìš´ ê±°ìš¸ê³¼ ìƒí˜¸ì‘ìš©
         if (isDirtyMirror)
         {
-            Debug.Log("´õ·¯¿î °Å¿ï »óÈ£ÀÛ¿ë ½ÃÀÛ!");
+            Debug.Log("ë”ëŸ¬ìš´ ê±°ìš¸ ìƒí˜¸ì‘ìš© ì‹œì‘!");
             if (cleaningGame != null)
             {
-                Debug.Log("¹Ì´Ï°ÔÀÓ ½ÃÀÛ È£Ãâ!");
+                Debug.Log("ë¯¸ë‹ˆê²Œì„ ì‹œì‘ í˜¸ì¶œ!");
                 cleaningGame.StartMiniGame(this);
             }
             else
             {
-                Debug.LogError("MirrorCleaningGame ½ºÅ©¸³Æ®°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+                Debug.LogError("MirrorCleaningGame ìŠ¤í¬ë¦½íŠ¸ê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             }
             return;
         }
 
-        // µ¿Àü, ¾ÆÀÌÅÛ, ÀÚÆÇ±â »óÈ£ÀÛ¿ë
+        // ë™ì „, ì•„ì´í…œ, ìíŒê¸° ìƒí˜¸ì‘ìš©
         if (coin != null)
         {
             coin.Collect(player);
@@ -103,7 +103,7 @@ public class Interactable : MonoBehaviour
             if (PhoneManager.Instance != null && PhoneManager.Instance.IsPhoneOpen)
             {
                 PhoneManager.Instance.TogglePhoneScreen();
-                Debug.Log("ÀÚÆÇ±â »óÈ£ÀÛ¿ë: ÈŞ´ëÆù UI ´İÈû");
+                Debug.Log("ìíŒê¸° ìƒí˜¸ì‘ìš©: íœ´ëŒ€í° UI ë‹«í˜");
             }
             player.ShowVendingMachinePanel();
         }
@@ -111,11 +111,11 @@ public class Interactable : MonoBehaviour
 
     public void OnMiniGameCompleted()
     {
-        isMiniGameCompleted = true; // ¿Ï·á »óÅÂ·Î ¼³Á¤
+        isMiniGameCompleted = true; // ì™„ë£Œ ìƒíƒœë¡œ ì„¤ì •
 
         if (isDirtyMirror)
         {
-            Debug.Log("¹Ì´Ï°ÔÀÓ ¿Ï·á: °Å¿ï ±³Ã¼!");
+            Debug.Log("ë¯¸ë‹ˆê²Œì„ ì™„ë£Œ: ê±°ìš¸ êµì²´!");
             gameObject.SetActive(false);
             if (cleanMirror != null)
             {
@@ -124,15 +124,15 @@ public class Interactable : MonoBehaviour
         }
         else if (isWireBox)
         {
-            Debug.Log("Àü¼± ¿¬°á ¹Ì´Ï°ÔÀÓ ¿Ï·á: ½ºÀ§Ä¡ º¸µå ´İÈû!");
-            gameObject.SetActive(false); // ¿­¸° ½ºÀ§Ä¡ º¸µå ºñÈ°¼ºÈ­
+            Debug.Log("ì „ì„  ì—°ê²° ë¯¸ë‹ˆê²Œì„ ì™„ë£Œ: ìŠ¤ìœ„ì¹˜ ë³´ë“œ ë‹«í˜!");
+            gameObject.SetActive(false); // ì—´ë¦° ìŠ¤ìœ„ì¹˜ ë³´ë“œ ë¹„í™œì„±í™”
             if (closedWireBox != null)
             {
-                closedWireBox.SetActive(true); // ´İÈù ½ºÀ§Ä¡ º¸µå È°¼ºÈ­
+                closedWireBox.SetActive(true); // ë‹«íŒ ìŠ¤ìœ„ì¹˜ ë³´ë“œ í™œì„±í™”
             }
             else
             {
-                Debug.LogWarning("closedWireBox°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+                Debug.LogWarning("closedWireBoxê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             }
         }
     }
