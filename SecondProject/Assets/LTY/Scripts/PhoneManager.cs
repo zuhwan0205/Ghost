@@ -18,21 +18,21 @@ public class PhoneManager : MonoBehaviour
     [SerializeField] private Button leftArrowButton;
     [SerializeField] private Button rightArrowButton;
     [SerializeField] private Text messengerText;
-    // 사진 갤러리 필드
     [SerializeField] private GameObject photoThumbnailPrefab;
     [SerializeField] private GameObject imageViewPanel;
     [SerializeField] private Image fullImage;
     [SerializeField] private Button closeButton;
-    [SerializeField] private List<Sprite> photos = new List<Sprite>(); // 사진 리스트
+    [SerializeField] private List<Sprite> photos = new List<Sprite>();
 
     private bool isPhoneOpen = false;
     public bool IsPhoneOpen => isPhoneOpen;
+    private WiringGameManager wiringGameManager;
+    private MirrorCleaningGame mirrorCleaningGame;
 
-    // 메신저 페이지 관리
     private List<string> messages = new List<string>();
     private int currentPage = 0;
     private const int MAX_MESSAGES = 30;
-    private const int MAX_PHOTOS = 15; // 최대 사진 15개
+    private const int MAX_PHOTOS = 15;
 
     void Awake()
     {
@@ -46,7 +46,6 @@ public class PhoneManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // 필드 연결 확인
         if (phoneIconButton == null) Debug.LogError("PhoneIconButton이 할당되지 않았습니다!");
         if (phoneScreen == null) Debug.LogError("PhoneScreen이 할당되지 않았습니다!");
         if (backButton == null) Debug.LogError("BackButton이 할당되지 않았습니다!");
@@ -62,6 +61,11 @@ public class PhoneManager : MonoBehaviour
     void Start()
     {
         Debug.Log("PhoneManager Start: 버튼 이벤트 연결 시작");
+        wiringGameManager = FindFirstObjectByType<WiringGameManager>(FindObjectsInactive.Include);
+        mirrorCleaningGame = FindFirstObjectByType<MirrorCleaningGame>(FindObjectsInactive.Include);
+        if (wiringGameManager == null) Debug.LogWarning("WiringGameManager를 찾을 수 없습니다!");
+        if (mirrorCleaningGame == null) Debug.LogWarning("MirrorCleaningGame을 찾을 수 없습니다!");
+
         if (phoneIconButton != null)
             phoneIconButton.onClick.AddListener(TogglePhoneScreen);
         if (scheduleButton != null)
@@ -79,7 +83,6 @@ public class PhoneManager : MonoBehaviour
         if (closeButton != null)
             closeButton.onClick.AddListener(CloseImageView);
 
-        // 초기 상태 설정
         if (phoneScreen != null)
             phoneScreen.SetActive(false);
         if (schedulePanel != null)
@@ -97,20 +100,16 @@ public class PhoneManager : MonoBehaviour
         if (imageViewPanel != null)
             imageViewPanel.SetActive(false);
 
-        // 테스트용 초기 데이터
         AddMessage("게임 시작: 첫 메시지");
-        // photos 리스트는 인스펙터에서 설정
     }
 
     void Update()
     {
-        // Tab 키로 휴대폰 화면 토글
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             TogglePhoneScreen();
         }
 
-        // 테스트용: M 키로 메시지, P 키로 사진 추가
         if (Input.GetKeyDown(KeyCode.M))
             AddMessage($"새 메시지 {messages.Count + 1}");
         if (Input.GetKeyDown(KeyCode.P) && photos.Count > 0)
@@ -125,9 +124,20 @@ public class PhoneManager : MonoBehaviour
 
         if (isPhoneOpen)
         {
-            Player player = Object.FindFirstObjectByType<Player>();
+            Player player = FindFirstObjectByType<Player>();
             if (player != null)
                 player.HideVendingMachinePanel();
+
+            if (wiringGameManager != null && wiringGameManager.IsMiniGameActive)
+            {
+                wiringGameManager.CancelGame();
+                Debug.Log("[PhoneManager] 휴대폰 UI 활성화: 전선 연결 미니게임 취소");
+            }
+            if (mirrorCleaningGame != null && mirrorCleaningGame.gameObject.activeSelf)
+            {
+                mirrorCleaningGame.CancelGame();
+                Debug.Log("[PhoneManager] 휴대폰 UI 활성화: 거울 닦기 미니게임 취소");
+            }
 
             if (schedulePanel != null)
                 schedulePanel.SetActive(false);
@@ -146,6 +156,32 @@ public class PhoneManager : MonoBehaviour
         }
         else
         {
+            if (backButton != null)
+                backButton.gameObject.SetActive(false);
+            if (leftArrowButton != null)
+                leftArrowButton.gameObject.SetActive(false);
+            if (rightArrowButton != null)
+                rightArrowButton.gameObject.SetActive(false);
+            if (imageViewPanel != null)
+                imageViewPanel.SetActive(false);
+        }
+        Debug.Log($"[PhoneManager] 휴대폰 UI 상태: {(isPhoneOpen ? "활성화" : "비활성화")}");
+    }
+
+    public void ForceClosePhoneScreen()
+    {
+        if (phoneScreen != null && phoneScreen.activeSelf)
+        {
+            phoneScreen.SetActive(false);
+            isPhoneOpen = false;
+            Debug.Log("[PhoneManager] 휴대폰 UI 강제 비활성화 완료");
+
+            if (schedulePanel != null)
+                schedulePanel.SetActive(false);
+            if (messengerPanel != null)
+                messengerPanel.SetActive(false);
+            if (photoPanel != null)
+                photoPanel.SetActive(false);
             if (backButton != null)
                 backButton.gameObject.SetActive(false);
             if (leftArrowButton != null)
@@ -272,14 +308,12 @@ public class PhoneManager : MonoBehaviour
 
     private void UpdatePhotoGallery()
     {
-        // 기존 썸네일 제거
         foreach (Transform child in photoPanel.transform)
         {
             if (child.name.StartsWith("PhotoThumbnail"))
                 Destroy(child.gameObject);
         }
 
-        // 썸네일 생성 (최대 15개)
         for (int i = 0; i < Mathf.Min(photos.Count, MAX_PHOTOS); i++)
         {
             GameObject thumbnail = Instantiate(photoThumbnailPrefab, photoPanel.transform);
@@ -322,7 +356,7 @@ public class PhoneManager : MonoBehaviour
             photos.Add(photo);
             if (photos.Count > MAX_PHOTOS)
             {
-                photos.RemoveAt(0); // 가장 오래된 사진 제거
+                photos.RemoveAt(0);
             }
             if (photoPanel != null && photoPanel.activeSelf)
                 UpdatePhotoGallery();
