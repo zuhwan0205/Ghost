@@ -177,17 +177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e225592ad41534f9de5cb3165ad386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
   spawnDistance: 3
   detectDistance: 4
-  wallCheckDistance: 0.5
-  despawnTime: 6
+  despawnDelay: 100
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  roomChase: {fileID: 0}
 --- !u!114 &1752786299185036993
 MonoBehaviour:
   m_ObjectHideFlags: 0

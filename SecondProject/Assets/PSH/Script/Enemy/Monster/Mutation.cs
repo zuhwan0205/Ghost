@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Unity.Hierarchy;
 
 public class Mutation : MonoBehaviour
 {
@@ -39,10 +38,11 @@ public class Mutation : MonoBehaviour
     private float lastXPosition; // 마지막 기록된 X 위치
     private Vector3 lastSeenPosition; // 마지막 감지한 플레이어 위치
 
-    [Header("오프스크린 제거 설정")]
-    [SerializeField] private bool useOffScreenDespawn = false; // 화면 밖 제거 기능 사용 여부
-    [SerializeField] private float despawnTime = 6f; // 화면 밖 있을 때 제거 시간
-    private float offScreenTimer = 0f; // 화면 밖 있었던 누적 시간
+    [Header("유도 오브젝트")]
+    [SerializeField] private float lureDetectRange = 20f;
+    [SerializeField] private LayerMask targetObjectLayer;
+    private Vector2? lureTargetPos = null;
+    private GameObject lureTargetObject = null;
 
     private void Start()
     {
@@ -55,21 +55,94 @@ public class Mutation : MonoBehaviour
 
         SetEnemyState(100f, 2f, 3.5f, 4f, 5.5f, 2f);
         ResetToDefaultStats();
-
-        if (rend == null && useOffScreenDespawn)
-            Debug.LogWarning("[Mutation] Renderer 없음. 오프스크린 감지 불가.");
     }
 
     private void Update()
     {
         if (isPaused) return;
 
-        PlayerTracking();
-        CheckForStuck();
-        if (useOffScreenDespawn)
-            HandleDespawnTimer();
+        DetectLureObject(); // 유도 오브젝트 감지 우선 처리
+
+        if (lureTargetPos.HasValue)
+        {
+            rb.linearVelocity = Vector2.zero;
+            ChaseToLure(lureTargetPos.Value);
+            return;
+        }
+        else
+        {
+            // 감지되지 않았다면 플레이어 추적 또는 순찰
+            PlayerTracking();
+        }
+
+        CheckForStuck(); // 이동 중 멈춤 상태 확인
     }
 
+    // 유도 오브젝트 좌우 감지
+    // 유도 오브젝트 좌우 감지 + 거리 비교로 더 가까운 쪽 선택
+    private void DetectLureObject()
+    {
+        Vector2 origin = transform.position;
+
+        RaycastHit2D leftHit = Physics2D.Raycast(origin, Vector2.left, lureDetectRange, targetObjectLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(origin, Vector2.right, lureDetectRange, targetObjectLayer);
+
+        bool foundLeft = leftHit.collider != null;
+        bool foundRight = rightHit.collider != null;
+
+        if (!foundLeft && !foundRight)
+        {
+            lureTargetPos = null;
+            lureTargetObject = null;
+            return;
+        }
+
+        if (foundLeft && !foundRight)
+        {
+            lureTargetPos = leftHit.point;
+            lureTargetObject = leftHit.collider.gameObject;
+            Debug.Log("[Ghost] 좌측 유도 오브젝트 감지 → 이동");
+        }
+        else if (!foundLeft && foundRight)
+        {
+            lureTargetPos = rightHit.point;
+            lureTargetObject = rightHit.collider.gameObject;
+            Debug.Log("[Ghost] 우측 유도 오브젝트 감지 → 이동");
+        }
+        else
+        {
+            float distLeft = Vector2.Distance(origin, leftHit.point);
+            float distRight = Vector2.Distance(origin, rightHit.point);
+
+            if (distLeft <= distRight)
+            {
+                lureTargetPos = leftHit.point;
+                lureTargetObject = leftHit.collider.gameObject;
+                Debug.Log("[Ghost] 좌측(가까움) 유도 오브젝트 선택");
+            }
+            else
+            {
+                lureTargetPos = rightHit.point;
+                lureTargetObject = rightHit.collider.gameObject;
+                Debug.Log("[Ghost] 우측(가까움) 유도 오브젝트 선택");
+            }
+        }
+
+        isChasing = false;
+        isPaused = false;
+    }
+
+    // 유도 오브젝트 위치로 이동
+    private void ChaseToLure(Vector2 targetPos)
+    {
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, Enemy_Move_Speed * Time.deltaTime);
+
+        if ((targetPos.x < transform.position.x && transform.localScale.x > 0) ||
+            (targetPos.x > transform.position.x && transform.localScale.x < 0))
+        {
+            Flip();
+        }
+    }
     // 플레이어 추적 및 순찰 관리
     private void PlayerTracking()
     {
@@ -196,6 +269,19 @@ public class Mutation : MonoBehaviour
             Debug.Log("[Mutation] 플레이어와 트리거 충돌 발생!");
             OnPlayerTrigger(collision);
         }
+
+        if (((1 << collision.gameObject.layer) & targetObjectLayer) != 0)
+        {
+            Debug.Log("[Ghost] 유도 오브젝트와 충돌 → 오브젝트 제거 및 5초 정지");
+            Destroy(collision.gameObject);
+            lureTargetPos = null;
+            lureTargetObject = null;
+
+            rb.linearVelocity = Vector2.zero;
+            isPaused = true;
+
+            Invoke(nameof(ResumeMutationMovement), 5.0f);
+        }
     }
 
     // 플레이어와 충돌 시 처리
@@ -304,25 +390,6 @@ public class Mutation : MonoBehaviour
         {
             idleTimer = 0f;
             lastXPosition = transform.position.x;
-        }
-    }
-
-    // 화면 밖 감지 및 제거
-    private void HandleDespawnTimer()
-    {
-        if (rend == null) return;
-
-        if (rend.isVisible)
-        {
-            offScreenTimer = 0f;
-        }
-        else
-        {
-            offScreenTimer += Time.deltaTime;
-            if (offScreenTimer >= despawnTime)
-            {
-                Destroy(gameObject);
-            }
         }
     }
 

@@ -17,6 +17,7 @@ TagManager:
   - ProPeller
   - Wall
   - Room
+  - Lure
   layers:
   - Default
   - TransparentFX
@@ -29,8 +30,8 @@ TagManager:
   - Enemy
   - Player
   - Interactable
-  - 
-  - 
+  - Hide
+  - Lure
   - 
   - 
   - 

@@ -58,6 +58,9 @@ public class Player : PlayerManager
     // 미니게임 참조 추가
     private WiringGameManager wiringGameManager;
     private MirrorCleaningGame mirrorCleaningGame;
+
+    private bool isHiding = false; // 숨기 상태 여부
+    public HidingSpot currentSpot = null; // 접촉 중인 숨는 구조체
     #endregion
 
     #region 플레이어 상태 접근 메서드
@@ -341,6 +344,10 @@ public class Player : PlayerManager
                 {
                     isHolding = true;
                     holdTimer = 0f;
+
+                    //홀드중에는 이동불가
+                    moveSpeed = 0f;
+                    dashSpeed = 0f;
                 }
                 else
                 {
@@ -375,6 +382,11 @@ public class Player : PlayerManager
         holdTimer = 0f;
         isHolding = false;
         holdProgressBar.gameObject.SetActive(false);
+
+        //홀드 해제시 이동속도 복구
+        moveSpeed = originalMoveSpeed;
+        dashSpeed = originalDashSpeed;
+
     }
 
     // 미니게임 취소 확인 메서드 (조건 개선)
@@ -522,6 +534,45 @@ public class Player : PlayerManager
         Debug.Log("인벤토리가 가득 찼습니다!");
         return false;
     }
+
+    // 플레이어의 숨기 상태를 설정하는 함수 
+    public void SetHiding(bool hide, HidingSpot spot)
+    {
+        isHiding = hide;
+
+        // 시각 효과: 스프라이트 숨기/보이기
+        SpriteRenderer spriteRenderer = transform.Find("anim")?.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            spriteRenderer.enabled = !hide;
+
+        // 이동 제한 및 태그/레이어 변경
+        moveSpeed = hide ? 0f : originalMoveSpeed;
+        dashSpeed = hide ? 0f : originalDashSpeed;
+        tag = hide ? "Hide" : "Player";
+        gameObject.layer = LayerMask.NameToLayer(hide ? "Hide" : "Player");
+
+        if (hide)
+        {
+            currentSpot = spot;
+            Debug.Log("[Player] 숨었습니다.");
+        }
+        else
+        {
+            // 숨기 해제 시 살짝 앞으로 이동 (현재 바라보는 방향 기준)
+            transform.position += Vector3.right * 0.3f * transform.localScale.x;
+
+            Debug.Log("[Player] 나왔습니다.");
+        }
+    }
+
+    // 외부에서 숨기 상태를 확인할 수 있도록
+    public bool IsHiding()
+    {
+        return isHiding;
+    }
+
+
+
     #endregion
 
     #region 플레이어 이동
@@ -551,6 +602,12 @@ public class Player : PlayerManager
     // 플레이어 이동 처리
     private void Movement()
     {
+        if (isHiding)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y); // 강제로 정지
+            return;
+        }
+
         if (dashTime > 0)
             rb.linearVelocity = new Vector2(xInput * (moveSpeed + dashSpeed), rb.linearVelocity.y);
         else

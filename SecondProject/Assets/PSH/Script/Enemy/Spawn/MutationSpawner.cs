@@ -1,167 +1,163 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
+
+[System.Serializable]
+public class Floor
+{
+    public string floorName;
+    public List<Transform> rooms;            // 방 리스트 (BoxCollider2D 포함)
+    public Transform detectionArea;          // 플레이어 감지를 위한 BoxCollider2D
+}
 
 public class MutationSpawner : MonoBehaviour
 {
     [Header("스폰 설정")]
-    [SerializeField] private List<Transform> spawnPoints; // 적 생성 위치 리스트
-    [SerializeField] private LayerMask playerLayer; // 플레이어 감지를 위한 레이어 마스크
-    [SerializeField] private LayerMask enemyLayer; // 적 감지를 위한 레이어 마스크
-    [SerializeField] private List<Transform> maps; // 맵 오브젝트 리스트 (방 리스트)
-    [SerializeField] private GameObject[] enemyPrefabs; // 소환할 수 있는 적 프리팹 목록
-    [SerializeField] private int maxEnemyCount; // 최대 적 수 (소환 제한)
-    [SerializeField] private float spawnInterval; // 적 소환 주기 (초)
-    [SerializeField] private float spawnTimer; // 시간 측정을 위한 타이머
+    [SerializeField] private List<Transform> spawnPoints;       // 전체 스폰 포인트
+    [SerializeField] private GameObject[] enemyPrefabs;         // 소환할 적 프리팹 목록
+    [SerializeField] private List<Floor> floors;                // 층 리스트
+    [SerializeField] private LayerMask playerLayer;             // 플레이어 감지 레이어
+    [SerializeField] private LayerMask enemyLayer;              // 몬스터 감지 레이어
+    [SerializeField] private int maxEnemyCount = 5;             // 전체 맵 기준 최대 몬스터 수
+    [SerializeField] private float spawnInterval = 10f;         // 소환 주기
+
+    private float spawnTimer;
 
     private void Start()
     {
-        // 스폰 포인트가 없으면 에러 출력
-        if (spawnPoints.Count == 0)
-        {
-            Debug.LogError("[MutationSpawner] 스폰 포인트가 지정되지 않았습니다!");
-        }
-
-        // 타이머 초기화
         spawnTimer = spawnInterval;
+        if (spawnPoints.Count == 0)
+            Debug.LogError("[MutationSpawner] 스폰 포인트가 없습니다!");
     }
 
     private void Update()
     {
-        spawnTimer -= Time.deltaTime; // 프레임마다 타이머 감소
+        spawnTimer -= Time.deltaTime;
 
         if (spawnTimer <= 0f)
         {
-            TrySpawn(); // 소환 시도
-            spawnTimer = spawnInterval; // 타이머 리셋
+            TrySpawn();
+            spawnTimer = spawnInterval;
         }
     }
 
-    // 적 소환 시도 (조건에 맞는 경우에만)
     private void TrySpawn()
     {
-        int totalEnemyCount = GetTotalEnemyCount(); // 전체 적 수 확인
-        Debug.Log($"[MutationSpawner] TrySpawn 호출됨 - 현재 적 수: {totalEnemyCount}");
+        int totalEnemyCount = GetTotalEnemyCountGlobal();
 
         if (totalEnemyCount >= maxEnemyCount)
         {
-            Debug.Log($"[MutationSpawner] 해당 층의 적이 {maxEnemyCount}명 이상이라 소환하지 않습니다.");
+            Debug.Log($"[Spawner] 전체 몬스터 수가 최대치({maxEnemyCount})입니다.");
             return;
         }
 
-        if (totalEnemyCount < maxEnemyCount)
+        foreach (var floor in floors)
         {
-            List<Transform> emptyMaps = GetEmptyMaps(); // 플레이어/적이 모두 없는 맵
-
-            Debug.Log($"[MutationSpawner] 감지된 빈 맵 수: {emptyMaps.Count}");
-
-            if (emptyMaps.Count == 0)
+            if (IsPlayerInFloor(floor))
             {
-                Debug.Log("[MutationSpawner] 빈 맵이 없어 소환하지 않습니다.");
-                return;
+                Debug.Log($"[Spawner] {floor.floorName}에 플레이어가 있어 스킵합니다.");
+                continue;
             }
 
-            // 랜덤 빈 맵 하나 선택
-            Transform selectedMap = emptyMaps[Random.Range(0, emptyMaps.Count)];
-            Debug.Log($"[MutationSpawner] 선택된 빈 맵: {selectedMap.name}");
+            List<Transform> emptyRooms = GetEmptyRooms(floor);
+            if (emptyRooms.Count == 0)
+            {
+                Debug.Log($"[Spawner] {floor.floorName}에 빈 방이 없습니다.");
+                continue;
+            }
 
-            SpawnEnemyNearMap(selectedMap);
+            Transform selectedRoom = emptyRooms[Random.Range(0, emptyRooms.Count)];
+            SpawnEnemyInRoom(selectedRoom);
+            break; // 한 번만 스폰하고 종료
         }
     }
 
-
-    // 특정 맵 주변의 유효한 스폰 포인트에서 적을 소환
-    private void SpawnEnemyNearMap(Transform map)
-    {
-        List<Transform> availablePoints = new List<Transform>();
-
-        foreach (var point in spawnPoints)
-        {
-            float distance = Vector2.Distance(map.position, point.position);
-            if (distance < 30f)
-            {
-                availablePoints.Add(point);
-            }
-        }
-
-        Debug.Log($"[MutationSpawner] '{map.name}' 주변 유효한 스폰 포인트 수: {availablePoints.Count}");
-
-        if (availablePoints.Count == 0)
-        {
-            Debug.LogWarning($"[MutationSpawner] '{map.name}' 주변에 유효한 스폰 포인트가 없습니다.");
-            return;
-        }
-
-        Transform spawnPoint = availablePoints[Random.Range(0, availablePoints.Count)];
-        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-
-        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-        Debug.Log($"[MutationSpawner] 몬스터 소환됨: {enemy.name} at {spawnPoint.position}");
-    }
-
-
-    // 1층 전체 에너미 수 반환
-    private int GetTotalEnemyCount()
+    private int GetTotalEnemyCountGlobal()
     {
         int count = 0;
-        foreach (var map in maps)
+        foreach (var floor in floors)
         {
-            count += GetEnemyCountInMap(map);
+            foreach (var room in floor.rooms)
+            {
+                count += GetEnemyCountInRoom(room);
+            }
         }
         return count;
     }
 
-    // 특정 맵 안에 있는 에너미 수 반환
-    private int GetEnemyCountInMap(Transform map)
+    private bool IsPlayerInFloor(Floor floor)
     {
-        BoxCollider2D box = map.GetComponent<BoxCollider2D>();
+        if (floor.detectionArea == null) return false;
+
+        BoxCollider2D box = floor.detectionArea.GetComponent<BoxCollider2D>();
+        if (box == null) return false;
+
+        Vector2 center = box.bounds.center;
+        Vector2 size = box.bounds.size;
+
+        return Physics2D.OverlapBox(center, size, 0f, playerLayer);
+    }
+
+    private List<Transform> GetEmptyRooms(Floor floor)
+    {
+        List<Transform> emptyRooms = new List<Transform>();
+
+        foreach (var room in floor.rooms)
+        {
+            if (!IsPlayerInRoom(room) && GetEnemyCountInRoom(room) == 0)
+            {
+                emptyRooms.Add(room);
+            }
+        }
+
+        return emptyRooms;
+    }
+
+    private bool IsPlayerInRoom(Transform room)
+    {
+        BoxCollider2D box = room.GetComponent<BoxCollider2D>();
+        if (box == null) return false;
+
+        Vector2 center = box.bounds.center;
+        Vector2 size = box.bounds.size;
+        return Physics2D.OverlapBox(center, size, 0f, playerLayer);
+    }
+
+    private int GetEnemyCountInRoom(Transform room)
+    {
+        BoxCollider2D box = room.GetComponent<BoxCollider2D>();
         if (box == null) return 0;
 
         Vector2 center = box.bounds.center;
         Vector2 size = box.bounds.size;
-
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(center, size, 0f, enemyLayer);
-        return colliders.Length;
+        Collider2D[] enemies = Physics2D.OverlapBoxAll(center, size, 0f, enemyLayer);
+        return enemies.Length;
     }
 
-    // 플레이어와 에너미가 모두 없는 빈 맵 리스트 반환
-    private List<Transform> GetEmptyMaps()
+    private void SpawnEnemyInRoom(Transform room)
     {
-        List<Transform> emptyMaps = new List<Transform>();
-
-        foreach (var map in maps)
+        List<Transform> validPoints = new List<Transform>();
+        foreach (var point in spawnPoints)
         {
-            if (!IsPlayerInMap(map) && GetEnemyCountInMap(map) == 0)
+            if (Vector2.Distance(point.position, room.position) < 30f)
             {
-                emptyMaps.Add(map);
+                validPoints.Add(point);
             }
         }
 
-        return emptyMaps;
-    }
-
-    // 해당 맵에 플레이어가 있는지 확인
-    private bool IsPlayerInMap(Transform map)
-    {
-        BoxCollider2D box = map.GetComponent<BoxCollider2D>();
-        if (box == null)
+        if (validPoints.Count == 0)
         {
-            Debug.LogWarning($"[MutationSpawner] '{map.name}'에 BoxCollider2D가 없습니다.");
-            return false;
+            Debug.LogWarning($"[Spawner] '{room.name}' 근처에 스폰 포인트가 없습니다.");
+            return;
         }
 
-        Vector2 center = box.bounds.center;
-        Vector2 size = box.bounds.size;
-
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(center, size, 0f, playerLayer);
-        return colliders.Length > 0;
+        Transform spawnPoint = validPoints[Random.Range(0, validPoints.Count)];
+        GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        Debug.Log($"[Spawner] 몬스터 소환됨: {enemyPrefab.name} at {spawnPoint.position}");
     }
 
-    // 디버그용: 스폰 포인트 및 맵 범위 시각화
     private void OnDrawGizmosSelected()
     {
-        if (spawnPoints == null) return;
-
         Gizmos.color = Color.green;
         foreach (Transform point in spawnPoints)
         {
@@ -169,14 +165,22 @@ public class MutationSpawner : MonoBehaviour
         }
 
         Gizmos.color = Color.cyan;
-        if (maps != null)
+        foreach (var floor in floors)
         {
-            foreach (Transform map in maps)
+            foreach (Transform room in floor.rooms)
             {
-                BoxCollider2D box = map.GetComponent<BoxCollider2D>();
+                var box = room.GetComponent<BoxCollider2D>();
                 if (box != null)
-                {
                     Gizmos.DrawWireCube(box.bounds.center, box.bounds.size);
+            }
+
+            if (floor.detectionArea != null)
+            {
+                var det = floor.detectionArea.GetComponent<BoxCollider2D>();
+                if (det != null)
+                {
+                    Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
+                    Gizmos.DrawCube(det.bounds.center, det.bounds.size);
                 }
             }
         }

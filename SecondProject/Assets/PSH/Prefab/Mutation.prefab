@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 5098942105754510894}
   - component: {fileID: 8557539857465963711}
   - component: {fileID: 1311949784796406263}
+  - component: {fileID: 3284979573563576065}
+  - component: {fileID: 510897720692913435}
   m_Layer: 8
   m_Name: Mutation
   m_TagString: Enemy
@@ -435,5 +437,42 @@ MonoBehaviour:
     m_Bits: 512
   reDetectDelay: 0
   idleThreshold: 5
-  useOffScreenDespawn: 0
-  despawnTime: 6
+  lureDetectRange: 20
+  targetObjectLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+--- !u!114 &3284979573563576065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4082738286513363140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250163aa8b9c9c5448c0a501a5e0ac77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allPortals: []
+  teleportDelay: 1
+  waitTimeAfterArrival: 10
+  returnDelay: 2
+--- !u!114 &510897720692913435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4082738286513363140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3937988abfb8c45ba5851ec7fd898d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportDestination: {fileID: 0}
+  destinationRoom: {fileID: 0}
+  teleportChance: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  teleportDelay: 1

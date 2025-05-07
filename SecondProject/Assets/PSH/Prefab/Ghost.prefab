@@ -188,6 +188,10 @@ MonoBehaviour:
   obstacleAndPlayerLayer:
     serializedVersion: 2
     m_Bits: 640
+  targetObjectLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  lureDetectRange: 10
   isChasing: 0
   isPaused: 0
   isPlayerInRange: 0

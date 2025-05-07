@@ -8,7 +8,7 @@ public class MonsterTelePort : MonoBehaviour
     public GameObject destinationRoom;      // 이동할 목적지 방 (다음 맵 오브젝트)
 
     [Header("설정값")]
-    [SerializeField] private float teleportChance = 0.5f; // 텔레포트 확률 (0~1)
+    [SerializeField] private float teleportChance = 1f; // 텔레포트 확률 (0~1)
     [SerializeField] private LayerMask enemyLayer;        // 적 레이어 마스크
     [SerializeField] private float teleportDelay = 1f;     // 텔레포트 지연 시간 (초)
 
