@@ -1442,7 +1442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6130200625237627276, guid: c9212fd446039f54d959e60c77a867cf, type: 3}
       propertyPath: m_Name
-      value: MirrorSystem
+      value: "\uAC70\uC6B8 \uC624\uBE0C\uC81D\uD2B8"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

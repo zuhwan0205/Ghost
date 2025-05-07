@@ -104,6 +104,12 @@ public class PhoneManager : MonoBehaviour
 
     void Update()
     {
+        // Tab 키로 휴대폰 화면 토글
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            TogglePhoneScreen();
+        }
+
         // 테스트용: M 키로 메시지, P 키로 사진 추가
         if (Input.GetKeyDown(KeyCode.M))
             AddMessage($"새 메시지 {messages.Count + 1}");
