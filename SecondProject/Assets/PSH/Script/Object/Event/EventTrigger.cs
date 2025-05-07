@@ -7,12 +7,12 @@ public class EventTrigger : Interactable
 
     private void Start()
     {
-        // ¾À¿¡ ÀÖ´Â ¸ğµç EventMonsterChase ÄÄÆ÷³ÍÆ®¸¦ Ã£¾Æ ¹è¿­·Î ÀúÀå
+        // ì”¬ì— ìˆëŠ” ëª¨ë“  EventMonsterChase ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ì•„ ë°°ì—´ë¡œ ì €ì¥
         eventMonsters = FindObjectsByType<EventMonsterChase>(FindObjectsSortMode.None);
 
         if (eventMonsters.Length == 0)
         {
-            Debug.LogWarning("[ExampleTrigger] EventMonsterChase ¿ÀºêÁ§Æ®µéÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("[ExampleTrigger] EventMonsterChase ì˜¤ë¸Œì íŠ¸ë“¤ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 
@@ -21,7 +21,7 @@ public class EventTrigger : Interactable
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) return;
 
-        Debug.Log("[ExampleTrigger] ÀÔ·Â °¨ÁöµÊ. ¸ğµç ¸ó½ºÅÍ È£Ãâ ½ÃÀÛ.");
+        Debug.Log("[ExampleTrigger] ì…ë ¥ ê°ì§€ë¨. ëª¨ë“  ëª¬ìŠ¤í„° í˜¸ì¶œ ì‹œì‘.");
         foreach (var monster in EventMonsterChase.allMonsters)
         {
             if (monster != null)

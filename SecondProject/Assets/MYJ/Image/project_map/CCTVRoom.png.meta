@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      CCTVRoom_0: 5205390912996050965
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
