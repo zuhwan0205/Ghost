@@ -78,18 +78,21 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         StartCoroutine(DisableAfterDelay(MG_GlassPanel, 3));
         Destroy(MG_Glass);
         //인게임 거울 교체
+        ScheduleManager.Instance.CompleteMission("Glass");
     }
 
     void MannequinPanelOff()
     {
         StartCoroutine(DisableAfterDelay(MG_MannequinPanel,3));
         Destroy(MG_Mannequin);
+        ScheduleManager.Instance.CompleteMission("Mannequin");
     }
 
     void VentPanelOff()
     {
         StartCoroutine(DisableAfterDelay(MG_VentPanel, 3f));
         Destroy(MG_Vent);
+        ScheduleManager.Instance.CompleteMission("Vent");
     }
 
     void RadioPanelOff()
@@ -98,6 +101,7 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         Destroy(MG_Radio);
         //UI_Interaction.SetActive(true);
         //무서운 소리 잠깐 재생
+        ScheduleManager.Instance.CompleteMission("Radio");
     }
 
     void LightPanelOff()
@@ -105,12 +109,14 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         StartCoroutine(DisableAfterDelay(MG_LightPanel, 3f));
         Destroy(MG_Light);
         //인게임 조명 켜기
+        ScheduleManager.Instance.CompleteMission("Light");
     }
 
     void CarpetPanelOff()
     {
         StartCoroutine(DisableAfterDelay(MG_CarpetPanel, 3f));
         Destroy(MG_Carpet);
+        ScheduleManager.Instance.CompleteMission("Carpet");
     }
     
     private IEnumerator DisableAfterDelay(GameObject panel, float delay)

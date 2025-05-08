@@ -2,28 +2,66 @@ using UnityEngine;
 
 public class DragGlass : MonoBehaviour
 {
+    private static DragGlass currentlyDragging = null;
+
     private Vector3 offset;
     private bool isDragging = false;
 
-    void OnMouseDown()
+    private void Update()
     {
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 screenPos = Input.mousePosition;
+            screenPos.z = Mathf.Abs(Camera.main.transform.position.z);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+            worldPos.z = 0f;
+
+            Collider2D[] hits = Physics2D.OverlapPointAll(worldPos);
+            foreach (var hit in hits)
+            {
+                if (hit.TryGetComponent(out DragGlass target))
+                {
+                    target.BeginDrag(worldPos);
+                    currentlyDragging = target;
+                    break;
+                }
+            }
+        }
+
+        if (Input.GetMouseButton(0) && currentlyDragging != null)
+        {
+            Vector3 screenPos = Input.mousePosition;
+            screenPos.z = Mathf.Abs(Camera.main.transform.position.z);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+            worldPos.z = 0f;
+
+            currentlyDragging.Drag(worldPos);
+        }
+
+        if (Input.GetMouseButtonUp(0) && currentlyDragging != null)
+        {
+            currentlyDragging.EndDrag();
+            currentlyDragging = null;
+        }
+    }
+
+    public void BeginDrag(Vector3 startMouseWorldPos)
+    {
+        offset = transform.position - startMouseWorldPos;
         isDragging = true;
     }
 
-    void OnMouseDrag()
+    public void Drag(Vector3 currentMouseWorldPos)
     {
         if (!isDragging) return;
-
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
-        transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
+        transform.position = new Vector3(currentMouseWorldPos.x + offset.x, currentMouseWorldPos.y + offset.y, transform.position.z);
     }
 
-    void OnMouseUp()
+    public void EndDrag()
     {
         isDragging = false;
     }
-    
+
     public void ForceStopDragging()
     {
         isDragging = false;
