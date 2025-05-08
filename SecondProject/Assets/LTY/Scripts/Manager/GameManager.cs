@@ -8,10 +8,11 @@ public class GameManager : MonoBehaviour
     private int currentMissions = 0; // 완료한 미션 수
     private bool isGameOver = false;
     private bool isCleared = false;
+    public DoorUnlockScript door; // 문 스크립트 참조
 
     void Awake()
     {
-        // 싱글톤 설정: GameManager 하나만 존재
+        // 싱글톤 설정
         if (Instance == null)
         {
             Instance = this;
@@ -31,8 +32,14 @@ public class GameManager : MonoBehaviour
         currentMissions++;
         Debug.Log($"Missions Completed: {currentMissions}/{missionQuota}");
 
-        // UI 업데이트 (나중에 UIManager와 연동)
-        // UIManager.Instance.UpdateMissionUI(currentMissions, missionQuota);
+        // 미션 조건 충족 시 문 열기
+        if (currentMissions >= missionQuota)
+        {
+            if (door != null)
+            {
+                door.UnlockDoor();
+            }
+        }
     }
 
     // 출구에서 스테이지 클리어 체크
@@ -44,8 +51,6 @@ public class GameManager : MonoBehaviour
         {
             isCleared = true;
             Debug.Log("Stage Cleared!");
-            // UI 표시 또는 다음 스테이지로 전환
-            // UIManager.Instance.ShowClearScreen();
             Invoke("LoadNextStage", 2f); // 2초 후 다음 스테이지
         }
         else
@@ -61,15 +66,12 @@ public class GameManager : MonoBehaviour
 
         isGameOver = true;
         Debug.Log("Game Over!");
-        // UI 표시
-        // UIManager.Instance.ShowGameOverScreen();
         Invoke("RestartStage", 2f); // 2초 후 재시작
     }
 
     // 다음 스테이지 로드
     void LoadNextStage()
     {
-        // 현재 씬 인덱스 가져와 다음 씬 로드 (씬 이름으로도 가능)
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
@@ -78,7 +80,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Game Completed!");
-            // 게임 종료 UI 또는 메인 메뉴로
         }
         ResetStage();
     }
