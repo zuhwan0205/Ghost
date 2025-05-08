@@ -46,25 +46,25 @@ public class PhoneManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (phoneIconButton == null) Debug.LogError("PhoneIconButtonÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (phoneScreen == null) Debug.LogError("PhoneScreenÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (backButton == null) Debug.LogError("BackButtonÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (leftArrowButton == null) Debug.LogError("LeftArrowButtonÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (rightArrowButton == null) Debug.LogError("RightArrowButtonÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (messengerText == null) Debug.LogError("MessengerText°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (photoThumbnailPrefab == null) Debug.LogError("PhotoThumbnailPrefabÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (imageViewPanel == null) Debug.LogError("ImageViewPanelÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (fullImage == null) Debug.LogError("FullImage°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-        if (closeButton == null) Debug.LogError("CloseButtonÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù!");
+        if (phoneIconButton == null) Debug.LogError("PhoneIconButtonï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (phoneScreen == null) Debug.LogError("PhoneScreenï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (backButton == null) Debug.LogError("BackButtonï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (leftArrowButton == null) Debug.LogError("LeftArrowButtonï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (rightArrowButton == null) Debug.LogError("RightArrowButtonï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (messengerText == null) Debug.LogError("MessengerTextï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (photoThumbnailPrefab == null) Debug.LogError("PhotoThumbnailPrefabï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (imageViewPanel == null) Debug.LogError("ImageViewPanelï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (fullImage == null) Debug.LogError("FullImageï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
+        if (closeButton == null) Debug.LogError("CloseButtonï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½!");
     }
 
     void Start()
     {
-        Debug.Log("PhoneManager Start: ¹öÆ° ÀÌº¥Æ® ¿¬°á ½ÃÀÛ");
+        Debug.Log("PhoneManager Start: ï¿½ï¿½Æ° ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         wiringGameManager = FindFirstObjectByType<WiringGameManager>(FindObjectsInactive.Include);
         mirrorCleaningGame = FindFirstObjectByType<MirrorCleaningGame>(FindObjectsInactive.Include);
-        if (wiringGameManager == null) Debug.LogWarning("WiringGameManager¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
-        if (mirrorCleaningGame == null) Debug.LogWarning("MirrorCleaningGameÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+        if (wiringGameManager == null) Debug.LogWarning("WiringGameManagerï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
+        if (mirrorCleaningGame == null) Debug.LogWarning("MirrorCleaningGameï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
 
         if (phoneIconButton != null)
             phoneIconButton.onClick.AddListener(TogglePhoneScreen);
@@ -100,7 +100,7 @@ public class PhoneManager : MonoBehaviour
         if (imageViewPanel != null)
             imageViewPanel.SetActive(false);
 
-        AddMessage("°ÔÀÓ ½ÃÀÛ: Ã¹ ¸Þ½ÃÁö");
+        AddMessage("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: Ã¹ ï¿½Þ½ï¿½ï¿½ï¿½");
     }
 
     void Update()
@@ -111,7 +111,7 @@ public class PhoneManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.M))
-            AddMessage($"»õ ¸Þ½ÃÁö {messages.Count + 1}");
+            AddMessage($"ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ {messages.Count + 1}");
         if (Input.GetKeyDown(KeyCode.P) && photos.Count > 0)
             AddPhoto(photos[Random.Range(0, photos.Count)]);
     }
@@ -131,12 +131,12 @@ public class PhoneManager : MonoBehaviour
             if (wiringGameManager != null && wiringGameManager.IsMiniGameActive)
             {
                 wiringGameManager.CancelGame();
-                Debug.Log("[PhoneManager] ÈÞ´ëÆù UI È°¼ºÈ­: Àü¼± ¿¬°á ¹Ì´Ï°ÔÀÓ Ãë¼Ò");
+                Debug.Log("[PhoneManager] ï¿½Þ´ï¿½ï¿½ï¿½ UI È°ï¿½ï¿½È­: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì´Ï°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
             }
             if (mirrorCleaningGame != null && mirrorCleaningGame.gameObject.activeSelf)
             {
                 mirrorCleaningGame.CancelGame();
-                Debug.Log("[PhoneManager] ÈÞ´ëÆù UI È°¼ºÈ­: °Å¿ï ´Û±â ¹Ì´Ï°ÔÀÓ Ãë¼Ò");
+                Debug.Log("[PhoneManager] ï¿½Þ´ï¿½ï¿½ï¿½ UI È°ï¿½ï¿½È­: ï¿½Å¿ï¿½ ï¿½Û±ï¿½ ï¿½Ì´Ï°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
             }
 
             if (schedulePanel != null)
@@ -165,7 +165,7 @@ public class PhoneManager : MonoBehaviour
             if (imageViewPanel != null)
                 imageViewPanel.SetActive(false);
         }
-        Debug.Log($"[PhoneManager] ÈÞ´ëÆù UI »óÅÂ: {(isPhoneOpen ? "È°¼ºÈ­" : "ºñÈ°¼ºÈ­")}");
+        Debug.Log($"[PhoneManager] ï¿½Þ´ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½: {(isPhoneOpen ? "È°ï¿½ï¿½È­" : "ï¿½ï¿½È°ï¿½ï¿½È­")}");
     }
 
     public void ForceClosePhoneScreen()
@@ -174,7 +174,7 @@ public class PhoneManager : MonoBehaviour
         {
             phoneScreen.SetActive(false);
             isPhoneOpen = false;
-            Debug.Log("[PhoneManager] ÈÞ´ëÆù UI °­Á¦ ºñÈ°¼ºÈ­ ¿Ï·á");
+            Debug.Log("[PhoneManager] ï¿½Þ´ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ï·ï¿½");
 
             if (schedulePanel != null)
                 schedulePanel.SetActive(false);
@@ -195,7 +195,7 @@ public class PhoneManager : MonoBehaviour
 
     private void ShowAppPanel(GameObject panel)
     {
-        Debug.Log($"ShowAppPanel È£ÃâµÊ: {panel?.name}");
+        Debug.Log($"ShowAppPanel È£ï¿½ï¿½ï¿½: {panel?.name}");
         if (schedulePanel != null)
             schedulePanel.SetActive(false);
         if (messengerPanel != null)
@@ -237,7 +237,7 @@ public class PhoneManager : MonoBehaviour
 
     private void GoBackToMain()
     {
-        Debug.Log("GoBackToMain È£ÃâµÊ");
+        Debug.Log("GoBackToMain È£ï¿½ï¿½ï¿½");
         if (schedulePanel != null)
             schedulePanel.SetActive(false);
         if (messengerPanel != null)
@@ -260,7 +260,7 @@ public class PhoneManager : MonoBehaviour
         {
             currentPage--;
             UpdateMessengerPage();
-            Debug.Log($"ÀÌÀü ÆäÀÌÁö: {currentPage + 1}");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: {currentPage + 1}");
         }
     }
 
@@ -270,7 +270,7 @@ public class PhoneManager : MonoBehaviour
         {
             currentPage++;
             UpdateMessengerPage();
-            Debug.Log($"´ÙÀ½ ÆäÀÌÁö: {currentPage + 1}");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: {currentPage + 1}");
         }
     }
 
@@ -281,7 +281,7 @@ public class PhoneManager : MonoBehaviour
             if (messages.Count > 0 && currentPage >= 0 && currentPage < messages.Count)
                 messengerText.text = messages[currentPage];
             else
-                messengerText.text = "¸Þ½ÃÁö°¡ ¾ø½À´Ï´Ù.";
+                messengerText.text = "ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
         }
 
         if (leftArrowButton != null)
@@ -303,7 +303,7 @@ public class PhoneManager : MonoBehaviour
             currentPage = messages.Count - 1;
             UpdateMessengerPage();
         }
-        Debug.Log($"¸Þ½ÃÁö Ãß°¡: {message}, ÃÑ ¸Þ½ÃÁö ¼ö: {messages.Count}");
+        Debug.Log($"ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½: {message}, ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½: {messages.Count}");
     }
 
     private void UpdatePhotoGallery()
@@ -360,7 +360,7 @@ public class PhoneManager : MonoBehaviour
             }
             if (photoPanel != null && photoPanel.activeSelf)
                 UpdatePhotoGallery();
-            Debug.Log($"»çÁø Ãß°¡µÊ: {photo.name}, ÃÑ »çÁø ¼ö: {photos.Count}");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½: {photo.name}, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {photos.Count}");
         }
     }
 }
