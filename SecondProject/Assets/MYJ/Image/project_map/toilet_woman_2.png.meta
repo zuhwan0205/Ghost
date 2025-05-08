@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      toilet_woman_2_0: 6025626965310092105
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
