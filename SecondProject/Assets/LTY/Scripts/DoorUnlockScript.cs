@@ -2,19 +2,18 @@ using UnityEngine;
 
 public class DoorUnlockScript : MonoBehaviour
 {
-    private Animator doorAnimator; // 문 애니메이터
+    public GameObject openDoorImage; // 열린 문 이미지 오브젝트
     private BoxCollider2D doorCollider; // 문 콜라이더
     private bool isDoorOpen = false;
 
     void Start()
     {
-        doorAnimator = GetComponent<Animator>();
         doorCollider = GetComponent<BoxCollider2D>();
-        if (doorAnimator != null)
+        if (openDoorImage != null)
         {
-            doorAnimator.SetBool("isOpen", false);
+            openDoorImage.SetActive(false); // 시작 시 열린 문 이미지 비활성화
         }
-        doorCollider.enabled = true; // 문 잠김
+        doorCollider.enabled = true; // 콜라이더 활성화 (트리거용)
     }
 
     // GameManager에서 호출하여 문 열기
@@ -23,11 +22,11 @@ public class DoorUnlockScript : MonoBehaviour
         if (!isDoorOpen)
         {
             isDoorOpen = true;
-            if (doorAnimator != null)
+            if (openDoorImage != null)
             {
-                doorAnimator.SetBool("isOpen", true); // 문 열림 애니메이션
+                openDoorImage.SetActive(true); // 열린 문 이미지 활성화
             }
-            doorCollider.enabled = false; // 플레이어 통과 가능
+            doorCollider.enabled = true; // 트리거 유지
             Debug.Log("문이 열렸다!");
         }
     }
