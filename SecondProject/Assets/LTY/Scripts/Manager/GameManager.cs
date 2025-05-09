@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance; // 싱글톤 패턴
-    public int missionQuota = 3; // 한 스테이지당 필요한 미션 수 (3개)
+    public int missionQuota = 5; // 한 스테이지당 필요한 미션 수
     private int currentMissions = 0; // 완료한 미션 수
     private bool isGameOver = false;
     private bool isCleared = false;
