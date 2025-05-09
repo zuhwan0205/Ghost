@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 5431abc4090e61e4caf460cfabceb873
+guid: 442cb389a47f1d844aab38fa31810234
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5042249310903987602
-    second: Message_swipebutton_0
+      213: 4178831726122523700
+    second: Message_swipebutton-sheet_0
   - first:
-      213: 9140982914653468813
-    second: Message_swipebutton_1
+      213: -6860655689892337381
+    second: Message_swipebutton-sheet_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -78,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,20 +106,20 @@ TextureImporter:
       name: Message_swipebutton_0
       rect:
         serializedVersion: 2
-        x: 38
-        y: 105
-        width: 55
-        height: 9
+        x: 0
+        y: 8
+        width: 53
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e621c9a77f4560ab0800000000000000
-      internalID: -5042249310903987602
+      spriteID: 65d054a3476755444b3a5668da8997e9
+      internalID: 1353196083
       vertices: []
       indices: 
       edges: []
@@ -128,20 +128,20 @@ TextureImporter:
       name: Message_swipebutton_1
       rect:
         serializedVersion: 2
-        x: 38
-        y: 30
-        width: 55
-        height: 9
+        x: 0
+        y: 0
+        width: 53
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d88b5d5a78b4bde70800000000000000
-      internalID: 9140982914653468813
+      spriteID: ee1b2ce8414e831418e6d798cb7b53e7
+      internalID: -1454118685
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 039ce23d3e638d444a3ab38029b0ac18
     internalID: 0
     vertices: []
     indices: 
@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Message_swipebutton_0: 1353196083
+      Message_swipebutton_1: -1454118685
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
