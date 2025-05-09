@@ -34,6 +34,7 @@ RectTransform:
   - {fileID: 4812954496905476175}
   - {fileID: 9005792321592454671}
   - {fileID: 2857754176296830258}
+  - {fileID: 3949830401516302118}
   m_Father: {fileID: 7153613539207194325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1043,7 +1044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7153613539207194325
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1109,6 +1110,85 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2331040020188276817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3949830401516302118}
+  - component: {fileID: 6447853822884615101}
+  - component: {fileID: 8548598414040066778}
+  m_Layer: 5
+  m_Name: Default
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3949830401516302118
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331040020188276817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8562394579887942138}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -77.154106, y: 268.35916}
+  m_SizeDelta: {x: 172.7017, y: 42.7017}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6447853822884615101
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331040020188276817}
+  m_CullTransparentMesh: 1
+--- !u!114 &8548598414040066778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2331040020188276817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 49
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "From : \uC0AC\uC218"
 --- !u!1 &2415517254726589041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3014,7 +3094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9102919700288896424
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3799,7 +3879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.740566, g: 0.98224384, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5067,8 +5147,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.504, y: 58.664}
-  m_SizeDelta: {x: 357.01, y: 513.41}
+  m_AnchoredPosition: {x: -4.3603, y: 24.2066}
+  m_SizeDelta: {x: 318.2894, y: 391.2778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5363465129576434524
 CanvasRenderer:
@@ -5111,7 +5191,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Placeholder
+  m_Text: "\uBC31\uD654\uC810 \uC9C0\uB3C4\uB294 \uBCF4\uB0B4\uB1A8\uC5B4. \uBC24\uC5D0
+    \uC774\uC0C1\uD55C \uC77C\uC774 \uB9CE\uC774 \uC77C\uC5B4\uB098\uB2C8\uAE4C \uC870\uC2EC\uD558\uACE0
+    \uD560 \uC77C \uB05D\uB098\uACE0 \uBCF4\uBA74 \uD1F4\uADFC\uD560 \uC2DC\uAC04
+    \uC77C\uAEBC\uC57C."
 --- !u!1 &8585685322710635309
 GameObject:
   m_ObjectHideFlags: 0

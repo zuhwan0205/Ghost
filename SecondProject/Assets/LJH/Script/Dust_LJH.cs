@@ -11,6 +11,7 @@ public class Dust_LJH : MonoBehaviour
     private float cleanCooldown = 0.2f;
     private int cleanCount = 0;
     public GameObject Carpet;
+    [SerializeField] private MonoBehaviour CarpetInteract;
 
     public static event Action OnCarpetEnd;
 
@@ -45,7 +46,8 @@ public class Dust_LJH : MonoBehaviour
 
     public void CompleteCleanDust()
     {
-        Destroy(Carpet);
+        //Destroy(Carpet);
+        CarpetInteract.enabled = false;
         OnCarpetEnd?.Invoke();
     }
 }

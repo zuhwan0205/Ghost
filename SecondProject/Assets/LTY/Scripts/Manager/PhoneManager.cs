@@ -100,7 +100,7 @@ public class PhoneManager : MonoBehaviour
         if (imageViewPanel != null)
             imageViewPanel.SetActive(false);
 
-        AddMessage("���� ����: ù �޽���");
+        AddMessage("백화점 지도는 보내놨어. 밤에 이상한 일이 많이 일어나니까 조심하고 할 일 끝나고 보면 퇴근할 시간 일꺼야.");
     }
 
     void Update()
