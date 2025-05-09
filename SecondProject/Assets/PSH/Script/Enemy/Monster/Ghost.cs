@@ -33,6 +33,7 @@ public class Ghost : MonoBehaviour
 
     private Rigidbody2D rb;
     private Player player;
+    private Animator anim;
     private GhostRoomChase ghostRoomChase;
 
     [SerializeField] private bool isChasing = false;
@@ -46,8 +47,10 @@ public class Ghost : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         player = FindFirstObjectByType<Player>();
         ghostRoomChase = GetComponent<GhostRoomChase>();
+        
         baseDetectRange = shortDetectRange;
         baseMoveSpeed = moveSpeed;
 
@@ -237,6 +240,13 @@ public class Ghost : MonoBehaviour
                     isChasing = true;
                     moveSpeed = chaseSpeed;
 
+                    if (anim != null)
+                    {
+                        anim.SetBool("Tracking", true);
+                        anim.SetBool("Idle", false);
+                    }
+
+
                     if (audioSource != null && chaseClip != null && !isPlayingChaseSound)
                     {
                         audioSource.Stop();
@@ -264,6 +274,12 @@ public class Ghost : MonoBehaviour
                 isChasing = false;
                 moveSpeed = baseMoveSpeed;
                 chaseTimer = 0f;
+
+                if (anim != null)
+                {
+                    anim.SetBool("Tracking", false);
+                    anim.SetBool("Idle", true);
+                }
 
                 if (audioSource != null && idleClip != null)
                 {
@@ -304,6 +320,10 @@ public class Ghost : MonoBehaviour
     {
         if (collision.CompareTag("Player") && isChasing)
         {
+            anim.SetBool("Grab",true);
+            anim.SetBool("Tracking", false);
+            anim.SetBool("Idle", false);
+
             Debug.Log("[Ghost] 플레이어와 추적 중 트리거 충돌 발생!");
             rb.linearVelocity = Vector2.zero;
             isPaused = true;
@@ -312,8 +332,7 @@ public class Ghost : MonoBehaviour
             Player pl = collision.GetComponent<Player>();
             if (pl != null)
             {
-                pl.moveSpeed = 0f;
-                pl.dashSpeed = 0f;
+                pl.isHiding = true;
                 pl.isInteractionLocked = true;
                 pl.ResetHold();
                 Invoke(nameof(ResumePlayerControl), 3.0f);
@@ -327,9 +346,9 @@ public class Ghost : MonoBehaviour
     {
         if (player != null)
         {
-            player.moveSpeed = player.originalMoveSpeed;
-            player.dashSpeed = player.originalDashSpeed;
+            player.isHiding = false;
             player.isInteractionLocked = false;
+            anim.SetBool("Grab", false);
         }
     }
 
