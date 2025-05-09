@@ -19,6 +19,7 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     public GameObject MG_Vent;
     public GameObject MG_Radio;
     public GameObject MG_Carpet;
+    public GameObject MG_AfterMannequin;
     
     //
     //public GameObject UI_Interaction;
@@ -85,6 +86,7 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     {
         StartCoroutine(DisableAfterDelay(MG_MannequinPanel,3));
         Destroy(MG_Mannequin);
+        MG_AfterMannequin.SetActive(true);
         ScheduleManager.Instance.CompleteMission("Mannequin");
     }
 
