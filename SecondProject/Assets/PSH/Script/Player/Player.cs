@@ -48,6 +48,7 @@ public class Player : PlayerManager
     private float holdTimer = 0f;               // 상호작용 유지 시간 계산용
     private bool isHolding = false;             // 상호작용 유지 중인지 여부
     private Interactable currentInteractable;   // 현재 상호작용 중인 오브젝트
+    public bool isInteractionLocked = false;    // 상호작용 잠금 기능
 
     [SerializeField] private GameObject interactionHint;    // 상호작용 가능 표시 UI
     [SerializeField] private Slider holdProgressBar;        // 상호작용 진행 바 UI
@@ -59,7 +60,7 @@ public class Player : PlayerManager
     private WiringGameManager wiringGameManager;
     private MirrorCleaningGame mirrorCleaningGame;
 
-    private bool isHiding = false; // 숨기 상태 여부
+    public bool isHiding = false; // 숨기 상태 여부
     public HidingSpot currentSpot = null; // 접촉 중인 숨는 구조체
     #endregion
 
@@ -310,6 +311,13 @@ public class Player : PlayerManager
     // 상호작용 확인 (E키로 오브젝트와 상호작용)
     private void CheckHoldInteraction()
     {
+        if (isInteractionLocked)
+        {
+            interactionHint.SetActive(false);
+            holdProgressBar.gameObject.SetActive(false);
+            return; // E키 기능 완전 차단
+        }
+
         // 미니게임 진행 중이면 E 키 무시 또는 취소 처리
         bool isMiniGameActive = (wiringGameManager != null && wiringGameManager.IsMiniGameActive) ||
                                 (mirrorCleaningGame != null && mirrorCleaningGame.gameObject.activeSelf);
@@ -377,7 +385,7 @@ public class Player : PlayerManager
     }
 
     // 상호작용 유지 상태 초기화
-    private void ResetHold()
+    public void ResetHold()
     {
         holdTimer = 0f;
         isHolding = false;

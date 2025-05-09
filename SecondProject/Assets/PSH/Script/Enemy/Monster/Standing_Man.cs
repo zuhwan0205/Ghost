@@ -9,6 +9,13 @@ public class Standing_Man : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private GhostRoomChase roomChase; // 방 추적 컴포넌트
 
+    [Header("오디오")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip idleClip;
+    [SerializeField] private AudioClip chaseClip;
+    private bool isPlayingChaseSound = false;
+
+    private Player player;
     private Transform playerTransform;
     private bool isChasing = false;
     private float despawnTimer = 0f;
@@ -24,6 +31,15 @@ public class Standing_Man : MonoBehaviour
     private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // idle 소리 재생
+        if (audioSource != null && idleClip != null)
+        {
+            audioSource.clip = idleClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+
         if (playerTransform != null)
         {
             Vector3 spawnPosition = playerTransform.position - playerTransform.right * spawnDistance;
@@ -60,6 +76,16 @@ public class Standing_Man : MonoBehaviour
             Debug.Log("[Standing_Man] 플레이어가 나를 봤음 → 추적 시작 준비");
             hasBeenSeen = true;
             isChasing = true;
+        }
+
+        // 추적 사운드로 전환
+        if (isChasing && !isPlayingChaseSound && audioSource != null && chaseClip != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = chaseClip;
+            audioSource.loop = true;
+            audioSource.Play();
+            isPlayingChaseSound = true;
         }
 
         if (isChasing && sameRoom)
@@ -122,7 +148,28 @@ public class Standing_Man : MonoBehaviour
         {
             hasTriggered = true;
 
+            Player player = collision.GetComponent<Player>();
+            if (player != null)
+            {
+                player.isHiding = true;             // 이동불가
+                player.isInteractionLocked = true; // E 키 차단
+                player.ResetHold();                // 홀드 상호작용 즉시 취소
+                Invoke(nameof(EnablePlayer), 3.0f);
+            }
+
             Destroy(gameObject);
+        }
+    }
+
+    // 플레이어 이동 복구
+    private void EnablePlayer()
+    {
+        if (player != null)
+        {
+            player.isHiding = false;             // 이동 가능
+            player.isInteractionLocked = false;
+            Debug.Log("[Ghost] 3초 후 플레이어 E키 다시 허용!");
+            Debug.Log("[Ghost] 3초 후 플레이어 이동 재개!");
         }
     }
 }

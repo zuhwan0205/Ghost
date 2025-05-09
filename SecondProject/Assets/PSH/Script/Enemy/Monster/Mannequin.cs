@@ -43,9 +43,7 @@ public class Mannequin : MonoBehaviour
             {
                 isGrabbed = true;
 
-                // 플레이어 이동속도, 대쉬속도 모두 0으로 설정
-                player.moveSpeed = 0f;
-                player.dashSpeed = 0f;
+                player.isHiding = true; // 이동 불가
 
                 // 플레이어에게 지속 데미지 시작
                 StartCoroutine(DamagePlayer());
@@ -87,9 +85,7 @@ public class Mannequin : MonoBehaviour
 
         if (player != null)
         {
-            // 플레이어 이동속도, 대쉬속도 원래 값으로 복구
-            player.moveSpeed = player.originalMoveSpeed;
-            player.dashSpeed = player.originalDashSpeed;
+            player.isHiding = false; // 이동 가능
         }
 
         // 마네킹 Collider 비활성화

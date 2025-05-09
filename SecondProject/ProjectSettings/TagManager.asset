@@ -18,6 +18,7 @@ TagManager:
   - Wall
   - Room
   - Lure
+  - Hide
   layers:
   - Default
   - TransparentFX

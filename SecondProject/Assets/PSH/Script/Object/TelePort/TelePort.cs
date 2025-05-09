@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Unity.Cinemachine;
+using UnityEngine.Audio;
 
 public class TelePort : Interactable
 {
@@ -9,11 +10,31 @@ public class TelePort : Interactable
     public GameObject box2;
     public CinemachineConfiner2D cinemachineConfiner;
 
+    [Header("오디오")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip teleportSound;
 
     public override void Interact()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) return;
+
+        if (teleportSound != null && player != null)
+        {
+            GameObject soundObj = new GameObject("TeleportSound");
+            soundObj.transform.position = player.transform.position;
+
+            AudioSource src = soundObj.AddComponent<AudioSource>();
+            src.clip = teleportSound;
+            src.spatialBlend = 0f;           // 3D 사운드
+            src.minDistance = 1f;
+            src.maxDistance = 15f;
+            src.volume = 1f;                 // 필요 시 1.5f로도 가능
+            src.rolloffMode = AudioRolloffMode.Logarithmic;
+
+            src.Play();
+            Destroy(soundObj, teleportSound.length + 0.5f);
+        }
 
 
         Vector3 newPosition = teleport.transform.position;

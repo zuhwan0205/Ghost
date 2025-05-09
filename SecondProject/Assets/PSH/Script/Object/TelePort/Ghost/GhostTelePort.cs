@@ -5,17 +5,20 @@ using System.Collections.Generic;
 public class GhostTelePort : MonoBehaviour
 {
     [Header("텔레포트 설정")]
-    public Transform teleportDestination;       // 목적지 위치
-    public GameObject destinationRoom;          // 목적지 방 오브젝트
+    public Transform teleportDestination;
+    public GameObject destinationRoom;
+    [SerializeField] private float teleportDelay = 1f;
+    [SerializeField] private float pathHeightOffset = 0.2f;
 
-    [SerializeField] private float teleportDelay = 1f;          // 순간이동 지연 시간
-    [SerializeField] private float pathHeightOffset = 0.2f;     // 경로 라인 높이 보정값
+    [Header("사운드 설정")]
+    [SerializeField] private AudioClip teleportSound;
+    [SerializeField] private float soundVolume = 1f;
+    [SerializeField] private float maxSoundDistance = 15f; // 소리 들리는 최대 거리
 
-    private Renderer rend;                      // 고스트의 렌더러 (숨기기용)
-    private Queue<string> routeQueue = new Queue<string>();    // 이동할 방 ID 목록
-    public List<GhostPortal> allPortals;        // 모든 포탈 목록
-
-    private LineRenderer lineRenderer;          // 경로 시각화 라인
+    private Renderer rend;
+    private Queue<string> routeQueue = new Queue<string>();
+    public List<GhostPortal> allPortals;
+    private LineRenderer lineRenderer;
 
     private void Start()
     {
@@ -28,11 +31,10 @@ public class GhostTelePort : MonoBehaviour
             Debug.LogWarning("[GhostTelePort] LineRenderer가 없습니다!");
     }
 
-    // 외부에서 경로를 설정함
     public void SetRoute(IEnumerable<string> path)
     {
         routeQueue = new Queue<string>(path);
-        UpdateLinePath();  // 시각적 경로도 갱신
+        UpdateLinePath();
     }
 
     public bool HasRoute() => routeQueue != null && routeQueue.Count > 0;
@@ -52,10 +54,9 @@ public class GhostTelePort : MonoBehaviour
             return;
         }
 
-        string nextRoomID = routeQueue.Peek(); // 다음 목적지 ID
+        string nextRoomID = routeQueue.Peek();
         Debug.Log($"[Teleport] nextRoomID: {nextRoomID}, portal.toRoomID: {portal.toRoomID}");
 
-        // 올바른 목적지일 경우 순간이동 시작
         if (portal.toRoomID == nextRoomID)
         {
             Debug.Log("[Teleport] 텔레포트 조건 충족, 순간이동 시작!");
@@ -63,14 +64,12 @@ public class GhostTelePort : MonoBehaviour
             teleportDestination = portal.teleport;
             destinationRoom = portal.destinationRoom;
 
-            StartCoroutine(TeleportWithDelay(teleportDelay)); // 순간이동 지연 처리
-
-            routeQueue.Dequeue(); // 다음 목적지 제거
-            UpdateLinePath();     // 라인 다시 갱신
+            StartCoroutine(TeleportWithDelay(teleportDelay));
+            routeQueue.Dequeue();
+            UpdateLinePath();
         }
     }
 
-    // 순간이동 실행 (지연 포함)
     private IEnumerator TeleportWithDelay(float delay)
     {
         if (rend != null) rend.enabled = false;
@@ -82,10 +81,9 @@ public class GhostTelePort : MonoBehaviour
         if (rend != null) rend.enabled = true;
 
         yield return new WaitForSeconds(0.05f);
-        transform.position += new Vector3(0.01f, 0f, 0f); // 재충돌 방지용 위치 미세 이동
+        transform.position += new Vector3(0.01f, 0f, 0f); // 재충돌 방지용
     }
 
-    // 실제 위치 이동 처리
     private void Teleport()
     {
         if (teleportDestination == null)
@@ -95,10 +93,46 @@ public class GhostTelePort : MonoBehaviour
         }
 
         transform.position = teleportDestination.transform.position;
+
+        // 거리 기반 사운드 재생
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null && teleportSound != null)
+        {
+            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+
+            if (distanceToPlayer <= maxSoundDistance)
+            {
+                GameObject soundObject = new GameObject("TeleportSound");
+                soundObject.transform.position = player.transform.position;
+
+                AudioSource source = soundObject.AddComponent<AudioSource>();
+                source.clip = teleportSound;
+                source.spatialBlend = 1f;
+                source.minDistance = 0f;
+                source.maxDistance = maxSoundDistance;
+                source.volume = soundVolume;
+
+                source.rolloffMode = AudioRolloffMode.Custom;
+                AnimationCurve curve = new AnimationCurve(
+                    new Keyframe(0f, 0.5f),           // 0m → 50% 볼륨
+                    new Keyframe(maxSoundDistance * 0.5f, 0.25f),  // 중간 거리 → 25%
+                    new Keyframe(maxSoundDistance, 0f)            // 최대 거리 → 0%
+                );
+                source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, curve);
+                source.Play();
+
+                Destroy(soundObject, teleportSound.length + 0.5f);
+                Debug.Log($"[GhostTelePort] 사운드 재생: 플레이어 거리 {distanceToPlayer:F1}m");
+            }
+            else
+            {
+                Debug.Log($"[GhostTelePort] 사운드 생략: 플레이어 거리 {distanceToPlayer:F1}m (최대 {maxSoundDistance}m)");
+            }
+        }
+
         Debug.Log("[GhostTelePort] 고스트가 텔레포트되었습니다!");
     }
 
-    // 경로 시각화 갱신
     private void UpdateLinePath()
     {
         if (lineRenderer == null || routeQueue.Count == 0 || allPortals == null) return;
