@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d74c9a30f73211248b1de4cf534e985d
+guid: d2d116190b86f904c9abc9244919e319
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4846496931129359443
-    second: 3floor_jewelry_0
+      213: -3009348927871094860
+    second: Empty Can_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 3floor_jewelry_0
+      name: Empty Can_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 437
-        height: 200
+        width: 23
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35c7cf0f747324340800000000000000
-      internalID: 4846496931129359443
+      spriteID: 4bf6a052815ac36d0800000000000000
+      internalID: -3009348927871094860
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      3floor_jewelry_0: 4846496931129359443
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
