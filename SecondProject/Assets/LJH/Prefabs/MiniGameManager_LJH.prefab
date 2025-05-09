@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8572635990015732022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1258706226757849620}
+  - component: {fileID: 4958264590290505385}
+  m_Layer: 0
+  m_Name: MiniGameManager_LJH
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1258706226757849620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572635990015732022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.1208286, y: -0.81373554, z: 0.056737565}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4958264590290505385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572635990015732022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 750c19e03c521d9488e546e796cd5f72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MG_MannequinPanel: {fileID: 0}
+  MG_GlassPanel: {fileID: 0}
+  MG_LightPanel: {fileID: 0}
+  MG_VentPanel: {fileID: 0}
+  MG_RadioPanel: {fileID: 0}
+  MG_CarpetPanel: {fileID: 0}
+  MG_Mannequin: {fileID: 0}
+  MG_Glass: {fileID: 0}
+  MG_Light: {fileID: 0}
+  MG_Vent: {fileID: 0}
+  MG_Radio: {fileID: 0}
+  MG_Carpet: {fileID: 0}
+  AfterMannequin: {fileID: 0}
+  isMiniGaming: 0

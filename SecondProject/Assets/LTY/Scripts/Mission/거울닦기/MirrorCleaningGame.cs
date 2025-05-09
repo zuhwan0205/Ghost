@@ -303,6 +303,9 @@ public class MirrorCleaningGame : MonoBehaviour
             currentInteractable.OnMiniGameCompleted();
         }
 
+        // ScheduleManager에 미션 완료 알림
+        ScheduleManager.Instance.CompleteMission("MirrorSystem");
+
         if (dirtTexture != null)
         {
             Destroy(dirtTexture);
