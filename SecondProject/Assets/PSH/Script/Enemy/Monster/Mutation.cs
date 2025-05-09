@@ -7,6 +7,7 @@ public class Mutation : MonoBehaviour
     private Transform player; // 플레이어 Transform
     private Rigidbody2D rb; // 몬스터 Rigidbody2D
     private Renderer rend; // 몬스터 Renderer
+    private Animator anim; // 몬스터 Animator
 
     [Header("몬스터 기본 속성")]
     [SerializeField] private float Enemy_Hp; // 몬스터 체력
@@ -63,14 +64,13 @@ public class Mutation : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponent<Renderer>();
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         if (player == null)
             Debug.LogError("[Mutation] Player 태그를 찾을 수 없습니다!");
 
-        SetEnemyState(100f, 2f, 3.5f, 4f, 5.5f, 2f);
         ResetToDefaultStats();
-
 
         // idle 상태의 기본 소리 재생
         IdleAudio();
@@ -191,6 +191,12 @@ public class Mutation : MonoBehaviour
             lastSeenPosition = player.position;
             is_Enemy_AwareDist = Enemy_AwareDist + Enemy_Chasing_AwareDis;
             is_Enemy_Move_Speed = Enemy_Move_Speed + Enemy_Chasing_Speed;
+
+            if (anim != null)
+            {
+                anim.SetBool("Tracking", true);
+                anim.SetBool("Idle", false);
+            }
 
             // 오디오 전환: 기본 걷기 → 추적
             if (audioSource != null && chaseClip != null && !isPlayingChaseSound)
@@ -326,18 +332,23 @@ public class Mutation : MonoBehaviour
     // 플레이어와 충돌 시 처리
     private void OnPlayerTrigger(Collider2D collision)
     {
+        anim.SetBool("Grab", true);
+        anim.SetBool("Tracking", false);
+        anim.SetBool("Idle", false);
+
         rb.linearVelocity = Vector2.zero;
         isChasing = false;
         isPaused = true;
-        isDetectable = false;
-        detectCooldown = reDetectDelay;
+        //isDetectable = false;
+        //detectCooldown = reDetectDelay;
 
-        Player playerScript = collision.GetComponent<Player>();
-        if (playerScript != null)
+        Player pl = collision.GetComponent<Player>();
+        if (pl != null)
         {
-            playerScript.isHiding = true; // 이동 불가
-            playerScript.isInteractionLocked = true;
-            playerScript.ResetHold(); 
+            pl.isHiding = true; // 이동 불가
+            pl.isInteractionLocked = true;
+            pl.ResetHold(); 
+
 
             Invoke(nameof(EnablePlayer), 3.0f);
         }
@@ -350,14 +361,17 @@ public class Mutation : MonoBehaviour
     {
         if (player != null)
         {
-            Player playerScript = player.GetComponent<Player>();
-            if (playerScript != null)
+            Player pl = player.GetComponent<Player>();
+            if (pl != null)
             {
                 Debug.Log("[Mutation] 3초 후 플레이어 이동 재개!");
-                playerScript.isHiding = false;
+                pl.isHiding = false;
 
                 Debug.Log("[Ghost] 3초 후 플레이어 E키 다시 허용!");
-                playerScript.isInteractionLocked = false;
+                pl.isInteractionLocked = false;
+
+                anim.SetBool("Grab", false);
+                anim.SetBool("Idle", true);
             }
         }
     }
@@ -370,6 +384,12 @@ public class Mutation : MonoBehaviour
         isChasing = false;
         ResetToDefaultStats();
 
+        if (anim != null)
+        {
+            anim.SetBool("Grab", false);
+            anim.SetBool("Tracking", false);
+            anim.SetBool("Idle", true);
+        }
 
         // idle 사운드로 복귀
         if (audioSource != null && idleClip != null)
@@ -390,7 +410,12 @@ public class Mutation : MonoBehaviour
         isChasing = false;
         isWaitingAfterChase = true;
         rb.linearVelocity = Vector2.zero;
-
+        
+        if (anim != null)
+        {
+            anim.SetBool("Tracking", false);
+            anim.SetBool("Idle", true);
+        }
 
         // idle 사운드로 복귀
         if (audioSource != null && idleClip != null)
@@ -415,17 +440,6 @@ public class Mutation : MonoBehaviour
     {
         is_Enemy_AwareDist = Enemy_AwareDist;
         is_Enemy_Move_Speed = Enemy_Move_Speed;
-    }
-
-    // 기본 몬스터 스탯 세팅
-    private void SetEnemyState(float _enemy_Hp, float _enemy_Speed, float _enemy_AwareDist, float _enemy_Chasing_Speed, float _enemy_Chasing_AwareDis, float _reDetectDelay)
-    {
-        Enemy_Hp = _enemy_Hp;
-        Enemy_Move_Speed = _enemy_Speed;
-        Enemy_AwareDist = _enemy_AwareDist;
-        Enemy_Chasing_Speed = _enemy_Chasing_Speed;
-        Enemy_Chasing_AwareDis = _enemy_Chasing_AwareDis;
-        reDetectDelay = _reDetectDelay;
     }
 
     // 추적 중 멈춘 경우 체크
