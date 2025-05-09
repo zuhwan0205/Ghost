@@ -141,7 +141,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -298,7 +298,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -524,8 +524,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.6011409}
-  m_Radius: 1.058595
+  m_Offset: {x: 0, y: -1.4422934}
+  m_Radius: 1.8402143
 --- !u!114 &7146105027332201422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,8 +724,8 @@ Transform:
   m_GameObject: {fileID: 5061438976961568345}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 191.3, y: -62.4726, z: -0.038822316}
-  m_LocalScale: {x: 0.16008371, y: 0.16638824, z: 1}
+  m_LocalPosition: {x: 191.0444, y: -63.1711, z: -0.038822316}
+  m_LocalScale: {x: 0.069940574, y: 0.06537394, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 726189741878771870}
@@ -837,11 +837,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -12.12475}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -851,7 +851,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 5.67, y: 13.83}
+  m_Size: {x: 5.67, y: 38.079494}
   m_EdgeRadius: 0
 --- !u!82 &667290387233098945
 AudioSource:
@@ -866,15 +866,15 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 80c2d3d2a588c8e498296d0e325b8b2b, type: 3}
   m_Resource: {fileID: 8300000, guid: 80c2d3d2a588c8e498296d0e325b8b2b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 13
+  MinDistance: 13.536713
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -910,7 +910,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1129,11 +1129,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -4.1271896}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1143,5 +1143,5 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 9.67, y: 9.37}
+  m_Size: {x: 9.67, y: 17.624367}
   m_EdgeRadius: 0
