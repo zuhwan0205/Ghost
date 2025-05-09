@@ -1,23 +1,29 @@
+using System;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    [SerializeField] private Sprite questRewardPhoto; // 퀘스트 보상 사진
+    [SerializeField] private Sprite MapPhoto;
+    [SerializeField] private Sprite JustPhoto1;
+    [SerializeField] private Sprite JustPhoto2;
+    [SerializeField] private Sprite JustPhoto3;
+    [SerializeField] private Sprite JustPhoto4;
 
     public void CompleteQuest()
     {
-        // 퀘스트 완료 로직
-        if (PhoneManager.Instance != null && questRewardPhoto != null)
+        if (PhoneManager.Instance != null && MapPhoto != null)
         {
-            PhoneManager.Instance.AddPhoto(questRewardPhoto);
-            Debug.Log("퀘스트 완료: 사진 추가됨");
+            PhoneManager.Instance.AddPhoto(MapPhoto);
+            PhoneManager.Instance.AddPhoto(JustPhoto1);
+            PhoneManager.Instance.AddPhoto(JustPhoto2);
+            PhoneManager.Instance.AddPhoto(JustPhoto3);
+            PhoneManager.Instance.AddPhoto(JustPhoto4);
+            
         }
     }
 
-    // 테스트용
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) // Q 키로 퀘스트 완료 시뮬레이션
-            CompleteQuest();
+        CompleteQuest();
     }
 }

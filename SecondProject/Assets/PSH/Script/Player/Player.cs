@@ -304,7 +304,7 @@ public class Player : PlayerManager
         if (Input.GetKeyUp(KeyCode.LeftShift))
             DashEnd();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.H))
             TakeDamage(1f);
     }
 

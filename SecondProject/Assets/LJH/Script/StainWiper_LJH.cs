@@ -28,7 +28,13 @@ public class StainWiper : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
         {
-            inputPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 screenPos = Input.mousePosition;
+            screenPos.z = Mathf.Abs(cam.transform.position.z);
+
+            Vector3 worldPos = cam.ScreenToWorldPoint(screenPos);
+            worldPos.z = 0f;
+
+            inputPos = worldPos;
             isTouching = true;
         }
 #else
@@ -61,14 +67,19 @@ public class StainWiper : MonoBehaviour
 
     void TryClean(Vector2 position)
     {
-        Collider2D hit = Physics2D.OverlapPoint(position);
-        if (hit != null && hit.TryGetComponent(out Stain stain))
+        Collider2D[] hits = Physics2D.OverlapPointAll(position);
+        foreach (var hit in hits)
         {
-            stain.Clean(position);
-        }
-        else if (hit != null && hit.TryGetComponent(out Dust_LJH dust))
-        {
-            dust.Clean(position);
+            if (hit.TryGetComponent(out Dust_LJH dust))
+            {
+                dust.Clean(position);
+                return;
+            }
+            else if (hit.TryGetComponent(out Stain stain))
+            {
+                stain.Clean(position);
+                return;
+            }
         }
     }
 }

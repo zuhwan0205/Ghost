@@ -10,27 +10,37 @@ public class WireConnection : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
     private Vector2 startPos, endPos;
     public bool isConnected = false;
 
-    // Start() 제거 또는 비활성화
-    /*
-    void Start()
+    public void ResetWire()
     {
-        wireImage.gameObject.SetActive(false);
-        Debug.Log(gameObject.name + " 초기화: wireImage 비활성화");
+        isConnected = false;
+        startPos = Vector2.zero;
+        endPos = Vector2.zero;
+        if (wireImage != null)
+        {
+            wireImage.gameObject.SetActive(false);
+            wireImage.rectTransform.sizeDelta = new Vector2(0, 10); // 기본 크기
+            wireImage.rectTransform.position = Vector3.zero;
+            wireImage.rectTransform.rotation = Quaternion.identity;
+            Debug.Log($"{gameObject.name} 리셋: isConnected={isConnected}, wireImage.active={wireImage.gameObject.activeSelf}, sizeDelta={wireImage.rectTransform.sizeDelta}, rotation={wireImage.rectTransform.rotation}");
+        }
+        else
+        {
+            Debug.LogError($"{gameObject.name}의 wireImage가 null입니다!");
+        }
     }
-    */
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         startPos = startNode.position;
         wireImage.gameObject.SetActive(true);
-        Debug.Log(gameObject.name + " 드래그 시작: wireImage 활성화 - 활성화 여부: " + wireImage.gameObject.activeSelf);
+        Debug.Log($"{gameObject.name} 드래그 시작: wireImage 활성화 - 활성화 여부: {wireImage.gameObject.activeSelf}");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         endPos = eventData.position;
         UpdateWire();
-        Debug.Log(gameObject.name + " 드래그 중: 선 위치 업데이트");
+        Debug.Log($"{gameObject.name} 드래그 중: 선 위치 업데이트");
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -41,13 +51,13 @@ public class WireConnection : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
             isConnected = true;
             UpdateWire();
             FindFirstObjectByType<WiringGameManager>().CheckAllWires();
-            Debug.Log(gameObject.name + " 연결 성공");
+            Debug.Log($"{gameObject.name} 연결 성공");
         }
         else
         {
             wireImage.gameObject.SetActive(false);
             isConnected = false;
-            Debug.Log(gameObject.name + " 연결 실패: wireImage 비활성화");
+            Debug.Log($"{gameObject.name} 연결 실패: wireImage 비활성화");
         }
     }
 

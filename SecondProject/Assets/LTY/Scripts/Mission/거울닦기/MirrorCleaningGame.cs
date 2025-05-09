@@ -10,250 +10,211 @@ public class MirrorCleaningGame : MonoBehaviour
     [SerializeField] private float cleanThreshold = 0.1f;
 
     private Texture2D dirtTexture;
-    private Texture2D originalTexture; // ¿øº» ÅØ½ºÃ³ º¹»çº» ÀúÀå
+    private Texture2D originalTexture;
     private bool isGameActive = false;
     private float totalAlpha;
     private float currentAlpha;
     private RectTransform dirtRect;
-    private float cleanInterval = 0.2f;
+    private float cleanInterval = 0.05f;
     private float cleanTimer = 0f;
     private Interactable currentInteractable;
+    private PhoneManager phoneManager;
 
     void Awake()
     {
-        // ÃÊ±â ºñÈ°¼ºÈ­´Â ¿¡µğÅÍ¿¡¼­ ¼³Á¤À¸·Î ´ëÃ¼
-        // gameObject.SetActive(false);
-        // Debug.Log("MiniGameCanvas ÃÊ±â ºñÈ°¼ºÈ­!");
+        phoneManager = FindFirstObjectByType<PhoneManager>(FindObjectsInactive.Include);
+        if (phoneManager == null)
+        {
+            Debug.LogWarning("[MirrorCleaningGame] PhoneManagerë¥¼ Awakeì—ì„œ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
+        }
     }
 
     void Start()
     {
-        // ¿øº» ÅØ½ºÃ³ ÀúÀå ¹× ¾ÈÀü¼º Ã¼Å©
-        if (dirtImage == null)
+        if (phoneManager == null)
         {
-            Debug.LogError("DirtImage°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù! À¯´ÏÆ¼ ¿¡µğÅÍ¿¡¼­ Inspector Ã¢À» È®ÀÎÇÏ¼¼¿ä.");
-            return;
+            phoneManager = FindFirstObjectByType<PhoneManager>(FindObjectsInactive.Include);
+            if (phoneManager == null)
+            {
+                Debug.LogWarning("[MirrorCleaningGame] PhoneManagerë¥¼ Startì—ì„œë„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
+            }
+            else
+            {
+                Debug.Log("[MirrorCleaningGame] PhoneManagerë¥¼ Startì—ì„œ ì„±ê³µì ìœ¼ë¡œ ì°¾ìŒ");
+            }
         }
 
-        if (dirtImage.texture == null)
+        if (dirtImage == null || dirtImage.texture == null)
         {
-            Debug.LogError("DirtImage¿¡ ÅØ½ºÃ³°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù! À¯´ÏÆ¼ ¿¡µğÅÍ¿¡¼­ DirtImageÀÇ RawImage ÄÄÆ÷³ÍÆ®¸¦ È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("DirtImage ë˜ëŠ” í…ìŠ¤ì²˜ê°€ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             return;
         }
 
         Texture2D tempTexture = dirtImage.texture as Texture2D;
-        if (tempTexture == null)
+        if (tempTexture == null || !tempTexture.isReadable)
         {
-            Debug.LogError("DirtImageÀÇ ÅØ½ºÃ³°¡ Texture2D Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù! ÅØ½ºÃ³ Çü½ÄÀ» È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("DirtImage í…ìŠ¤ì²˜ê°€ Texture2D í˜•ì‹ì´ ì•„ë‹ˆê±°ë‚˜ Read/Write Enabledê°€ êº¼ì ¸ ìˆìŠµë‹ˆë‹¤!");
             return;
         }
 
-        if (!tempTexture.isReadable)
-        {
-            Debug.LogError($"ÅØ½ºÃ³ '{tempTexture.name}'ÀÇ Read/Write Enabled°¡ ²¨Á® ÀÖ½À´Ï´Ù! À¯´ÏÆ¼ ¿¡µğÅÍ¿¡¼­ ÅØ½ºÃ³ ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.");
-            return;
-        }
-
-        // ¿øº» ÅØ½ºÃ³ º¹»çº» »ı¼º (Æ÷¸ËÀ» RGBA32·Î °íÁ¤)
         originalTexture = new Texture2D(tempTexture.width, tempTexture.height, TextureFormat.RGBA32, false);
         originalTexture.SetPixels(tempTexture.GetPixels());
         originalTexture.Apply();
-        Debug.Log($"¿øº» ÅØ½ºÃ³ º¹»ç ¿Ï·á: ÀÌ¸§={originalTexture.name}, Å©±â={originalTexture.width}x{originalTexture.height}, Readable={originalTexture.isReadable}");
+        Debug.Log($"ì›ë³¸ í…ìŠ¤ì²˜ ì´ˆê¸°í™”: {originalTexture.width}x{originalTexture.height}");
     }
 
     public void StartMiniGame(Interactable interactable)
     {
         if (isGameActive)
         {
-            Debug.Log("¹Ì´Ï°ÔÀÓ ÀÌ¹Ì ÁøÇà Áß!");
+            Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì´ë¯¸ ì§„í–‰ ì¤‘: í˜¸ì¶œ ë¬´ì‹œ");
             return;
         }
 
-        Debug.Log("StartMiniGame ½ÃÀÛ!");
         currentInteractable = interactable;
+        Debug.Log($"[MirrorCleaningGame] StartMiniGame í˜¸ì¶œë¨, interactable: {(interactable != null ? interactable.gameObject.name : "null")}");
 
-        // Äµ¹ö½º È°¼ºÈ­ ¸ÕÀú ½Ãµµ
-        Debug.Log("Äµ¹ö½º È°¼ºÈ­ ½Ãµµ!");
-        gameObject.SetActive(true);
-        Debug.Log($"Äµ¹ö½º È°¼ºÈ­ »óÅÂ: {gameObject.activeSelf}");
-
-        if (dirtImage == null || ragImage == null)
+        if (phoneManager == null)
         {
-            Debug.LogError("DirtImage ¶Ç´Â RagImage°¡ ¼³Á¤µÇÁö ¾Ê¾Ò½À´Ï´Ù!");
-            gameObject.SetActive(false);
-            return;
-        }
-        Debug.Log("DirtImage¿Í RagImage ¼³Á¤ È®ÀÎ ¿Ï·á!");
-
-        dirtRect = dirtImage.GetComponent<RectTransform>();
-        if (dirtRect == null)
-        {
-            Debug.LogError("DirtImage¿¡ RectTransform ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù!");
-            gameObject.SetActive(false);
-            return;
-        }
-        Debug.Log($"Dirt Rect: {dirtRect.rect}");
-
-        // originalTexture°¡ nullÀÏ °æ¿ì Àç¼³Á¤ ½Ãµµ
-        if (originalTexture == null)
-        {
-            Texture2D tempTexture = dirtImage.texture as Texture2D;
-            if (tempTexture == null)
+            phoneManager = FindFirstObjectByType<PhoneManager>(FindObjectsInactive.Include);
+            if (phoneManager == null)
             {
-                Debug.LogError("DirtImageÀÇ ÅØ½ºÃ³°¡ Texture2D Çü½ÄÀÌ ¾Æ´Õ´Ï´Ù! StartMiniGame¿¡¼­ Àç¼³Á¤ ½ÇÆĞ.");
-                gameObject.SetActive(false);
-                return;
+                Debug.LogError("[MirrorCleaningGame] StartMiniGameì—ì„œ PhoneManagerë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
             }
-
-            if (!tempTexture.isReadable)
+            else
             {
-                Debug.LogError($"ÅØ½ºÃ³ '{tempTexture.name}'ÀÇ Read/Write Enabled°¡ ²¨Á® ÀÖ½À´Ï´Ù! StartMiniGame¿¡¼­ Àç¼³Á¤ ½ÇÆĞ.");
-                gameObject.SetActive(false);
-                return;
+                Debug.Log("[MirrorCleaningGame] StartMiniGameì—ì„œ PhoneManagerë¥¼ ì„±ê³µì ìœ¼ë¡œ ì°¾ìŒ");
             }
-
-            originalTexture = new Texture2D(tempTexture.width, tempTexture.height, TextureFormat.RGBA32, false);
-            originalTexture.SetPixels(tempTexture.GetPixels());
-            originalTexture.Apply();
-            Debug.Log($"StartMiniGame¿¡¼­ originalTexture Àç¼³Á¤ ¿Ï·á: ÀÌ¸§={originalTexture.name}, Å©±â={originalTexture.width}x{originalTexture.height}");
-        }
-        Debug.Log("ÅØ½ºÃ³ ¼³Á¤ È®ÀÎ ¿Ï·á!");
-
-        // ±âÁ¸ dirtTexture°¡ ÀÖÀ¸¸é Á¤¸®
-        if (dirtTexture != null)
-        {
-            Destroy(dirtTexture);
-            dirtTexture = null;
         }
 
-        // »õ·Î¿î ÀÛ¾÷¿ë ÅØ½ºÃ³ »ı¼º
-        dirtTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
-        dirtTexture.filterMode = FilterMode.Bilinear;
-        dirtTexture.wrapMode = TextureWrapMode.Clamp;
-        Color[] pixels = originalTexture.GetPixels();
-        dirtTexture.SetPixels(pixels);
-        dirtTexture.Apply();
-        Debug.Log($"Dirt Texture Å©±â: {dirtTexture.width}x{dirtTexture.height}");
-
-        // dirtImage¿¡ ÅØ½ºÃ³ ¼³Á¤
-        if (dirtImage != null)
+        if (phoneManager != null && phoneManager.IsPhoneOpen)
         {
-            dirtImage.texture = dirtTexture;
-            Debug.Log("dirtImage¿¡ dirtTexture ¼³Á¤ ¿Ï·á!");
+            Debug.Log($"[MirrorCleaningGame] íœ´ëŒ€í° UI í™œì„±í™” ìƒíƒœ: {phoneManager.IsPhoneOpen}, ë¹„í™œì„±í™” ì‹œë„");
+            phoneManager.TogglePhoneScreen();
+            phoneManager.ForceClosePhoneScreen(); // ê°•ì œë¡œ íœ´ëŒ€í° UI ë‹«ê¸°
         }
         else
         {
-            Debug.LogError("dirtImage°¡ nullÀÔ´Ï´Ù!");
+            Debug.Log($"[MirrorCleaningGame] PhoneManager ìƒíƒœ: {(phoneManager == null ? "null" : "ì¡´ì¬, íœ´ëŒ€í° UI ë¹„í™œì„±í™”ë¨")}");
+        }
+
+        gameObject.SetActive(true);
+
+        if (dirtImage == null || ragImage == null || dirtImage.GetComponent<RectTransform>() == null)
+        {
+            Debug.LogError("DirtImage, RagImage ë˜ëŠ” RectTransformì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤!");
             gameObject.SetActive(false);
             return;
         }
 
+        dirtRect = dirtImage.GetComponent<RectTransform>();
+
+        if (originalTexture == null)
+        {
+            Texture2D tempTexture = dirtImage.texture as Texture2D;
+            if (tempTexture == null || !tempTexture.isReadable)
+            {
+                Debug.LogError("OriginalTexture ì¬ì„¤ì • ì‹¤íŒ¨!");
+                gameObject.SetActive(false);
+                return;
+            }
+            originalTexture = new Texture2D(tempTexture.width, tempTexture.height, TextureFormat.RGBA32, false);
+            originalTexture.SetPixels(tempTexture.GetPixels());
+            originalTexture.Apply();
+        }
+
+        if (dirtTexture != null) Destroy(dirtTexture);
+
+        dirtTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
+        dirtTexture.filterMode = FilterMode.Bilinear;
+        dirtTexture.wrapMode = TextureWrapMode.Clamp;
+        dirtTexture.SetPixels(originalTexture.GetPixels());
+        dirtTexture.Apply();
+        dirtImage.texture = dirtTexture;
+
         totalAlpha = 0f;
-        foreach (var pixel in pixels)
+        foreach (var pixel in originalTexture.GetPixels())
         {
             totalAlpha += pixel.a;
         }
         currentAlpha = totalAlpha;
-        Debug.Log($"Total Alpha: {totalAlpha}");
 
         if (totalAlpha <= 0)
         {
-            Debug.LogError("ÅØ½ºÃ³ÀÇ Åõ¸íµµ°¡ 0ÀÔ´Ï´Ù! ÅØ½ºÃ³¸¦ È®ÀÎÇÏ¼¼¿ä.");
+            Debug.LogError("í…ìŠ¤ì²˜ì˜ íˆ¬ëª…ë„ê°€ 0ì…ë‹ˆë‹¤!");
             gameObject.SetActive(false);
             return;
         }
 
         isGameActive = true;
         cleanTimer = 0f;
-        Debug.Log($"isGameActive »óÅÂ: {isGameActive}");
+        Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì‹œì‘!");
     }
 
     public void CancelGame()
     {
         if (!isGameActive)
         {
-            Debug.Log("¹Ì´Ï°ÔÀÓÀÌ ÀÌ¹Ì ºñÈ°¼ºÈ­ »óÅÂÀÔ´Ï´Ù!");
+            Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì´ë¯¸ ë¹„í™œì„±í™” ìƒíƒœ!");
             return;
         }
 
         isGameActive = false;
         gameObject.SetActive(false);
-        Debug.Log("¹Ì´Ï°ÔÀÓ Ãë¼ÒµÊ!");
 
-        // ÀÛ¾÷¿ë ÅØ½ºÃ³ Á¤¸®
         if (dirtTexture != null)
         {
             Destroy(dirtTexture);
             dirtTexture = null;
-            Debug.Log("dirtTexture ÆÄ±« ¿Ï·á!");
         }
 
-        // ¿øº» ÅØ½ºÃ³·Î º¹±¸
         if (dirtImage != null && originalTexture != null)
         {
             dirtImage.texture = originalTexture;
-            Debug.Log("dirtImage¿¡ originalTexture º¹±¸ ¿Ï·á!");
-        }
-        else
-        {
-            Debug.LogError("dirtImage ¶Ç´Â originalTexture°¡ nullÀÔ´Ï´Ù! º¹±¸ ½ÇÆĞ.");
         }
 
-        // »óÅÂ ÃÊ±âÈ­
         currentInteractable = null;
         cleanTimer = 0f;
         totalAlpha = 0f;
         currentAlpha = 0f;
-        Debug.Log("Ãë¼Ò ÈÄ »óÅÂ ÃÊ±âÈ­ ¿Ï·á!");
+        Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì·¨ì†Œë¨!");
     }
 
     void Update()
     {
-        if (!isGameActive)
+        if (!isGameActive) return;
+
+        if (!gameObject.activeSelf)
         {
-            Debug.Log("¹Ì´Ï°ÔÀÓ ºñÈ°¼ºÈ­ »óÅÂ: Update ½ÇÇà ¾È µÊ!");
+            gameObject.SetActive(true);
+            Debug.LogWarning("[MirrorCleaningGame] ìº”ë²„ìŠ¤ê°€ ë¹„í™œì„±í™” ìƒíƒœì˜€ìŒ, ê°•ì œ í™œì„±í™”");
+        }
+
+        bool isKeyboardInput = Input.anyKeyDown && !Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1) && !Input.GetMouseButtonDown(2);
+        bool isInvalidMouseInput = Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2);
+
+        if (isKeyboardInput || isInvalidMouseInput)
+        {
+            Debug.Log("[MirrorCleaningGame] ë§ˆìš°ìŠ¤ ì¢Œí´ë¦­ ì´ì™¸ì˜ ì…ë ¥ ê°ì§€! ë¯¸ë‹ˆê²Œì„ ì¢…ë£Œ.");
+            CancelGame();
             return;
         }
 
-        // Äµ¹ö½º°¡ ºñÈ°¼ºÈ­µÇ¾ú´Ù¸é È°¼ºÈ­ º¸Àå
-        if (!gameObject.activeSelf)
-        {
-            Debug.LogWarning("Äµ¹ö½º°¡ ºñÈ°¼ºÈ­ »óÅÂÀÔ´Ï´Ù! °­Á¦·Î È°¼ºÈ­ÇÕ´Ï´Ù.");
-            gameObject.SetActive(true);
-        }
-
-        // ¸¶¿ì½º À§Ä¡¸¦ Äµ¹ö½º ·ÎÄÃ ÁÂÇ¥·Î º¯È¯
         Vector2 mousePos;
         bool isConverted = RectTransformUtility.ScreenPointToLocalPointInRectangle(
             dirtRect, Input.mousePosition, null, out mousePos
         );
-        if (!isConverted)
-        {
-            Debug.LogError("¸¶¿ì½º ÁÂÇ¥ º¯È¯ ½ÇÆĞ!");
-            return;
-        }
-        Debug.Log($"·ÎÄÃ ¸¶¿ì½º À§Ä¡: {mousePos}");
+        if (!isConverted) return;
 
-        // Rag ÀÌ¹ÌÁö À§Ä¡ ¾÷µ¥ÀÌÆ®
         if (ragImage != null)
         {
             var ragRect = ragImage.GetComponent<RectTransform>();
             if (ragRect != null)
             {
                 ragRect.anchoredPosition = mousePos;
-                Debug.Log($"Rag ÀÌ¹ÌÁö À§Ä¡ ¾÷µ¥ÀÌÆ®: {mousePos}, RectTransform À§Ä¡: {ragRect.anchoredPosition}");
             }
-            else
-            {
-                Debug.LogError("ragImage¿¡ RectTransformÀÌ ¾ø½À´Ï´Ù!");
-            }
-        }
-        else
-        {
-            Debug.LogError("ragImage°¡ nullÀÔ´Ï´Ù!");
         }
 
-        // Dirt ¿µ¿ª Ã¼Å©
         Rect rect = dirtRect.rect;
         Vector2 anchoredPos = dirtRect.anchoredPosition;
         Rect adjustedRect = new Rect(
@@ -263,19 +224,11 @@ public class MirrorCleaningGame : MonoBehaviour
             rect.height
         );
         bool isMouseInRect = adjustedRect.Contains(mousePos);
-        Debug.Log($"Adjusted Rect: {adjustedRect}, Contains Mouse: {isMouseInRect}");
 
         cleanTimer += Time.deltaTime;
-        Debug.Log($"CleanTimer: {cleanTimer}");
 
-        bool isMouseButtonDown = Input.GetMouseButton(0);
-        bool isTimerReady = cleanTimer >= cleanInterval;
-
-        Debug.Log($"¸¶¿ì½º ¿µ¿ª ¾È: {isMouseInRect}, ¸¶¿ì½º Å¬¸¯: {isMouseButtonDown}, Å¸ÀÌ¸Ó ÁØºñ: {isTimerReady}");
-
-        if (isMouseInRect && isMouseButtonDown && isTimerReady)
+        if (isMouseInRect && Input.GetMouseButton(0) && cleanTimer >= cleanInterval)
         {
-            Debug.Log("¸ÕÁö ´Û±â ½ÃÀÛ!");
             CleanDirt(mousePos);
             cleanTimer = 0f;
         }
@@ -283,29 +236,23 @@ public class MirrorCleaningGame : MonoBehaviour
 
     void CleanDirt(Vector2 localPos)
     {
-        // localPos¸¦ Dirt ÅØ½ºÃ³ÀÇ UV ÁÂÇ¥·Î º¯È¯
         Rect rect = dirtRect.rect;
         Vector2 normalizedPos = new Vector2(
             (localPos.x - rect.x) / rect.width,
             (localPos.y - rect.y) / rect.height
         );
-        Debug.Log($"Normalized Pos: {normalizedPos}");
 
         Vector2 uv = new Vector2(
             normalizedPos.x * dirtTexture.width,
             normalizedPos.y * dirtTexture.height
         );
-        Debug.Log($"UV ÁÂÇ¥: {uv}");
 
-        // ´Û±â ¹İ°æ °è»ê
         int radius = Mathf.FloorToInt(cleanRadius * dirtTexture.width * 0.5f);
         int xMin = Mathf.Clamp((int)uv.x - radius, 0, dirtTexture.width - 1);
         int xMax = Mathf.Clamp((int)uv.x + radius, 0, dirtTexture.width - 1);
         int yMin = Mathf.Clamp((int)uv.y - radius, 0, dirtTexture.height - 1);
         int yMax = Mathf.Clamp((int)uv.y + radius, 0, dirtTexture.height - 1);
-        Debug.Log($"¿µ¿ª: xMin={xMin}, xMax={xMax}, yMin={yMin}, yMax={yMax}");
 
-        // ÇÈ¼¿ ºí·Ï ÇÑ ¹ø¿¡ °¡Á®¿À±â
         Color[] pixels = dirtTexture.GetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
         bool textureChanged = false;
         float radiusSqr = radius * radius;
@@ -336,17 +283,10 @@ public class MirrorCleaningGame : MonoBehaviour
 
         if (textureChanged)
         {
-            // º¯°æµÈ ÇÈ¼¿ ºí·Ï¸¸ ¾÷µ¥ÀÌÆ®
             dirtTexture.SetPixels(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1, pixels);
             dirtTexture.Apply();
-            Debug.Log("ÅØ½ºÃ³ º¯°æ ¹× Àû¿ë ¿Ï·á!");
-        }
-        else
-        {
-            Debug.Log("ÅØ½ºÃ³ º¯°æ ¾øÀ½!");
         }
 
-        Debug.Log($"ÇöÀç ¾ËÆÄ ºñÀ²: {currentAlpha / totalAlpha}");
         if (currentAlpha / totalAlpha <= cleanThreshold)
         {
             CompleteGame();
@@ -357,29 +297,22 @@ public class MirrorCleaningGame : MonoBehaviour
     {
         isGameActive = false;
         gameObject.SetActive(false);
-        Debug.Log("°ÔÀÓ Å¬¸®¾î! °Å¿ïÀÌ ±ú²ıÇØÁ³½À´Ï´Ù.");
 
         if (currentInteractable != null)
         {
             currentInteractable.OnMiniGameCompleted();
         }
 
-        // ¿Ï·á ½Ã¿¡µµ ÅØ½ºÃ³ Á¤¸®
         if (dirtTexture != null)
         {
             Destroy(dirtTexture);
             dirtTexture = null;
-            Debug.Log("dirtTexture ÆÄ±« ¿Ï·á!");
         }
         if (dirtImage != null && originalTexture != null)
         {
             dirtImage.texture = originalTexture;
-            Debug.Log("dirtImage¿¡ originalTexture º¹±¸ ¿Ï·á!");
         }
-        else
-        {
-            Debug.LogError("dirtImage ¶Ç´Â originalTexture°¡ nullÀÔ´Ï´Ù! º¹±¸ ½ÇÆĞ.");
-        }
+        Debug.Log("[MirrorCleaningGame] ë¯¸ë‹ˆê²Œì„ ì™„ë£Œ: ê±°ìš¸ ê¹¨ë—!");
     }
 
     void OnDestroy()

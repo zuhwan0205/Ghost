@@ -7,7 +7,11 @@ public class GlassInteract : Interactable
     
     public override void Interact()
     {
-        Debug.Log("유리 상호작용 - 이벤트 발행");
-        OnGlassInteract?.Invoke();
+        if (MiniGameManagaer_LJH.Instance.isMiniGaming == false)
+        {
+            Debug.Log("유리 상호작용 - 이벤트 발행");
+            OnGlassInteract?.Invoke();
+        }
+        
     }
 }

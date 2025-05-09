@@ -109,7 +109,7 @@ MonoBehaviour:
   detected: 0
   interactionTime: 0
   needTime: 1
-  isWorking: 1
+  isWorking: 0
   workingTime: 0
   failTime: 20
 --- !u!1 &500328119523349218

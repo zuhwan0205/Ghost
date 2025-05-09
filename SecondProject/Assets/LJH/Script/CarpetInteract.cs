@@ -7,7 +7,11 @@ public class CarpetInteract : Interactable
     
     public override void Interact()
     {
-        Debug.Log("카펫 상호작용 - 이벤트 발행");
-        OnCarpetInteract?.Invoke();
+        if (MiniGameManagaer_LJH.Instance.isMiniGaming == false)
+        {
+            Debug.Log("카펫 상호작용 - 이벤트 발행");
+            OnCarpetInteract?.Invoke();
+        }
+        
     }
 }
