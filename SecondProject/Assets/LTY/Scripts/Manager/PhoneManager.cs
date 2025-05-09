@@ -100,7 +100,7 @@ public class PhoneManager : MonoBehaviour
         if (imageViewPanel != null)
             imageViewPanel.SetActive(false);
 
-        AddMessage("핸드폰에 백화점 사진 보내놨으니까 확인해");
+        AddMessage("���� ����: ù �޽���");
     }
 
     void Update()
@@ -281,7 +281,7 @@ public class PhoneManager : MonoBehaviour
             if (messages.Count > 0 && currentPage >= 0 && currentPage < messages.Count)
                 messengerText.text = messages[currentPage];
             else
-                messengerText.text = "나 보다 전에 일했던 사람이 알려줬는데 밤에 뭔가 기어다니는 소리가 자주 들렸다고 하더라고....";
+                messengerText.text = "�޽����� �����ϴ�.";
         }
 
         if (leftArrowButton != null)
