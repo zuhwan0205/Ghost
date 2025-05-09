@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a1d8998a01fae5b4cbe1e64c22aaaba8
+guid: ed866485e623e2a46ba03afda24bf53d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6419390630792718471
-    second: 1floor_escalator_0
+      213: -7523177819249458255
+    second: toilet_man_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -139,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1floor_escalator_0
+      name: toilet_man_2_0
       rect:
         serializedVersion: 2
-        x: 1078
-        y: 31
-        width: 164
-        height: 135
+        x: 0
+        y: 0
+        width: 300
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 788eede64c1461950800000000000000
-      internalID: 6419390630792718471
+      spriteID: 1b3c98502ad489790800000000000000
+      internalID: -7523177819249458255
       vertices: []
       indices: 
       edges: []
@@ -174,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      1floor_escalator_0: 6419390630792718471
+      toilet_man_2_0: -7523177819249458255
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
