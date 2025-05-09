@@ -297,7 +297,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Shadow_Walk_0: 7231367918711870433
+      Shadow_Walk_1: 4274952038121092230
+      Shadow_Walk_2: 8193136767929859743
+      Shadow_Walk_3: -926762637283311036
+      Shadow_Walk_4: 5386520334430754501
+      Shadow_Walk_5: -5312193436763661790
+      Shadow_Walk_6: -1252345698222197926
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
