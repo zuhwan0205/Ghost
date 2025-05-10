@@ -7,6 +7,7 @@ public class Mutation : MonoBehaviour
     private Transform player; // 플레이어 Transform
     private Rigidbody2D rb; // 몬스터 Rigidbody2D
     private Renderer rend; // 몬스터 Renderer
+    private Animator anim; // 몬스터 Animator
 
     [Header("몬스터 기본 속성")]
     [SerializeField] private float Enemy_Hp; // 몬스터 체력
@@ -44,39 +45,28 @@ public class Mutation : MonoBehaviour
     private Vector2? lureTargetPos = null;
     private GameObject lureTargetObject = null;
 
-
-
     [Header("사운드 설정")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip idleClip;
-    [SerializeField] private AudioClip chaseClip;
-    private bool isPlayingChaseSound = false;
+    [SerializeField] private string hitPlayerSound = "mutation_hit";
+    [SerializeField] private AudioSource[] audioSources;
 
-    [Header("숨소리 설정")]
-    [SerializeField] private AudioClip breathingClip;     // 숨소리 오디오 클립
-    [SerializeField] private float breathingRange = 20f;  // 숨소리가 들릴 거리
-    private AudioSource breathingSource;                  // 숨소리 전용 AudioSource
+    [Header("데미지")]
+    [SerializeField] private float damage;
 
-
+    private Vector3 originalScale;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rend = GetComponent<Renderer>();
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         if (player == null)
             Debug.LogError("[Mutation] Player 태그를 찾을 수 없습니다!");
 
-        SetEnemyState(100f, 2f, 3.5f, 4f, 5.5f, 2f);
         ResetToDefaultStats();
 
-
-        // idle 상태의 기본 소리 재생
-        IdleAudio();
-
-        // 숨소리용 AudioSource 초기화
-        BreathAudio();
+        originalScale = transform.localScale;
     }
 
 
@@ -84,8 +74,6 @@ public class Mutation : MonoBehaviour
     private void Update()
     {
         if (isPaused) return;
-
-        HandleBreathingSound(); // 숨소리 상태 갱신
 
         DetectLureObject(); // 유도 오브젝트 감지 우선 처리
 
@@ -102,10 +90,14 @@ public class Mutation : MonoBehaviour
         }
 
         CheckForStuck(); // 이동 중 멈춤 상태 확인
-
-
-
     }
+    private void LateUpdate()
+    {
+        // Flip 방향은 유지하면서 Y, Z는 원본 유지
+        float direction = Mathf.Sign(transform.localScale.x);
+        transform.localScale = new Vector3(originalScale.x * direction, originalScale.y, originalScale.z);
+    }
+
 
     // 유도 오브젝트 좌우 감지
     // 유도 오브젝트 좌우 감지 + 거리 비교로 더 가까운 쪽 선택
@@ -192,14 +184,10 @@ public class Mutation : MonoBehaviour
             is_Enemy_AwareDist = Enemy_AwareDist + Enemy_Chasing_AwareDis;
             is_Enemy_Move_Speed = Enemy_Move_Speed + Enemy_Chasing_Speed;
 
-            // 오디오 전환: 기본 걷기 → 추적
-            if (audioSource != null && chaseClip != null && !isPlayingChaseSound)
+            if (anim != null)
             {
-                audioSource.Stop();
-                audioSource.clip = chaseClip;
-                audioSource.loop = true;
-                audioSource.Play();
-                isPlayingChaseSound = true;
+                anim.SetBool("Tracking", true);
+                anim.SetBool("Idle", false);
             }
         }
 
@@ -326,18 +314,31 @@ public class Mutation : MonoBehaviour
     // 플레이어와 충돌 시 처리
     private void OnPlayerTrigger(Collider2D collision)
     {
+        anim.SetBool("Grab", true);
+        anim.SetBool("Tracking", false);
+        anim.SetBool("Idle", false);
+
         rb.linearVelocity = Vector2.zero;
         isChasing = false;
         isPaused = true;
-        isDetectable = false;
-        detectCooldown = reDetectDelay;
 
-        Player playerScript = collision.GetComponent<Player>();
-        if (playerScript != null)
+
+        // 오디오 일시 정지
+        foreach (var source in audioSources)
         {
-            playerScript.isHiding = true; // 이동 불가
-            playerScript.isInteractionLocked = true;
-            playerScript.ResetHold(); 
+            if (source.isPlaying)
+                source.Pause();
+        }
+
+        AudioManager.Instance.PlayAt(hitPlayerSound, transform.position);
+
+        Player pl = collision.GetComponent<Player>();
+        if (pl != null)
+        {
+            pl.isHiding = true; // 이동 불가
+            pl.isInteractionLocked = true;
+            pl.ResetHold(); 
+            pl.TakeDamage(damage); // 데미지 처리
 
             Invoke(nameof(EnablePlayer), 3.0f);
         }
@@ -350,14 +351,18 @@ public class Mutation : MonoBehaviour
     {
         if (player != null)
         {
-            Player playerScript = player.GetComponent<Player>();
-            if (playerScript != null)
+            Player pl = player.GetComponent<Player>();
+            if (pl != null)
             {
                 Debug.Log("[Mutation] 3초 후 플레이어 이동 재개!");
-                playerScript.isHiding = false;
+                pl.isHiding = false;
 
                 Debug.Log("[Ghost] 3초 후 플레이어 E키 다시 허용!");
-                playerScript.isInteractionLocked = false;
+                pl.isInteractionLocked = false;
+
+                anim.SetBool("Grab", false);
+                anim.SetBool("Tracking", false);
+                anim.SetBool("Idle", true);
             }
         }
     }
@@ -371,14 +376,18 @@ public class Mutation : MonoBehaviour
         ResetToDefaultStats();
 
 
-        // idle 사운드로 복귀
-        if (audioSource != null && idleClip != null)
+        // 오디오 재생 복구
+        foreach (var source in audioSources)
         {
-            audioSource.Stop();
-            audioSource.clip = idleClip;
-            audioSource.loop = true;
-            audioSource.Play();
-            isPlayingChaseSound = false;
+            source.UnPause(); // Stop()을 썼다면 source.Play()로 변경
+        }
+
+
+        if (anim != null)
+        {
+            anim.SetBool("Grab", false);
+            anim.SetBool("Tracking", false);
+            anim.SetBool("Idle", true);
         }
 
         Debug.Log("[Mutation] 5초 후 몬스터 이동 재개!");
@@ -390,18 +399,12 @@ public class Mutation : MonoBehaviour
         isChasing = false;
         isWaitingAfterChase = true;
         rb.linearVelocity = Vector2.zero;
-
-
-        // idle 사운드로 복귀
-        if (audioSource != null && idleClip != null)
+        
+        if (anim != null)
         {
-            audioSource.Stop();
-            audioSource.clip = idleClip;
-            audioSource.loop = true;
-            audioSource.Play();
-            isPlayingChaseSound = false;
+            anim.SetBool("Tracking", false);
+            anim.SetBool("Idle", true);
         }
-
 
         yield return new WaitForSeconds(2f);
 
@@ -415,17 +418,6 @@ public class Mutation : MonoBehaviour
     {
         is_Enemy_AwareDist = Enemy_AwareDist;
         is_Enemy_Move_Speed = Enemy_Move_Speed;
-    }
-
-    // 기본 몬스터 스탯 세팅
-    private void SetEnemyState(float _enemy_Hp, float _enemy_Speed, float _enemy_AwareDist, float _enemy_Chasing_Speed, float _enemy_Chasing_AwareDis, float _reDetectDelay)
-    {
-        Enemy_Hp = _enemy_Hp;
-        Enemy_Move_Speed = _enemy_Speed;
-        Enemy_AwareDist = _enemy_AwareDist;
-        Enemy_Chasing_Speed = _enemy_Chasing_Speed;
-        Enemy_Chasing_AwareDis = _enemy_Chasing_AwareDis;
-        reDetectDelay = _reDetectDelay;
     }
 
     // 추적 중 멈춘 경우 체크
@@ -478,63 +470,4 @@ public class Mutation : MonoBehaviour
         return isChasing;
     }
 
-    private void HandleBreathingSound()
-    {
-        if (player == null || breathingSource == null) return;
-
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        if (distance <= breathingRange)
-        {
-            if (!breathingSource.isPlaying)
-                breathingSource.Play();
-        }
-        else
-        {
-            if (breathingSource.isPlaying)
-                breathingSource.Stop();
-        }
-    }
-    private void IdleAudio()
-    {
-        if (audioSource != null && idleClip != null)
-        {
-            audioSource.clip = idleClip;
-            audioSource.loop = true;
-            audioSource.spatialBlend = 1f; // 3D 사운드
-            audioSource.minDistance = 1f;
-            audioSource.maxDistance = 20f;
-            audioSource.rolloffMode = AudioRolloffMode.Custom;
-
-            // 20f 이상 무음 처리
-            AnimationCurve curve = new AnimationCurve(
-                new Keyframe(0f, 1f),
-                new Keyframe(10f, 0.5f),
-                new Keyframe(20f, 0f)
-            );
-            audioSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, curve);
-
-            audioSource.Play();
-        }
-    }
-
-    private void BreathAudio()
-    {
-        breathingSource = gameObject.AddComponent<AudioSource>();
-        breathingSource.clip = breathingClip;
-        breathingSource.loop = true;
-        breathingSource.playOnAwake = false;
-        breathingSource.spatialBlend = 1f;
-        breathingSource.minDistance = 1f;
-        breathingSource.maxDistance = breathingRange;
-        breathingSource.rolloffMode = AudioRolloffMode.Custom;
-
-        // 거리 감쇠 커브 설정 (0~20m)
-        AnimationCurve breathingCurve = new AnimationCurve(
-            new Keyframe(0f, 1f),
-            new Keyframe(breathingRange * 0.5f, 0.5f),
-            new Keyframe(breathingRange, 0f)
-        );
-        breathingSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, breathingCurve);
-    }
 }
