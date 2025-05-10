@@ -111,7 +111,8 @@ MonoBehaviour:
   needTime: 0.5
   isWorking: 0
   workingTime: 0
-  failTime: 20
+  failTime: 30
+  ghost: {fileID: 3165085159993955873, guid: bdbfda5ef3cab2d46bbb20555cfc636c, type: 3}
 --- !u!1 &500328119523349218
 GameObject:
   m_ObjectHideFlags: 0

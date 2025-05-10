@@ -2,15 +2,29 @@ using UnityEngine;
 
 public class RandomObjManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject[] secureGate;
+    [SerializeField] private GameObject[] monitor;
 
-    // Update is called once per frame
-    void Update()
+    private float timer = 0;
+    private float Stime = 60;
+    private float Mtime = 90;
+
+    private void Update()
     {
-        
+        timer += Time.deltaTime;
+
+        if (timer >= Stime)
+        {
+            int rand = Random.Range(0, secureGate.Length);
+
+            secureGate[rand].GetComponent<SecurityGate>().isWorking = true;
+        }
+
+        if (timer >= Mtime)
+        {
+            int rand = Random.Range(0, monitor.Length);
+
+            monitor[rand].GetComponent<Monitor>().isWorking = true;
+        }
     }
 }
