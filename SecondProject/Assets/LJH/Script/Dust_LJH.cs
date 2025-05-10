@@ -34,7 +34,7 @@ public class Dust_LJH : MonoBehaviour
         {
             Destroy(gameObject);
             StainWiper.Instance.cleanCount += 1;
-            Debug.Log(cleanCount);
+            Debug.Log(StainWiper.Instance.cleanCount);
         }
 
         if (StainWiper.Instance.cleanCount == 4)

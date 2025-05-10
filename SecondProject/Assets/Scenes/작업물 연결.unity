@@ -793,6 +793,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1958431912489541804, guid: 13a8e78d334b81b42b9fb9a6d8e6e155, type: 3}
   m_PrefabInstance: {fileID: 6560543571408040623}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1505994814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3775877510690444356, guid: 13a8e78d334b81b42b9fb9a6d8e6e155, type: 3}
+  m_PrefabInstance: {fileID: 6560543571408040623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505994812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242c0921de502704fb07aaed5bac0979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1510535700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2541,6 +2552,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2009753406}
+    - target: {fileID: 1273725178867693606, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: CarpetInteract
+      value: 
+      objectReference: {fileID: 1505994814}
     - target: {fileID: 1538462309063557101, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2557,6 +2572,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2009753406}
+    - target: {fileID: 3525947641193401382, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: CarpetInteract
+      value: 
+      objectReference: {fileID: 1505994814}
+    - target: {fileID: 4166274712614190993, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: CarpetInteract
+      value: 
+      objectReference: {fileID: 1505994814}
     - target: {fileID: 5413747516874751228, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: staticNoise
       value: 
@@ -2609,6 +2632,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGamePanels
       objectReference: {fileID: 0}
+    - target: {fileID: 8135074490044343870, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: CarpetInteract
+      value: 
+      objectReference: {fileID: 1505994814}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
