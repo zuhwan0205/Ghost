@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Ghost : MonoBehaviour
 {
@@ -19,17 +20,11 @@ public class Ghost : MonoBehaviour
     private Vector2? lureTargetPos = null;
     private GameObject lureTargetObject = null;
 
-    [Header("오디오 설정")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip idleClip;
-    [SerializeField] private AudioClip chaseClip;
-    [SerializeField] private float audioRange = 20f;
-    private bool isPlayingChaseSound = false;
 
-    [Header("숨소리 설정")]
-    [SerializeField] private AudioClip breathingClip;
-    [SerializeField] private float breathingRange = 20f;
-    private AudioSource breathingSource;
+    [Header("사운드 이름 설정")]
+    [SerializeField] private string hitPlayerSound = "ghost_hit";
+    [SerializeField] private AudioSource[] idleSources;
+    [SerializeField] private AudioSource[] chaseSources;
 
     private Rigidbody2D rb;
     private Player player;
@@ -50,55 +45,12 @@ public class Ghost : MonoBehaviour
         anim = GetComponent<Animator>();
         player = FindFirstObjectByType<Player>();
         ghostRoomChase = GetComponent<GhostRoomChase>();
-        
+
+        StopAudioGroup(chaseSources);
+        PlayAudioGroup(idleSources);
+
         baseDetectRange = shortDetectRange;
         baseMoveSpeed = moveSpeed;
-
-        InitAudio();
-        InitBreathing();
-    }
-
-    private void InitAudio()
-    {
-        if (audioSource != null && idleClip != null)
-        {
-            audioSource.clip = idleClip;
-            audioSource.loop = true;
-            audioSource.playOnAwake = false;
-            audioSource.spatialBlend = 1f;         // 3D 사운드
-            audioSource.minDistance = 1f;
-            audioSource.maxDistance = audioRange;
-            audioSource.rolloffMode = AudioRolloffMode.Custom;
-
-            // 거리 감쇠 곡선 설정
-            AnimationCurve rolloffCurve = new AnimationCurve(
-                new Keyframe(0f, 1f),
-                new Keyframe(audioRange * 0.5f, 0.5f),
-                new Keyframe(audioRange, 0f)
-            );
-            audioSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, rolloffCurve);
-
-            audioSource.Play();
-        }
-    }
-
-    private void InitBreathing()
-    {
-        breathingSource = gameObject.AddComponent<AudioSource>();
-        breathingSource.clip = breathingClip;
-        breathingSource.loop = true;
-        breathingSource.playOnAwake = false;
-        breathingSource.spatialBlend = 1f;
-        breathingSource.minDistance = 1f;
-        breathingSource.maxDistance = breathingRange;
-        breathingSource.rolloffMode = AudioRolloffMode.Logarithmic;
-
-        AnimationCurve curve = new AnimationCurve(
-            new Keyframe(breathingRange, 1f),
-            new Keyframe(breathingRange, 0.5f),
-            new Keyframe(breathingRange, 0f)
-        );
-        breathingSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, curve);
     }
 
     private void Update()
@@ -126,17 +78,6 @@ public class Ghost : MonoBehaviour
     private void HandleBreathingSound()
     {
         float distance = Vector2.Distance(transform.position, player.transform.position);
-
-        if (distance <= breathingRange)
-        {
-            if (!breathingSource.isPlaying)
-                breathingSource.Play();
-        }
-        else
-        {
-            if (breathingSource.isPlaying)
-                breathingSource.Stop();
-        }
     }
 
     private void DetectLureObject()
@@ -246,15 +187,9 @@ public class Ghost : MonoBehaviour
                         anim.SetBool("Idle", false);
                     }
 
+                    StopAudioGroup(idleSources);
+                    PlayAudioGroup(chaseSources);
 
-                    if (audioSource != null && chaseClip != null && !isPlayingChaseSound)
-                    {
-                        audioSource.Stop();
-                        audioSource.clip = chaseClip;
-                        audioSource.loop = true;
-                        audioSource.Play();
-                        isPlayingChaseSound = true;
-                    }
                 }
                 isPlayerInRange = true;
                 chaseTimer = 0f;
@@ -279,15 +214,9 @@ public class Ghost : MonoBehaviour
                 {
                     anim.SetBool("Tracking", false);
                     anim.SetBool("Idle", true);
-                }
 
-                if (audioSource != null && idleClip != null)
-                {
-                    audioSource.Stop();
-                    audioSource.clip = idleClip;
-                    audioSource.loop = true;
-                    audioSource.Play();
-                    isPlayingChaseSound = false;
+                    StopAudioGroup(chaseSources);
+                    PlayAudioGroup(idleSources);    
                 }
             }
         }
@@ -324,10 +253,17 @@ public class Ghost : MonoBehaviour
             anim.SetBool("Tracking", false);
             anim.SetBool("Idle", false);
 
+            StopAudioGroup(chaseSources);
+            StopAudioGroup(idleSources);
+
+            AudioManager.Instance.PlayAt(hitPlayerSound, transform.position);
+
+
             Debug.Log("[Ghost] 플레이어와 추적 중 트리거 충돌 발생!");
             rb.linearVelocity = Vector2.zero;
             isPaused = true;
             isChasing = false;
+
 
             Player pl = collision.GetComponent<Player>();
             if (pl != null)
@@ -349,6 +285,8 @@ public class Ghost : MonoBehaviour
             player.isHiding = false;
             player.isInteractionLocked = false;
             anim.SetBool("Grab", false);
+            anim.SetBool("Idle", true);
+            anim.SetBool("Tracking", false);
         }
     }
 
@@ -356,5 +294,37 @@ public class Ghost : MonoBehaviour
     {
         isPaused = false;
         moveSpeed = baseMoveSpeed;
+
+        PlayAudioGroup(idleSources);
+
+        if (anim != null)
+        {
+            anim.SetBool("Grab", false);
+            anim.SetBool("Idle", true);
+            anim.SetBool("Tracking", false);
+        }
     }
+
+    private void StopAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+        {
+            if (source != null && source.isPlaying)
+                source.Stop();
+        }
+    }
+
+    private void PlayAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+        {
+            if (source != null && !source.isPlaying)
+                source.Play();
+        }
+    }
+
+
+
 }
+
+
