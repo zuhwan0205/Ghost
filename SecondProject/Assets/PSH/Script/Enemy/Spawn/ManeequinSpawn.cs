@@ -20,9 +20,6 @@ public class MannequinSpawn : MonoBehaviour
     private Coroutine checkVisibilityCoroutine;         // 몬스터 시야 체크용 코루틴
     private CinemachineCamera virtualCamera;            // Cinemachine 가상 카메라
 
-    [Header("오디오 설정")]
-    [SerializeField] private AudioClip spawnSound;
-    [SerializeField] private AudioSource audioSource;
 
     void Start()
     {
@@ -36,8 +33,6 @@ public class MannequinSpawn : MonoBehaviour
         }
 
 
-        if (audioSource == null)
-            audioSource = GetComponent<AudioSource>();
 
         // 몬스터 생성-소멸 사이클 시작
         StartCoroutine(MonsterCycle());
@@ -54,10 +49,6 @@ public class MannequinSpawn : MonoBehaviour
             // 몬스터 생성
             currentMonster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
             Debug.Log("몬스터 리스폰 위치: " + spawnPos);
-
-            //생성 시 1회만 재생 
-            if (audioSource != null && spawnSound != null)
-                audioSource.PlayOneShot(spawnSound);
 
             // 보이지 않을 경우 디스폰 감시 시작
             checkVisibilityCoroutine = StartCoroutine(CheckVisibilityAndDespawn());

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3213833798286418574}
   - component: {fileID: 8332260746216465690}
   - component: {fileID: 4644445125961235822}
+  - component: {fileID: 4500920038307002839}
   - component: {fileID: 8497772131898231849}
   - component: {fileID: 8864465705466820436}
   - component: {fileID: 9010668279374604501}
@@ -182,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  chaseSpeed: 5
+  chaseSpeed: 7
   spawnDistance: 3
   despawnDelay: 100
   playerLayer:
@@ -195,8 +196,6 @@ MonoBehaviour:
   chaseSources:
   - {fileID: 9010668279374604501}
   damage: 0
-  moveSpeed: 2
-  chaseSpeed: 5
 --- !u!114 &8332260746216465690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +212,8 @@ MonoBehaviour:
   destinationRoom: {fileID: 0}
   teleportDelay: 1
   pathHeightOffset: 0.2
-  teleportSources: []
+  teleportSources:
+  - {fileID: 8870380264006048354}
   allPortals: []
 --- !u!114 &4644445125961235822
 MonoBehaviour:
@@ -231,6 +231,22 @@ MonoBehaviour:
   ghostTelePort: {fileID: 0}
   currentRoomID: 
   portals: []
+--- !u!114 &4500920038307002839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5878001462610613551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9515a8b007dbcee478b74f928a94c13d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 0}
+  zoomInSize: 3.5
+  zoomDuration: 0.1
+  zoomHoldTime: 2.5
 --- !u!95 &8497772131898231849
 Animator:
   serializedVersion: 7
@@ -493,8 +509,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e5f2142fb3390e84585c7308df826968, type: 3}
-  m_Resource: {fileID: 8300000, guid: e5f2142fb3390e84585c7308df826968, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1be5c8bec7111da408792873892a704e, type: 3}
+  m_Resource: {fileID: 8300000, guid: 1be5c8bec7111da408792873892a704e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -524,8 +540,8 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.3291398
-      value: 0.8365829
+      time: 0.329
+      value: 0.83
       inSlope: -1.2911518
       outSlope: -1.2911518
       tangentMode: 0
@@ -533,8 +549,8 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.43127918
-      value: 0.35371804
+      time: 0.431
+      value: 0.35
       inSlope: -1.662839
       outSlope: -1.662839
       tangentMode: 0
@@ -558,7 +574,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

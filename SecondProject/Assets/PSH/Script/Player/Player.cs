@@ -50,6 +50,7 @@ public class Player : PlayerManager
     [SerializeField] private AudioSource[] walkSources;     // 플레이어가 맞았을 때 재생되는 사운드
     [SerializeField] private AudioSource[] dashSources;     // 대시할 때 재생되는 사운드
     [SerializeField] private string hitPlayerSound = "player_hit";
+    [SerializeField] private string diePlayerSound = "player_die";
     [SerializeField] private AudioSource[] grabSources;     // 잡혔을 당시 재생되는 사운드
     [SerializeField] private AudioSource[] afterGrabSources;    //잡히고 나서의 재생되는 사운드 
 
@@ -296,6 +297,7 @@ public class Player : PlayerManager
         if (Player_Hp < 0)
         {
             Player_Hp = 0;
+            AudioManager.Instance.PlayAt(diePlayerSound, transform.position);
             GameManager.Instance.GameOver();
         }
     }

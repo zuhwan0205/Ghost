@@ -3,12 +3,12 @@ using UnityEngine;
 public class Shadow : MonoBehaviour
 {
     [Header("설정값")]
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float chaseSpeed = 5f;
-    [SerializeField] private float spawnDistance = 5f;
-    [SerializeField] private float despawnDelay = 10f;
+    [SerializeField] private float moveSpeed = 2f;             // 기본 이동 속도
+    [SerializeField] private float chaseSpeed = 7f;            // 추적 시 빠른 속도
+    [SerializeField] private float spawnDistance = 5f;         // 플레이어 뒤 따라가는 거리
+    [SerializeField] private float despawnDelay = 10f;         // 자동 제거 시간
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private GhostRoomChase roomChase;
+    [SerializeField] private GhostRoomChase roomChase;         // 방 이동 로직
 
     [Header("사운드")]
     [SerializeField] private string hitPlayerSound = "shadow_hit";
@@ -24,14 +24,13 @@ public class Shadow : MonoBehaviour
     private Rigidbody2D rb;
 
     private bool isChasing = false;               // 플레이어를 직접 추적하는 상태
-    private bool isTrackingBehindPlayer = true;   // 플레이어의 뒤를 일정 거리 유지하며 따라가는 상태
-    private bool hasTriggered = false;
+    private bool isTrackingBehindPlayer = true;   // 플레이어 뒤 일정 거리 유지하는 상태
+    private bool hasTriggered = false;            // 트리거 처리 여부
     private bool hasBeenSeen = false;
-    private bool isPaused = false;
+    private bool isPaused = false;                // 이동 일시 정지
 
     private float despawnTimer = 0f;
     private CameraZoomController zoomController;
-
 
     private void Awake()
     {
@@ -49,6 +48,7 @@ public class Shadow : MonoBehaviour
         StopAudioGroup(chaseSources);
         PlayAudioGroup(idleSources);
 
+        // 플레이어 뒤에 생성
         if (playerTransform != null)
         {
             Vector3 spawnPos = playerTransform.position - playerTransform.right * spawnDistance;
@@ -57,8 +57,6 @@ public class Shadow : MonoBehaviour
         }
 
         zoomController = Object.FindAnyObjectByType<CameraZoomController>();
-
-        
     }
 
     private void Update()
@@ -66,10 +64,18 @@ public class Shadow : MonoBehaviour
         if (playerTransform == null || isPaused) return;
 
         bool sameRoom = IsSameRoom();
-        bool isLooking = PlayerLookingAtMe();
 
-        // 플레이어가 유령을 바라보면 추적 모드 진입
-        if (!isChasing && isLooking && sameRoom)
+        if (!sameRoom)
+        {
+            // 다른 방에 있으면 방 이동만 시도
+            roomChase?.TryChaseOnBlocked();
+            anim?.SetBool("Tracking", true);
+            anim?.SetBool("Idle", false);
+            return;
+        }
+
+        // 같은 방일 때만 시선 감지 및 행동
+        if (!isChasing && PlayerLookingAtMe())
         {
             isChasing = true;
             isTrackingBehindPlayer = false;
@@ -84,21 +90,10 @@ public class Shadow : MonoBehaviour
         if (isChasing || isTrackingBehindPlayer)
             LookAt(playerTransform.position);
 
-        // 방 다를 경우 텔레포트 시도
-        if (!sameRoom && roomChase != null)
-        {
-            roomChase.TryChaseOnBlocked();
-
-            anim?.SetBool("Tracking", true);
-            anim?.SetBool("Idle", false);
-        }
-
-        // 일정 시간 후 제거
+        // 제거 타이머
         despawnTimer += Time.deltaTime;
         if (despawnTimer >= despawnDelay)
-        {
             Destroy(gameObject);
-        }
     }
 
     private void FixedUpdate()
@@ -107,21 +102,36 @@ public class Shadow : MonoBehaviour
 
         if (isChasing)
         {
-            // 추적 모드: 플레이어를 직접 추적
+            // 추적 모드: 플레이어 위치로 직진
             Vector2 dir = (playerTransform.position - transform.position).normalized;
             rb.linearVelocity = dir * chaseSpeed;
+
+            anim?.SetBool("Tracking", true);
+            anim?.SetBool("Idle", false);
         }
         else if (isTrackingBehindPlayer)
         {
-            // 뒤쪽에서 일정 거리 유지
+            // 기본 상태: 플레이어 뒤쪽 위치 따라가기
             Vector3 targetPos = playerTransform.position - playerTransform.right * spawnDistance;
             Vector2 dir = (targetPos - transform.position).normalized;
 
-            float dist = Vector2.Distance(transform.position, targetPos);
-            if (dist > 0.1f)
-                rb.linearVelocity = dir * moveSpeed;
+            float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+            float moveSpeedToUse = distanceToPlayer >= 7f ? chaseSpeed : moveSpeed;
+
+            float distToTarget = Vector2.Distance(transform.position, targetPos);
+
+            if (distToTarget > 0.1f)
+            {
+                rb.linearVelocity = dir * moveSpeedToUse;
+                anim?.SetBool("Tracking", true);
+                anim?.SetBool("Idle", false);
+            }
             else
+            {
                 rb.linearVelocity = Vector2.zero;
+                anim?.SetBool("Tracking", false);
+                anim?.SetBool("Idle", true);
+            }
         }
     }
 
@@ -170,8 +180,6 @@ public class Shadow : MonoBehaviour
         }
     }
 
-
-
     private bool PlayerLookingAtMe()
     {
         Vector2 toEnemy = (transform.position - playerTransform.position).normalized;
@@ -212,6 +220,4 @@ public class Shadow : MonoBehaviour
             if (source != null && !source.isPlaying)
                 source.Play();
     }
-
-
 }
