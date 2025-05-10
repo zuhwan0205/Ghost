@@ -123,6 +123,15 @@ public class Player : PlayerManager
     {
         return vendingMachinePanel != null && vendingMachinePanel.activeSelf;
     }
+
+    public float CurrentSpeed
+    {
+        get
+        {
+            return Mathf.Abs(rb.linearVelocity.x);
+        }
+    }
+
     #endregion
 
     #region 초기화 및 업데이트
@@ -641,4 +650,7 @@ public class Player : PlayerManager
         dashSpeed = speed;
     }
     #endregion
+
+
+
 }

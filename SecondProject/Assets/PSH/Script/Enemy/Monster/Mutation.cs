@@ -52,6 +52,8 @@ public class Mutation : MonoBehaviour
     [Header("데미지")]
     [SerializeField] private float damage;
 
+    private Vector3 originalScale;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -63,6 +65,8 @@ public class Mutation : MonoBehaviour
             Debug.LogError("[Mutation] Player 태그를 찾을 수 없습니다!");
 
         ResetToDefaultStats();
+
+        originalScale = transform.localScale;
     }
 
 
@@ -86,10 +90,14 @@ public class Mutation : MonoBehaviour
         }
 
         CheckForStuck(); // 이동 중 멈춤 상태 확인
-
-
-
     }
+    private void LateUpdate()
+    {
+        // Flip 방향은 유지하면서 Y, Z는 원본 유지
+        float direction = Mathf.Sign(transform.localScale.x);
+        transform.localScale = new Vector3(originalScale.x * direction, originalScale.y, originalScale.z);
+    }
+
 
     // 유도 오브젝트 좌우 감지
     // 유도 오브젝트 좌우 감지 + 거리 비교로 더 가까운 쪽 선택

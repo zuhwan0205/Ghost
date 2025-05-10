@@ -156,7 +156,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.2500503, y: 0.27532434}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -166,7 +166,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 6.6440034, y: 7.392312}
   m_EdgeRadius: 0
 --- !u!114 &1727377334319960845
 MonoBehaviour:
@@ -200,6 +200,7 @@ MonoBehaviour:
   - {fileID: 2351687705770228756}
   chaseSources:
   - {fileID: 6605777555677292365}
+  damage: 0
   isChasing: 0
   isPaused: 0
   isPlayerInRange: 0

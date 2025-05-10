@@ -16,15 +16,19 @@ public class Shadow : MonoBehaviour
 
     [Header("데미지")]
     [SerializeField] private float damage;
+    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float chaseSpeed = 5f;
 
     private Player player;
     private Transform playerTransform;
     private Animator anim;
+    private Rigidbody2D rb;
 
     private bool isChasing = false;
     private float despawnTimer = 0f;
     private bool hasTriggered = false;
     private bool hasBeenSeen = false;
+    private bool isPaused = false;
 
     private void Awake()
     {
@@ -34,12 +38,13 @@ public class Shadow : MonoBehaviour
 
     private void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         player = FindFirstObjectByType<Player>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        StopAudioGroup(chaseSources); // 추적 사운드 정지
-        PlayAudioGroup(idleSources);  // 대기 사운드 재생
+        StopAudioGroup(chaseSources);
+        PlayAudioGroup(idleSources);
 
         if (playerTransform != null)
         {
@@ -55,133 +60,117 @@ public class Shadow : MonoBehaviour
 
         Player playerComp = playerTransform.GetComponent<Player>();
         bool didMove = playerComp != null && playerComp.DidMoveOrInteract;
+        bool sameRoom = IsSameRoom();
 
+        // 애니메이션 및 사운드 처리
         if (didMove)
         {
-            // 플레이어가 이동 중이면 유령도 따라가며 추적 애니메이션 및 사운드 전환
-            Vector3 targetPosition = playerTransform.position - playerTransform.right * spawnDistance;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 2f);
-            LookAt(playerTransform.position);
-
-            if (anim != null)
-            {
-                anim.SetBool("Tracking", true);
-                anim.SetBool("Idle", false);
-            }
-
+            anim?.SetBool("Tracking", true);
+            anim?.SetBool("Idle", false);
             StopAudioGroup(idleSources);
             PlayAudioGroup(chaseSources);
         }
         else
         {
-            // 플레이어가 멈추면 유령도 멈추고 Idle 애니메이션 및 사운드 전환
-            if (anim != null)
-            {
-                anim.SetBool("Tracking", false);
-                anim.SetBool("Idle", true);
-            }
-
+            anim?.SetBool("Tracking", false);
+            anim?.SetBool("Idle", true);
             StopAudioGroup(chaseSources);
             PlayAudioGroup(idleSources);
         }
 
-        // 일정 시간이 지나면 자동 삭제
+        // 디스폰 타이머
         despawnTimer += Time.deltaTime;
         if (despawnTimer >= despawnDelay)
         {
             Destroy(gameObject);
         }
 
-        bool isLooking = PlayerLookingAtMe();
-        bool sameRoom = IsSameRoom();
-
-        // 플레이어가 유령을 바라보면 추적 시작
-        if (!hasBeenSeen && isLooking && sameRoom)
+        // 추적 개시
+        if (!hasBeenSeen && PlayerLookingAtMe() && sameRoom)
         {
             hasBeenSeen = true;
             isChasing = true;
-
-            if (anim != null)
-            {
-                anim.SetBool("Tracking", true);
-                anim.SetBool("Idle", false);
-            }
+            anim?.SetBool("Tracking", true);
+            anim?.SetBool("Idle", false);
         }
 
-        // 추적 상태이면 플레이어에게 접근
-        if (isChasing && sameRoom)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, Time.deltaTime * 5f);
-            LookAt(playerTransform.position);
-        }
-
-        // 다른 방에 있을 경우 방 이동 시도
+        // 방이 다르면 텔레포트 추적
         if (!sameRoom && roomChase != null)
         {
             roomChase.TryChaseOnBlocked();
+            anim?.SetBool("Tracking", true);
+            anim?.SetBool("Idle", false);
+        }
+    }
 
-            if (anim != null)
+    private void FixedUpdate()
+    {
+        if (playerTransform == null || isPaused) return;
+
+        bool sameRoom = IsSameRoom();
+
+        if (isChasing && sameRoom)
+        {
+            float distanceToPlayer = Vector2.Distance(rb.position, playerTransform.position);
+            float distanceError = distanceToPlayer - spawnDistance;
+
+            if (Mathf.Abs(distanceError) > 0.2f)
             {
-                anim.SetBool("Tracking", true);
-                anim.SetBool("Idle", false);
+                Vector2 dir = ((Vector2)playerTransform.position - rb.position).normalized;
+                float playerSpeed = player != null ? player.CurrentSpeed : moveSpeed;
+                float dynamicSpeed = Mathf.Max(playerSpeed * 1.2f, 1.5f);
+                rb.linearVelocity = dir * Mathf.Sign(distanceError) * dynamicSpeed;
+                LookAt(playerTransform.position);
+            }
+            else
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+        }
+        else if (!isChasing)
+        {
+            if (!player.DidMoveOrInteract)
+            {
+                rb.linearVelocity = Vector2.zero;
+                return;
+            }
+
+            Vector3 idleTarget = playerTransform.position - playerTransform.right * spawnDistance;
+            float distance = Vector2.Distance(rb.position, idleTarget);
+
+            if (distance > 0.2f)
+            {
+                Vector2 dir = ((Vector2)idleTarget - rb.position).normalized;
+                rb.linearVelocity = dir * moveSpeed;
+                LookAt(idleTarget);
+            }
+            else
+            {
+                rb.linearVelocity = Vector2.zero;
             }
         }
     }
 
-    // 플레이어가 유령을 바라보고 있는지 확인
-    private bool PlayerLookingAtMe()
-    {
-        Vector2 toEnemy = (transform.position - playerTransform.position).normalized;
-        Vector2 playerLookDir = playerTransform.right;
-        if (playerTransform.localScale.x < 0)
-            playerLookDir *= -1;
-
-        float angle = Vector2.Angle(playerLookDir, toEnemy);
-        return angle < 60f;
-    }
-
-    // 플레이어와 유령이 같은 방에 있는지 확인
-    private bool IsSameRoom()
-    {
-        if (roomChase == null || roomChase.playerRoom == null)
-            return false;
-
-        return roomChase.currentRoomID == roomChase.playerRoom.currentRoomID;
-    }
-
-    // 대상 방향으로 유령 회전
-    private void LookAt(Vector3 target)
-    {
-        Vector3 scale = transform.localScale;
-        float originalX = Mathf.Abs(scale.x);
-        scale.x = target.x < transform.position.x ? -originalX : originalX;
-        transform.localScale = scale;
-    }
-
-    // 플레이어와 충돌 시 처리
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!hasTriggered && collision.CompareTag("Player"))
         {
             hasTriggered = true;
+            isPaused = true;
+            rb.linearVelocity = Vector2.zero;
 
-            Player player = collision.GetComponent<Player>();
-            if (player != null)
+            Player pl = collision.GetComponent<Player>();
+            if (pl != null)
             {
-                // 플레이어 행동 제한
-                player.isHiding = true;
-                player.isInteractionLocked = true;
-                player.ResetHold();
-                player.TakeDamage(damage);
+                pl.isHiding = true;
+                pl.isInteractionLocked = true;
+                pl.ResetHold();
+                pl.TakeDamage(damage);
 
-                if (anim != null)
-                {
-                    anim.SetBool("Tracking", true);
-                    anim.SetBool("Idle", false);
-                    anim.SetBool("Grab", true);
-                }
+                anim?.SetBool("Tracking", true);
+                anim?.SetBool("Idle", false);
+                anim?.SetBool("Grab", true);
 
-                // 사운드 정지 및 충돌 사운드 재생
                 StopAudioGroup(chaseSources);
                 StopAudioGroup(idleSources);
                 AudioManager.Instance.PlayAt(hitPlayerSound, transform.position);
@@ -193,7 +182,6 @@ public class Shadow : MonoBehaviour
         }
     }
 
-    // 플레이어 이동 복구
     private void EnablePlayer()
     {
         if (player != null)
@@ -203,7 +191,38 @@ public class Shadow : MonoBehaviour
         }
     }
 
-    // 오디오 정지
+    private bool PlayerLookingAtMe()
+    {
+        Vector2 toEnemy = (transform.position - playerTransform.position).normalized;
+        Vector2 playerLookDir = playerTransform.right;
+        if (playerTransform.localScale.x < 0)
+            playerLookDir *= -1;
+
+        float angle = Vector2.Angle(playerLookDir, toEnemy);
+        return angle < 60f;
+    }
+
+    private bool IsSameRoom()
+    {
+        return roomChase != null && roomChase.playerRoom != null &&
+               roomChase.currentRoomID == roomChase.playerRoom.currentRoomID;
+    }
+
+    private void LookAt(Vector3 target)
+    {
+        float dirX = target.x - transform.position.x;
+        if (Mathf.Abs(dirX) < 0.1f) return;
+
+        Vector3 scale = transform.localScale;
+        float originalX = Mathf.Abs(scale.x);
+        bool shouldLookLeft = dirX < 0;
+        if ((shouldLookLeft && scale.x > 0) || (!shouldLookLeft && scale.x < 0))
+        {
+            scale.x = shouldLookLeft ? -originalX : originalX;
+            transform.localScale = scale;
+        }
+    }
+
     private void StopAudioGroup(AudioSource[] sources)
     {
         foreach (var source in sources)
@@ -213,7 +232,6 @@ public class Shadow : MonoBehaviour
         }
     }
 
-    // 오디오 재생
     private void PlayAudioGroup(AudioSource[] sources)
     {
         foreach (var source in sources)

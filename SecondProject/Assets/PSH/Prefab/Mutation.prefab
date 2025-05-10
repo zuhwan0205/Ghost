@@ -36,7 +36,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.1, y: -2.65, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -129,7 +129,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.059948444, y: 0.019982696}
+  m_Offset: {x: -0.017848015, y: -0.06421769}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -139,7 +139,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5595179, y: 1.4396212}
+  m_Size: {x: 10.484772, y: 5.7338476}
   m_EdgeRadius: 0
 --- !u!50 &2452938600002826922
 Rigidbody2D:
@@ -197,6 +197,7 @@ MonoBehaviour:
   hitPlayerSound: mutation_hit
   audioSources:
   - {fileID: 2417946952118693694}
+  damage: 0
 --- !u!114 &3284979573563576065
 MonoBehaviour:
   m_ObjectHideFlags: 0
