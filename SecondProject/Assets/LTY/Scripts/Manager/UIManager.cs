@@ -3,18 +3,18 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance; // ½Ì±ÛÅæ
-    public TextMeshProUGUI healthText; // Ã¼·Â ÅØ½ºÆ®
-    public UnityEngine.UI.Image staminaBarFill; // ½ºÅÂ¹Ì³ª ¹Ù
-    public TextMeshProUGUI staminaText; // ½ºÅÂ¹Ì³ª ÅØ½ºÆ®
-    public UnityEngine.UI.Image[] itemSlots; // ¾ÆÀÌÅÛ ½½·Ô 3°³
+    public static UIManager Instance; // ì‹±ê¸€í†¤
+    public TextMeshProUGUI healthText; // ì²´ë ¥ í…ìŠ¤íŠ¸
+    public UnityEngine.UI.Image staminaBarFill; // ìŠ¤íƒœë¯¸ë‚˜ ë°”
+    public TextMeshProUGUI staminaText; // ìŠ¤íƒœë¯¸ë‚˜ í…ìŠ¤íŠ¸
+    public UnityEngine.UI.Image[] itemSlots; // ì•„ì´í…œ ìŠ¬ë¡¯ 3ê°œ
 
     private PlayerHealth playerHealth;
     private PlayerController playerController;
 
     void Awake()
     {
-        // ½Ì±ÛÅæ ¼³Á¤
+        // ì‹±ê¸€í†¤ ì„¤ì •
         if (Instance == null)
         {
             Instance = this;
@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        // ÇÃ·¹ÀÌ¾î ÄÄÆ÷³ÍÆ® ÂüÁ¶
+        // í”Œë ˆì´ì–´ ì»´í¬ë„ŒíŠ¸ ì°¸ì¡°
         playerHealth = Object.FindFirstObjectByType<PlayerHealth>();
         playerController = Object.FindFirstObjectByType<PlayerController>();
 
@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
         if (staminaText == null) Debug.LogError("StaminaText not assigned!");
         if (itemSlots == null || itemSlots.Length != 3) Debug.LogError("ItemSlots not assigned or incorrect count!");
 
-        // ÃÊ±â UI ¼³Á¤
+        // ì´ˆê¸° UI ì„¤ì •
         UpdateHealthUI();
         UpdateStaminaUI();
         ClearItemSlots();
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        // ½Ç½Ã°£ ¾÷µ¥ÀÌÆ®
+        // ì‹¤ì‹œê°„ ì—…ë°ì´íŠ¸
         UpdateHealthUI();
         UpdateStaminaUI();
     }
@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
         if (slotIndex >= 0 && slotIndex < itemSlots.Length && itemSprite != null)
         {
             itemSlots[slotIndex].sprite = itemSprite;
-            itemSlots[slotIndex].color = Color.white; // ¾ÆÀÌÅÛ Ç¥½Ã
+            itemSlots[slotIndex].color = Color.white; // ì•„ì´í…œ í‘œì‹œ
             Debug.Log($"Added item to slot {slotIndex}");
         }
     }
@@ -89,7 +89,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < itemSlots.Length; i++)
         {
             itemSlots[i].sprite = null;
-            itemSlots[i].color = new Color(0.5f, 0.5f, 0.5f, 1); // È¸»ö ºóÄ­
+            itemSlots[i].color = new Color(0.5f, 0.5f, 0.5f, 1); // íšŒìƒ‰ ë¹ˆì¹¸
         }
     }
 }
