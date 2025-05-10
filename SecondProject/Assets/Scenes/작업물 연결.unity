@@ -425,11 +425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &931014179 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2602283546201509817, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
-  m_PrefabInstance: {fileID: 6354090813635069026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1024286711 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1184743150881080613, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
@@ -926,11 +921,6 @@ AudioSource:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 640692258841764521, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
   m_PrefabInstance: {fileID: 4437154237417109213}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1753038212 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4352036593592616890, guid: 13a8e78d334b81b42b9fb9a6d8e6e155, type: 3}
-  m_PrefabInstance: {fileID: 6560543571408040623}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1763045810 stripped
 GameObject:
@@ -1627,6 +1617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGameCanvas_Mirror
       objectReference: {fileID: 0}
+    - target: {fileID: 7706319569498525233, guid: c1569fbeff1b4784f9d854c6dae4a209, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1850,7 +1844,7 @@ PrefabInstance:
     - target: {fileID: 2160372947242886232, guid: c8370a7b508eaed458baf29a911abed1, type: 3}
       propertyPath: Light
       value: 
-      objectReference: {fileID: 1753038212}
+      objectReference: {fileID: 0}
     - target: {fileID: 2160372947242886232, guid: c8370a7b508eaed458baf29a911abed1, type: 3}
       propertyPath: Radio
       value: 
@@ -2564,6 +2558,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2009753406}
+    - target: {fileID: 3102418580316283965, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3150178249765570498, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2580,10 +2578,22 @@ PrefabInstance:
       propertyPath: CarpetInteract
       value: 
       objectReference: {fileID: 1505994814}
+    - target: {fileID: 4273567080041640276, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5413747516874751228, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: staticNoise
       value: 
       objectReference: {fileID: 1621323217}
+    - target: {fileID: 5925590219135163168, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6037704896519282272, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7421411100991798751, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: m_Camera
       value: 
@@ -2636,6 +2646,10 @@ PrefabInstance:
       propertyPath: CarpetInteract
       value: 
       objectReference: {fileID: 1505994814}
+    - target: {fileID: 8630742924801043617, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3023,7 +3037,7 @@ PrefabInstance:
     - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
       propertyPath: MG_Light
       value: 
-      objectReference: {fileID: 1753038212}
+      objectReference: {fileID: 0}
     - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
       propertyPath: MG_Radio
       value: 
@@ -3047,7 +3061,7 @@ PrefabInstance:
     - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
       propertyPath: MG_LightPanel
       value: 
-      objectReference: {fileID: 931014179}
+      objectReference: {fileID: 0}
     - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
       propertyPath: MG_RadioPanel
       value: 
