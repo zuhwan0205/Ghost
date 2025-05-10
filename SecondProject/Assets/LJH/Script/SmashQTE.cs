@@ -13,14 +13,22 @@ public class SmashQTE : MonoBehaviour
     private float currentGauge = 0f;
     private bool isQTEActive = false;
     
+    public static SmashQTE Instance;
+    
     public static event Action OnEndSmashQTE;
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
-        StartQTE();
+        //StartSmashQTE();
     }
 
-    public void StartQTE()
+    public void StartSmashQTE()
     {
         currentGauge = 0f;
         isQTEActive = true;
@@ -52,6 +60,8 @@ public class SmashQTE : MonoBehaviour
 
     void CompleteQTE()
     {
+        qteSlider.value = 0;
+        currentGauge = 0f;
         isQTEActive = false;
         qteSlider.gameObject.SetActive(false);
         Debug.Log("QTE 성공!");
