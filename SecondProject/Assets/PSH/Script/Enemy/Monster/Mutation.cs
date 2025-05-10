@@ -49,6 +49,9 @@ public class Mutation : MonoBehaviour
     [SerializeField] private string hitPlayerSound = "mutation_hit";
     [SerializeField] private AudioSource[] audioSources;
 
+    [Header("데미지")]
+    [SerializeField] private float damage;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -327,7 +330,7 @@ public class Mutation : MonoBehaviour
             pl.isHiding = true; // 이동 불가
             pl.isInteractionLocked = true;
             pl.ResetHold(); 
-
+            pl.TakeDamage(damage); // 데미지 처리
 
             Invoke(nameof(EnablePlayer), 3.0f);
         }

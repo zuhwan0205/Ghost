@@ -26,6 +26,9 @@ public class Ghost : MonoBehaviour
     [SerializeField] private AudioSource[] idleSources;
     [SerializeField] private AudioSource[] chaseSources;
 
+    [Header("데미지")]
+    [SerializeField] private float damage;
+
     private Rigidbody2D rb;
     private Player player;
     private Animator anim;
@@ -271,6 +274,7 @@ public class Ghost : MonoBehaviour
                 pl.isHiding = true;
                 pl.isInteractionLocked = true;
                 pl.ResetHold();
+                pl.TakeDamage(damage);
                 Invoke(nameof(ResumePlayerControl), 3.0f);
             }
 
