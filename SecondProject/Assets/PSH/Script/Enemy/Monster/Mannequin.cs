@@ -3,37 +3,44 @@ using System.Collections;
 
 public class Mannequin : MonoBehaviour
 {
-    [Header("¸¶³×Å· »óÅÂ")]
-    [SerializeField] private bool isActive = true; // ¸¶³×Å·ÀÌ È°¼º »óÅÂÀÎÁö ¿©ºÎ
-    [SerializeField] private bool isGrabbed = false; // ÇÃ·¹ÀÌ¾î¸¦ Àâ¾Ò´ÂÁö ¿©ºÎ
+    [Header("ï¿½ï¿½ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private bool isActive = true; // ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private bool isGrabbed = false; // ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    [Header("¸¶³×Å· ±â¹Í")]
-    private int escapeCount = 0; // E Å° ´©¸¥ È½¼ö
-    private int escapeRequiredCount = 15; // Å»Ãâ¿¡ ÇÊ¿äÇÑ E Å° ÀÔ·Â È½¼ö
+    [Header("ï¿½ï¿½ï¿½ï¿½Å· ï¿½ï¿½ï¿½")]
+    private int escapeCount = 0; // E Å° ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    private int escapeRequiredCount = 15; // Å»ï¿½â¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ E Å° ï¿½Ô·ï¿½ È½ï¿½ï¿½
 
-    [Header("ÇÃ·¹ÀÌ¾î µ¥¹ÌÁö ¼³Á¤")]
-    [SerializeField] private float damageInterval = 1.0f; // µ¥¹ÌÁö¸¦ ÁÖ´Â °£°Ý
-    [SerializeField] private float damageAmount = 1.0f; // ÇÑ¹ø¿¡ ÁÖ´Â µ¥¹ÌÁö·®
+    [Header("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private float damageInterval = 1.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float damageAmount = 1.0f; // ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    [Header("¸¶³×Å· ÃÊ±âÈ­ ¼³Á¤")]
-    [SerializeField] private float resetTime = 10.0f; // ÃÊ±âÈ­±îÁö °É¸®´Â ½Ã°£
+    [Header("ï¿½ï¿½ï¿½ï¿½Å· ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½")]
+    [SerializeField] private float resetTime = 10.0f; // ï¿½Ê±ï¿½È­ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
     private Player player;
     private Rigidbody2D rb;
+    
+    public static Mannequin Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        Player_Grabbed();
-    }
+    // private void Update()
+    // {
+    //     Player_Grabbed();
+    // }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"[¸¶³×Å· Ãæµ¹ °¨Áö] Ãæµ¹ÇÑ °´Ã¼ ÅÂ±×: {other.tag}");
+        Debug.Log($"[ï¿½ï¿½ï¿½ï¿½Å· ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½] ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Â±ï¿½: {other.tag}");
 
         if (isActive && !isGrabbed && other.CompareTag("Player"))
         {
@@ -43,62 +50,71 @@ public class Mannequin : MonoBehaviour
             {
                 isGrabbed = true;
 
-                player.isHiding = true; // ÀÌµ¿ ºÒ°¡
+                player.isHiding = true; // ï¿½Ìµï¿½ ï¿½Ò°ï¿½
 
-                // ÇÃ·¹ÀÌ¾î¿¡°Ô Áö¼Ó µ¥¹ÌÁö ½ÃÀÛ
+                // ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 StartCoroutine(DamagePlayer());
 
-                Debug.Log("¸¶³×Å·ÀÌ ÇÃ·¹ÀÌ¾î¸¦ Àâ¾Ò½À´Ï´Ù!");
+                if (Random.value < 0.5f)
+                {
+                    QTEManager_LJH.Instance.StartSmashQte();
+                }
+                else
+                {
+                    QTEManager_LJH.Instance.StartStarForceQte();
+                }
+                
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½Ò½ï¿½ï¿½Ï´ï¿½!");
             }
             else
             {
-                Debug.LogWarning("Player ÄÄÆ÷³ÍÆ®¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+                Debug.LogWarning("Player ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
             }
         }
     }
 
-    // ÇÃ·¹ÀÌ¾î¸¦ Àâ¾ÒÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
-    private void Player_Grabbed()
-    {
-        if (isGrabbed && player != null)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                escapeCount++;
-                Debug.Log($"E Å° ÀÔ·Â È½¼ö: {escapeCount}/{escapeRequiredCount}");
+    // ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½
+    // private void Player_Grabbed()
+    // {
+    //     if (isGrabbed && player != null)
+    //     {
+    //         if (Input.GetKeyDown(KeyCode.E))
+    //         {
+    //             escapeCount++;
+    //             Debug.Log($"E Å° ï¿½Ô·ï¿½ È½ï¿½ï¿½: {escapeCount}/{escapeRequiredCount}");
+    //
+    //             if (escapeCount >= escapeRequiredCount)
+    //             {
+    //                 EscapeFromMannequin();
+    //             }
+    //         }
+    //     }
+    // }
 
-                if (escapeCount >= escapeRequiredCount)
-                {
-                    EscapeFromMannequin();
-                }
-            }
-        }
-    }
-
-    // ÇÃ·¹ÀÌ¾î°¡ ¸¶³×Å·¿¡¼­ ¹þ¾î³µÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
-    private void EscapeFromMannequin()
+    // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½
+    public void EscapeFromMannequin()
     {
-        Debug.Log("ÇÃ·¹ÀÌ¾î°¡ ¸¶³×Å·¿¡¼­ ¹þ¾î³µ½À´Ï´Ù!");
+        Debug.Log("ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½ï¿½ï¿½Ï´ï¿½!");
 
         isGrabbed = false;
         isActive = false;
 
         if (player != null)
         {
-            player.isHiding = false; // ÀÌµ¿ °¡´É
+            player.isHiding = false; // ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        // ¸¶³×Å· Collider ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½Å· Collider ï¿½ï¿½È°ï¿½ï¿½È­
         GetComponent<Collider2D>().enabled = false;
 
-        // µ¥¹ÌÁö ÄÚ·çÆ¾ Áß´Ü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½ß´ï¿½
         StopAllCoroutines();
 
-        // ÀÏÁ¤ ½Ã°£ ÈÄ ´Ù½Ã È°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½Ù½ï¿½ È°ï¿½ï¿½È­
         StartCoroutine(ResetMannequin(resetTime));
     }
 
-    // ÇÃ·¹ÀÌ¾î°¡ µ¥¹ÌÁö¸¦ ÀÔ´Â ÇÔ¼ö
+    // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô´ï¿½ ï¿½Ô¼ï¿½
     private IEnumerator DamagePlayer()
     {
         while (isGrabbed && player != null)
@@ -108,7 +124,7 @@ public class Mannequin : MonoBehaviour
         }
     }
 
-    // ¸¶³×Å·À» ´Ù½Ã È°¼ºÈ­½ÃÅ°´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ ï¿½Ù½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ô¼ï¿½
     private IEnumerator ResetMannequin(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -118,6 +134,6 @@ public class Mannequin : MonoBehaviour
         escapeCount = 0;
         GetComponent<Collider2D>().enabled = true;
 
-        Debug.Log("¸¶³×Å·ÀÌ ´Ù½Ã È°¼ºÈ­µÇ¾ú½À´Ï´Ù!");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½Å·ï¿½ï¿½ ï¿½Ù½ï¿½ È°ï¿½ï¿½È­ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
     }
 }
