@@ -7,7 +7,6 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     //패널
     public GameObject MG_MannequinPanel;
     public GameObject MG_GlassPanel;
-    public GameObject MG_LightPanel;
     public GameObject MG_VentPanel;
     public GameObject MG_RadioPanel;
     public GameObject MG_CarpetPanel;
@@ -15,7 +14,6 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     //오브젝트
     public GameObject MG_Mannequin;
     public GameObject MG_Glass;
-    public GameObject MG_Light;
     public GameObject MG_Vent;
     public GameObject MG_Radio;
     public GameObject MG_Carpet;
@@ -38,12 +36,10 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         Stain.OnMannequinEnd += MannequinPanelOff;
         PropellerSocket_LJH.OnVentEnd += VentPanelOff;
         MG_Radio_LJH.OnRadioEnd += RadioPanelOff;
-        LightSocket.OnLightEnd += LightPanelOff;
         Dust_LJH.OnCarpetEnd += CarpetPanelOff;
         MannequinInteract.OnMannequinInteracted += MannequinPanelOn;
         CarpetInteract.OnCarpetInteract += CarpetPanelOn;
         GlassInteract.OnGlassInteract += GlassPanelOn;
-        LightInteract.OnLightInteract += LightPanelOn;
         RadioInteract.OnRadioInteract += RadioPanelOn;
         VentInteract.OnVentInteract += VentPanelOn;
     }
@@ -54,12 +50,10 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         Stain.OnMannequinEnd -= MannequinPanelOff;
         PropellerSocket_LJH.OnVentEnd -= VentPanelOff;
         MG_Radio_LJH.OnRadioEnd -= RadioPanelOff;
-        LightSocket.OnLightEnd -= LightPanelOff;
         Dust_LJH.OnCarpetEnd -= CarpetPanelOff;
         MannequinInteract.OnMannequinInteracted -= MannequinPanelOn;
         CarpetInteract.OnCarpetInteract -= CarpetPanelOn;
         GlassInteract.OnGlassInteract -= GlassPanelOn;
-        LightInteract.OnLightInteract -= LightPanelOn;
         RadioInteract.OnRadioInteract -= RadioPanelOn;
         VentInteract.OnVentInteract -= VentPanelOn;
     }
@@ -106,14 +100,6 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         ScheduleManager.Instance.CompleteMission("Radio");
     }
 
-    void LightPanelOff()
-    {
-        StartCoroutine(DisableAfterDelay(MG_LightPanel, 3f));
-        Destroy(MG_Light);
-        //인게임 조명 켜기
-        ScheduleManager.Instance.CompleteMission("Light");
-    }
-
     void CarpetPanelOff()
     {
         StartCoroutine(DisableAfterDelay(MG_CarpetPanel, 3f));
@@ -140,14 +126,6 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     {
         DisableAllPanels();
         MG_GlassPanel.SetActive(true);
-        isMiniGaming = true;
-        panelCooldown = 0.2f;
-    }
-
-    void LightPanelOn()
-    {
-        DisableAllPanels();
-        MG_LightPanel.SetActive(true);
         isMiniGaming = true;
         panelCooldown = 0.2f;
     }
@@ -183,7 +161,6 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         {
             MG_MannequinPanel.SetActive(false);
             MG_GlassPanel.SetActive(false);
-            MG_LightPanel.SetActive(false);
             MG_VentPanel.SetActive(false);
             MG_RadioPanel.SetActive(false);
             MG_CarpetPanel.SetActive(false);
