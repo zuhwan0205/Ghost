@@ -107,6 +107,6 @@ MonoBehaviour:
   detectDistY: 0.87
   detected: 0
   interactionTime: 0
-  needTime: 1
+  needTime: 0.5
   isWorking: 0
   isFake: 0

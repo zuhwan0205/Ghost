@@ -108,7 +108,7 @@ MonoBehaviour:
   detectDistY: 1.35
   detected: 0
   interactionTime: 0
-  needTime: 1
+  needTime: 0.5
   isWorking: 0
   trashObj: {fileID: 7106507017222796351}
 --- !u!1 &7106507017222796351

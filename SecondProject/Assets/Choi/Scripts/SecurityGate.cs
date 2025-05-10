@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Collections;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public class SecurityGate : EventObject
 {

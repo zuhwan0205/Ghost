@@ -108,7 +108,7 @@ MonoBehaviour:
   detectDistY: 1.99
   detected: 0
   interactionTime: 0
-  needTime: 1
+  needTime: 0.5
   isWorking: 0
   workingTime: 0
   failTime: 20
