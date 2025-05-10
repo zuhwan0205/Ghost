@@ -8,37 +8,51 @@ public class QTEManager_LJH : MonoBehaviour
     public GameObject StarForceQTEPanel;
     
     //플레이어 참조
-    public GameObject PlayerController;
+    //public GameObject PlayerController;
+    
+    public static QTEManager_LJH Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     private void OnEnable()
     {
         StarforceQTE.OnEndStarForceQTE += EndQte;
-        SmashQTE.OnEndSmashQTE += EndQte;
+        SmashQTE.OnEndSmashQTE += EndSmashQte;
     }
 
     private void OnDisable()
     {
         StarforceQTE.OnEndStarForceQTE -= EndQte;
-        SmashQTE.OnEndSmashQTE -= EndQte;
+        SmashQTE.OnEndSmashQTE -= EndSmashQte;
     }
 
-    void StartSmashQte()
+    public void StartSmashQte()
     {
         SmashQTEPanel.SetActive(true);
-        PlayerController.SetActive(false);
+        SmashQTE.Instance.StartSmashQTE();
+        //PlayerController.SetActive(false);
     }
 
-    void StartStarForceQte()
+    public void StartStarForceQte()
     {
         StarForceQTEPanel.SetActive(true);
-        PlayerController.SetActive(false);
+        StarforceQTE.Instance.StartstarforceQTE();
+        //PlayerController.SetActive(false);
     }
 
     void EndQte()
     {
-        SmashQTEPanel.SetActive(false);
         StarForceQTEPanel.SetActive(false);
-        PlayerController.SetActive(true);
+        Mannequin.Instance.EscapeFromMannequin();
+    }
+
+    void EndSmashQte()
+    {
+        SmashQTEPanel.SetActive(false);
+        Mannequin.Instance.EscapeFromMannequin();
     }
 
 }
