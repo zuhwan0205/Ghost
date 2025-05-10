@@ -561,6 +561,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8337200560877630992, guid: 0b22d9b377572a7458bcc371ff6f4338, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 8337200560877630992, guid: 0b22d9b377572a7458bcc371ff6f4338, type: 3}
       propertyPath: m_Name
       value: LostPropertySpawnPoint
       objectReference: {fileID: 0}
