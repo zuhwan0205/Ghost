@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 442cb389a47f1d844aab38fa31810234
+guid: 6c2412aa71232bd4c8a5e3faa57b60d4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4178831726122523700
-    second: Message_swipebutton-sheet_0
-  - first:
-      213: -6860655689892337381
-    second: Message_swipebutton-sheet_1
+      213: -5004643638299570384
+    second: backbutton_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,88 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Message_swipebutton_0
+      name: backbutton_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 8
-        width: 53
-        height: 8
+        y: 5
+        width: 29
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 65d054a3476755444b3a5668da8997e9
-      internalID: -5042249310903987602
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Message_swipebutton_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 53
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ee1b2ce8414e831418e6d798cb7b53e7
-      internalID: 9140982914653468813
+      spriteID: 03f4cbf602feb8ab0800000000000000
+      internalID: -5004643638299570384
       vertices: []
       indices: 
       edges: []
@@ -189,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 039ce23d3e638d444a3ab38029b0ac18
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -199,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Message_swipebutton_0: -5042249310903987602
-      Message_swipebutton_1: 9140982914653468813
+      backbutton_0: -5004643638299570384
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

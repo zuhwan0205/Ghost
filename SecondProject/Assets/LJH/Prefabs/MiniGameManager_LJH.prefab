@@ -46,13 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MG_MannequinPanel: {fileID: 0}
   MG_GlassPanel: {fileID: 0}
-  MG_LightPanel: {fileID: 0}
   MG_VentPanel: {fileID: 0}
   MG_RadioPanel: {fileID: 0}
   MG_CarpetPanel: {fileID: 0}
   MG_Mannequin: {fileID: 0}
   MG_Glass: {fileID: 0}
-  MG_Light: {fileID: 0}
   MG_Vent: {fileID: 0}
   MG_Radio: {fileID: 0}
   MG_Carpet: {fileID: 0}

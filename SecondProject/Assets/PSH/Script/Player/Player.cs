@@ -45,10 +45,11 @@ public class Player : PlayerManager
     [SerializeField] private TextMeshProUGUI coinText;      // 동전 개수 표시 UI
     [SerializeField] private GameObject vendingMachinePanel;// 자판기 UI 패널
 
-    private float holdTimer = 0f;               // 상호작용 유지 시간 계산용
+    private float holdTimer = 0f;               // 상호작용 유지 시간 계산용 
     private bool isHolding = false;             // 상호작용 유지 중인지 여부
     private Interactable currentInteractable;   // 현재 상호작용 중인 오브젝트
     public bool isInteractionLocked = false;    // 상호작용 잠금 기능
+    public float interactionTime = 0f;
 
     [SerializeField] private GameObject interactionHint;    // 상호작용 가능 표시 UI
     [SerializeField] private Slider holdProgressBar;        // 상호작용 진행 바 UI
@@ -340,7 +341,10 @@ public class Player : PlayerManager
             return;
         }
 
-        Collider2D hit = Physics2D.OverlapCircle(transform.position, interactionRadius, interactableLayer);
+        if (Input.GetKey(KeyCode.E)) interactionTime += Time.deltaTime;
+        else interactionTime = 0f;
+
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, interactionRadius, interactableLayer);
         interactionHint.SetActive(hit != null);
 
         if (Input.GetKeyDown(KeyCode.E) && hit)

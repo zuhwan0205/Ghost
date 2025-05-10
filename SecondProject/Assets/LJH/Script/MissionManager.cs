@@ -6,7 +6,6 @@ public class MissionManager : MonoBehaviour
 {
     public GameObject Mannequin;
     public GameObject Glass;
-    public GameObject Light;
     public GameObject Vent;
     public GameObject Radio;
     public GameObject Carpet;
@@ -26,7 +25,7 @@ public class MissionManager : MonoBehaviour
 
         allMiniGames = new List<GameObject>
         {
-            Mannequin, Glass, Light, Vent,
+            Mannequin, Glass, Vent,
             Radio, Carpet, MirrorSystem, WireBoxSystem
         };
         
@@ -34,7 +33,6 @@ public class MissionManager : MonoBehaviour
         {
             { "Mannequin", "Clean the mannequin." },
             { "Glass", "Clean up the broken glass." },
-            { "Light", "Replace the light bulb." },
             { "Vent", "Fix the ventilation system." },
             { "Radio", "Tune the radio to zero." },
             { "Carpet", "Organize the carpet." },

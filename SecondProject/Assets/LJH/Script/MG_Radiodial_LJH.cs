@@ -18,6 +18,8 @@ public class MG_Radio_LJH : MonoBehaviour, IBeginDragHandler, IDragHandler
     private float displayedFreq = 0f;
 
     private Vector2 prevMousePos;
+    
+    private bool isMatched = false;
 
     public static event Action OnRadioEnd;
 
@@ -31,12 +33,16 @@ public class MG_Radio_LJH : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (isMatched) return;
+        
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             dialRect, eventData.position, eventData.pressEventCamera, out prevMousePos);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (isMatched) return;
+        
         Vector2 currentMousePos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             dialRect, eventData.position, eventData.pressEventCamera, out currentMousePos);
@@ -65,13 +71,16 @@ public class MG_Radio_LJH : MonoBehaviour, IBeginDragHandler, IDragHandler
     
     void Update()
     {
+        if (isMatched) return;
         displayedFreq = Mathf.Lerp(displayedFreq, currentFreq, Time.deltaTime * 10f);
         frequencyText.text = $"{displayedFreq:F1}";
     }
 
     void CompleteFrequencyMatch()
     {
+        isMatched = true;
         staticNoise.Stop();
+        frequencyText.text = "0";
         Debug.Log("정상 주파수 연결됨");
         OnRadioEnd?.Invoke();
     }

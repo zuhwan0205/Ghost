@@ -21,7 +21,7 @@ public class EventObject : MonoBehaviour
     protected virtual void Update()
     {
         (detected, detCol) = DetectPlayer();    // 감지한 플레이어 정보
-        interactionTime = detCol != null ? detCol.GetComponent<testPlayer>().interactionTime : 0;   // 플레이어 interactionTime 참조
+        interactionTime = detCol != null ? detCol.GetComponent<Player>().interactionTime : 0;   // 플레이어 interactionTime 참조
     }
 
     protected virtual (bool, Collider2D) DetectPlayer() // 플레이어 감지

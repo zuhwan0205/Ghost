@@ -78,11 +78,12 @@ public class ScheduleManager : MonoBehaviour
         {
             PhoneManager.Instance?.AddMessage("나 보다 전에 일했던 사람이 알려줬는데 밤에 뭔가 기어다니는 소리가 자주 들렸다고 하더라고....");
         }
-        else if (currentMissions == 2)
+        if (currentMissions == 2)
         {
+            Debug.Log("커런트 미션 카운트: "+currentMissions);
             PhoneManager.Instance?.AddMessage("아 맞다, 내가 일할 때는 마네킹의 위치가 이상할 때도 있더라... 누가 옮기다 까먹었나...");
         }
-        else if (currentMissions == 3)
+        if (currentMissions >= 3)
         {
             PhoneManager.Instance?.AddMessage("이제 곧 끝날 시간이네! 퇴근 축하해!!! 이제 입구 쪽으로 가면 문이 열려 있을 거야.");
         }
