@@ -117,7 +117,7 @@ public class MiniGameManagaer_LJH : MonoBehaviour
     void CarpetPanelOff()
     {
         StartCoroutine(DisableAfterDelay(MG_CarpetPanel, 3f));
-        //Destroy(MG_Carpet);
+        Destroy(MG_Carpet);
         ScheduleManager.Instance.CompleteMission("Carpet");
     }
     
