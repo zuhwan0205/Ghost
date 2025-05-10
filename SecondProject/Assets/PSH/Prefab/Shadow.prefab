@@ -195,6 +195,8 @@ MonoBehaviour:
   chaseSources:
   - {fileID: 9010668279374604501}
   damage: 0
+  moveSpeed: 2
+  chaseSpeed: 5
 --- !u!114 &8332260746216465690
 MonoBehaviour:
   m_ObjectHideFlags: 0

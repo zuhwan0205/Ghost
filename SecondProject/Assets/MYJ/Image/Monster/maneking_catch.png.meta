@@ -1,28 +1,16 @@
 fileFormatVersion: 2
-guid: c843457890b5a724badaaa3d73ca3a32
+guid: 0a793f1ac6c8c4c4e91b239f01402798
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7231367918711870433
-    second: Shadow_Walk_0
+      213: 4069365854667642831
+    second: maneking_catch_0
   - first:
-      213: 4274952038121092230
-    second: Shadow_Walk_1
+      213: -5590932425463353710
+    second: maneking_catch_1
   - first:
-      213: 8193136767929859743
-    second: Shadow_Walk_2
-  - first:
-      213: -926762637283311036
-    second: Shadow_Walk_3
-  - first:
-      213: 5386520334430754501
-    second: Shadow_Walk_4
-  - first:
-      213: -5312193436763661790
-    second: Shadow_Walk_5
-  - first:
-      213: -1252345698222197926
-    second: Shadow_Walk_6
+      213: -292490491661191444
+    second: maneking_catch_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -127,30 +115,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Shadow_Walk_0
+      name: maneking_catch_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 15
-        width: 42
-        height: 306
+        x: 7
+        y: 5
+        width: 39
+        height: 77
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +134,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e31af20fcafa5460800000000000000
-      internalID: 7231367918711870433
+      spriteID: fc791943faa497830800000000000000
+      internalID: 4069365854667642831
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shadow_Walk_1
+      name: maneking_catch_1
       rect:
         serializedVersion: 2
-        x: 99
-        y: 15
-        width: 42
-        height: 306
+        x: 55
+        y: 5
+        width: 39
+        height: 77
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6843a00aa3ea35b30800000000000000
-      internalID: 4274952038121092230
+      spriteID: 29e2b01c4940962b0800000000000000
+      internalID: -5590932425463353710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shadow_Walk_2
+      name: maneking_catch_2
       rect:
         serializedVersion: 2
-        x: 179
-        y: 15
-        width: 42
-        height: 306
+        x: 103
+        y: 5
+        width: 39
+        height: 77
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,96 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f9eb6a83b7ed3b170800000000000000
-      internalID: 8193136767929859743
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Shadow_Walk_3
-      rect:
-        serializedVersion: 2
-        x: 257
-        y: 15
-        width: 44
-        height: 306
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 442cf95aa4a7323f0800000000000000
-      internalID: -926762637283311036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Shadow_Walk_4
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 15
-        width: 45
-        height: 306
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c6d92584b3c0ca40800000000000000
-      internalID: 5386520334430754501
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Shadow_Walk_5
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 15
-        width: 45
-        height: 306
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 22a5a87e63c4746b0800000000000000
-      internalID: -5312193436763661790
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Shadow_Walk_6
-      rect:
-        serializedVersion: 2
-        x: 500
-        y: 17
-        width: 46
-        height: 306
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a533a710936ce9ee0800000000000000
-      internalID: -1252345698222197926
+      spriteID: ce6fa50927dd0fbf0800000000000000
+      internalID: -292490491661191444
       vertices: []
       indices: 
       edges: []
@@ -311,13 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Shadow_Walk_0: 7231367918711870433
-      Shadow_Walk_1: 4274952038121092230
-      Shadow_Walk_2: 8193136767929859743
-      Shadow_Walk_3: -926762637283311036
-      Shadow_Walk_4: 5386520334430754501
-      Shadow_Walk_5: -5312193436763661790
-      Shadow_Walk_6: -1252345698222197926
+      maneking_catch_0: 4069365854667642831
+      maneking_catch_1: -5590932425463353710
+      maneking_catch_2: -292490491661191444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

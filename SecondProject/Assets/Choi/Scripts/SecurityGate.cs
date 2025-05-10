@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Collections;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public class SecurityGate : EventObject
 {
@@ -31,6 +32,7 @@ public class SecurityGate : EventObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("1");
         // 켜진상태로 닿으면 알람 시작
         if (isWorking && collision.gameObject.CompareTag("Player"))
         {

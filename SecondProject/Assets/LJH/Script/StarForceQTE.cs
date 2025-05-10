@@ -15,14 +15,21 @@ public class StarforceQTE : MonoBehaviour
     
     private int successCount = 0;
     
+    public static StarforceQTE Instance;
+    
     public static event Action OnEndStarForceQTE;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
-        StartQTE();
+        //StartstarforceQTE();
     }
 
-    public void StartQTE()
+    public void StartstarforceQTE()
     {
         isQTEActive = true;
         minX = -450f;
@@ -74,6 +81,7 @@ public class StarforceQTE : MonoBehaviour
                 {
                     Debug.Log("QTE 완료!");
                     OnEndStarForceQTE?.Invoke();
+                    successCount = 0;
                 }
                 else
                 {
@@ -91,6 +99,6 @@ public class StarforceQTE : MonoBehaviour
     private IEnumerator RestartQTEAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        StartQTE();
+        StartstarforceQTE();
     }
 }

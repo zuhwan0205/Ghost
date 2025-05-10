@@ -249,6 +249,8 @@ public class WiringGameManager : MonoBehaviour
             {
                 Debug.LogWarning("[WiringGameManager] Interactable이 null입니다!");
             }
+            // ScheduleManager에 미션 완료 알림
+            ScheduleManager.Instance.CompleteMission("WireBoxSystem");
         }
     }
 }

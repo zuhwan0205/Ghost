@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: d01e1f0d272adb44ea471ccd6d9ddc39
+guid: 556becb66881d8142bd463bd14105cab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8714070345109589885
-    second: Shadow_Idle_0
+      213: 2360401710737129150
+    second: phone_missioncheck_0
+  - first:
+      213: -5876689157199295464
+    second: phone_missioncheck_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +112,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Shadow_Idle_0
+      name: phone_missioncheck_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 40
-        height: 304
+        x: 2
+        y: 14
+        width: 9
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3803af3b037611780800000000000000
-      internalID: -8714070345109589885
+      spriteID: ebef5b799d4d1c020800000000000000
+      internalID: 2360401710737129150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phone_missioncheck_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81c0fb9f85ec17ea0800000000000000
+      internalID: -5876689157199295464
       vertices: []
       indices: 
       edges: []
@@ -161,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Shadow_Idle_0: -8714070345109589885
+      phone_missioncheck_0: 2360401710737129150
+      phone_missioncheck_1: -5876689157199295464
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

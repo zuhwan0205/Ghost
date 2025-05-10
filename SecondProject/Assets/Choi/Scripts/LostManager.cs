@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LostManager : MonoBehaviour
@@ -14,6 +15,14 @@ public class LostManager : MonoBehaviour
     private int spawnCount;
     private int fakeCount;
     private int clearCount;
+    (string name, int count)[] objectIndex = new (string, int)[]
+    {
+        ("Ball", 0),
+        ("Doll", 0),
+        ("Handbag", 0),
+        ("Wallet", 0),
+        ("Wristwatch", 0)
+    };
 
     private void Start()
     {
@@ -33,6 +42,11 @@ public class LostManager : MonoBehaviour
             int rand = Random.Range(0, lostObj.Length);
             lostObjs[index] = Instantiate(lostObj[rand], spawnPoint[index].position, Quaternion.identity);
 
+            for (int j = 0; j < 5; j++)
+            {
+                if (objectIndex[j].name == lostObj[rand].name) objectIndex[j].count++;
+            }
+
             var lost = lostObjs[index].GetComponent<FindLost>();
             lost.isWorking = true;
 
@@ -45,6 +59,11 @@ public class LostManager : MonoBehaviour
         for (int i = 0; i < fakeAmount && i < spawnedList.Count; i++)
         {
             spawnedList[i].GetComponent<FindLost>().isFake = true;
+
+            for (int j = 0; j < 5; j++)
+            {
+                if (objectIndex[j].name == spawnedList[i].name) objectIndex[j].count--;
+            }
         }
     }
 

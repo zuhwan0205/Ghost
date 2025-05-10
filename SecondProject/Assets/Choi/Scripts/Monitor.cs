@@ -5,6 +5,7 @@ public class Monitor : EventObject
     private Animator anim;
     [SerializeField] private float workingTime;
     [SerializeField] private float failTime;
+    [SerializeField] private GameObject ghost;
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class Monitor : EventObject
         if (workingTime > failTime)
         {
             Deactivate();
-            Debug.Log("유령 스폰!");
+            Instantiate(ghost);
         }
     }
 
