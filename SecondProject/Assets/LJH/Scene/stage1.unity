@@ -1173,10 +1173,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 516275917440662415, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 2098047812938826090, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 3013833379682501358, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
     - target: {fileID: 3457803952944262578, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
       propertyPath: m_Name
       value: Monitor
       objectReference: {fileID: 0}
+    - target: {fileID: 3489167947436865922, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 6502811849177229568, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 6545853168132147879, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 7079661268685867127, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1723,6 +1751,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 132565013}
     m_Modifications:
+    - target: {fileID: 281296028274105780, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 621533104943393419, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 807670052593981437, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 985195766007909992, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 3276693840776425731, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 3900527273607668557, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
     - target: {fileID: 5037338459162255583, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.7480707
@@ -1767,6 +1819,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SecureGate
       objectReference: {fileID: 0}
+    - target: {fileID: 7709610357294557052, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 7972829859930827222, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
+    - target: {fileID: 8818443233187357265, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2247,6 +2311,11 @@ AudioSource:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 640692258841764521, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
   m_PrefabInstance: {fileID: 4437154237417109213}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1727984749 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4240980964961722947, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+  m_PrefabInstance: {fileID: 291837962244901499}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1762431112 stripped
 GameObject:
@@ -2892,10 +2961,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2234158009494954841, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3771872613926671323, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2987,10 +3052,6 @@ PrefabInstance:
     - target: {fileID: 5758034013268261535, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7722603983549606345, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8562967095215157264, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4096,6 +4157,10 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
+    - target: {fileID: 1626355425749050830, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
     - target: {fileID: 1918870290272904048, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4410,6 +4475,10 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
+    - target: {fileID: 3799479340696395812, guid: 6d05ac291773da5478590a104ea88799, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
     - target: {fileID: 4337676927864697925, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4754,6 +4823,10 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
+    - target: {fileID: 2413838166100343481, guid: 10a832ca031137348823a4cabf44be48, type: 3}
+      propertyPath: intatratUI
+      value: 
+      objectReference: {fileID: 1727984749}
     - target: {fileID: 2512912514121521465, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: box2
       value: 
