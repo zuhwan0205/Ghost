@@ -74,7 +74,7 @@ public class MiniGameManagaer_LJH : MonoBehaviour
 
     void GlassPanelOff()
     {
-        StartCoroutine(DisableAfterDelay(MG_GlassPanel, 3));
+        StartCoroutine(DisableAfterDelay(MG_GlassPanel, 0.5f));
         Destroy(MG_Glass);
         //인게임 거울 교체
         ScheduleManager.Instance.CompleteMission("Glass");
@@ -82,7 +82,7 @@ public class MiniGameManagaer_LJH : MonoBehaviour
 
     void MannequinPanelOff()
     {
-        StartCoroutine(DisableAfterDelay(MG_MannequinPanel,3));
+        StartCoroutine(DisableAfterDelay(MG_MannequinPanel,2f));
         Destroy(MG_Mannequin);
         AfterMannequin.SetActive(true);
         ScheduleManager.Instance.CompleteMission("Mannequin");
@@ -90,14 +90,14 @@ public class MiniGameManagaer_LJH : MonoBehaviour
 
     void VentPanelOff()
     {
-        StartCoroutine(DisableAfterDelay(MG_VentPanel, 3f));
+        StartCoroutine(DisableAfterDelay(MG_VentPanel, 0.5f));
         Destroy(MG_Vent);
         ScheduleManager.Instance.CompleteMission("Vent");
     }
 
     void RadioPanelOff()
     {
-        StartCoroutine(DisableAfterDelay(MG_RadioPanel, 3f));
+        StartCoroutine(DisableAfterDelay(MG_RadioPanel, 0.5f));
         Destroy(MG_Radio);
         //UI_Interaction.SetActive(true);
         //무서운 소리 잠깐 재생
@@ -106,7 +106,7 @@ public class MiniGameManagaer_LJH : MonoBehaviour
 
     void CarpetPanelOff()
     {
-        StartCoroutine(DisableAfterDelay(MG_CarpetPanel, 3f));
+        StartCoroutine(DisableAfterDelay(MG_CarpetPanel, 0.5f));
         Destroy(MG_Carpet);
         ScheduleManager.Instance.CompleteMission("Carpet");
     }
