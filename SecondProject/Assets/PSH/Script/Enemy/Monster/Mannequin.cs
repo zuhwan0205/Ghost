@@ -3,44 +3,45 @@ using System.Collections;
 
 public class Mannequin : MonoBehaviour
 {
-    [Header("����ŷ ����")]
-    [SerializeField] private bool isActive = true; // ����ŷ�� Ȱ�� �������� ����
-    [SerializeField] private bool isGrabbed = false; // �÷��̾ ��Ҵ��� ����
+    [Header("마네킹 상태")]
+    [SerializeField] private bool isActive = true; // 마네킹이 플레어를 붙잡을 수 있는 활성상태 
+    [SerializeField] private bool isGrabbed = false; // 현재 플레이어를 잡고 있는지 여부 
 
-    [Header("����ŷ ���")]
-    private int escapeCount = 0; // E Ű ���� Ƚ��
-    private int escapeRequiredCount = 15; // Ż�⿡ �ʿ��� E Ű �Է� Ƚ��
+    [Header("데미지")]
+    [SerializeField] private float damage;
 
-    [Header("�÷��̾� ������ ����")]
-    [SerializeField] private float damageInterval = 1.0f; // �������� �ִ� ����
-    [SerializeField] private float damageAmount = 1.0f; // �ѹ��� �ִ� ��������
+    [Header("재활성화 설정 ")]
+    [SerializeField] private float resetTime = 10.0f; // 일정 시간 후 다시 활성화되는 시간
 
-    [Header("����ŷ �ʱ�ȭ ����")]
-    [SerializeField] private float resetTime = 10.0f; // �ʱ�ȭ���� �ɸ��� �ð�
+
+    [Header("사운드")]
+    [SerializeField] private string hitPlayerSound = "mannequin_hit";
+    [SerializeField] private AudioSource[] SpawnSources;
+
 
     private Player player;
     private Rigidbody2D rb;
+    private Animator anim;
     
     public static Mannequin Instance;
 
     void Awake()
     {
         Instance = this;
+
+        PlayAudioGroup(SpawnSources);
+
     }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        player = GetComponent<Player>();
     }
-
-    // private void Update()
-    // {
-    //     Player_Grabbed();
-    // }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"[����ŷ �浹 ����] �浹�� ��ü �±�: {other.tag}");
 
         if (isActive && !isGrabbed && other.CompareTag("Player"))
         {
@@ -50,90 +51,90 @@ public class Mannequin : MonoBehaviour
             {
                 isGrabbed = true;
 
-                player.isHiding = true; // �̵� �Ұ�
+                anim.SetBool("Idle", false); //
+                anim.SetBool("Grab", true); // 잡기 애니메이션 
 
-                // �÷��̾�� ���� ������ ����
-                StartCoroutine(DamagePlayer());
+                AudioManager.Instance.PlayAt(hitPlayerSound, transform.position);
+                LookAt(player.transform.position);
+
+
+                player.isHiding = true;
+
 
                 if (Random.value < 0.5f)
                 {
                     QTEManager_LJH.Instance.StartSmashQte();
+                    player.TakeGrab();
+                    player.TakeDamage(damage);
+
                 }
                 else
                 {
                     QTEManager_LJH.Instance.StartStarForceQte();
+                    player.TakeGrab();
+                    player.TakeDamage(damage);
                 }
-                
-                Debug.Log("����ŷ�� �÷��̾ ��ҽ��ϴ�!");
+
+                Debug.Log("마네킹이 플레이어를 붙잡았습니다!");
             }
             else
             {
-                Debug.LogWarning("Player ������Ʈ�� ã�� �� �����ϴ�.");
+                Debug.LogWarning("Player 컴포넌트를 찾지 못했습니다.");
             }
         }
     }
 
-    // �÷��̾ ����� �� ȣ��Ǵ� �Լ�
-    // private void Player_Grabbed()
-    // {
-    //     if (isGrabbed && player != null)
-    //     {
-    //         if (Input.GetKeyDown(KeyCode.E))
-    //         {
-    //             escapeCount++;
-    //             Debug.Log($"E Ű �Է� Ƚ��: {escapeCount}/{escapeRequiredCount}");
-    //
-    //             if (escapeCount >= escapeRequiredCount)
-    //             {
-    //                 EscapeFromMannequin();
-    //             }
-    //         }
-    //     }
-    // }
-
-    // �÷��̾ ����ŷ���� ����� �� ȣ��Ǵ� �Լ�
     public void EscapeFromMannequin()
     {
-        Debug.Log("�÷��̾ ����ŷ���� ������ϴ�!");
+        Debug.Log("플레이어가 마네킹으로부터 탈출했습니다!");
 
         isGrabbed = false;
         isActive = false;
+        player.AfterGrab();
+
+        anim.SetBool("Grab", false);
+        anim.SetBool("Idle", true);
+
+
 
         if (player != null)
         {
-            player.isHiding = false; // �̵� ����
+            player.isHiding = false; // 플레이어 이동금지 
         }
 
-        // ����ŷ Collider ��Ȱ��ȭ
+        // 마네킹 충돌 비활성화
         GetComponent<Collider2D>().enabled = false;
 
-        // ������ �ڷ�ƾ �ߴ�
+        // 모든 코루틴 종료
         StopAllCoroutines();
 
-        // ���� �ð� �� �ٽ� Ȱ��ȭ
+        // 일정 시간 후 다시 활성화
         StartCoroutine(ResetMannequin(resetTime));
     }
 
-    // �÷��̾ �������� �Դ� �Լ�
-    private IEnumerator DamagePlayer()
-    {
-        while (isGrabbed && player != null)
-        {
-            player.TakeDamage(damageAmount);
-            yield return new WaitForSeconds(damageInterval);
-        }
-    }
-
-    // ����ŷ�� �ٽ� Ȱ��ȭ��Ű�� �Լ�
+    // 마네킹을 다시 활성화시키는 코루틴
     private IEnumerator ResetMannequin(float delay)
     {
         yield return new WaitForSeconds(delay);
 
         isActive = true;
         isGrabbed = false;
-        escapeCount = 0;
         GetComponent<Collider2D>().enabled = true;
+    }
 
-        Debug.Log("����ŷ�� �ٽ� Ȱ��ȭ�Ǿ����ϴ�!");
+    private void PlayAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+            if (source != null && !source.isPlaying)
+                source.Play();
+    }
+
+    private void LookAt(Vector3 target)
+    {
+        Vector3 scale = transform.localScale;
+        float originalX = Mathf.Abs(scale.x);
+        scale.x = (target.x < transform.position.x) ? originalX : -originalX;
+        transform.localScale = scale;
     }
 }
+

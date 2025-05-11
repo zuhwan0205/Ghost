@@ -18,9 +18,7 @@ public class MonsterTelePort : MonoBehaviour
     private bool teleportCooldown = false; // 텔레포트 직후 쿨다운 상태
 
     [Header("사운드 설정")]
-    [SerializeField] private AudioClip teleportSound;
-    [SerializeField] private float soundVolume = 1f;
-    [SerializeField] private float maxSoundDistance = 15f; // 소리 들리는 최대 거리
+    [SerializeField] private AudioSource[] teleportSources;
 
 
     private void Start()
@@ -121,41 +119,7 @@ public class MonsterTelePort : MonoBehaviour
 
         transform.position = teleportDestination.transform.position;
 
-        // 거리 기반 사운드 재생
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null && teleportSound != null)
-        {
-            float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-
-            if (distanceToPlayer <= maxSoundDistance)
-            {
-                GameObject soundObject = new GameObject("TeleportSound");
-                soundObject.transform.position = player.transform.position;
-
-                AudioSource source = soundObject.AddComponent<AudioSource>();
-                source.clip = teleportSound;
-                source.spatialBlend = 1f;
-                source.minDistance = 0f;
-                source.maxDistance = maxSoundDistance;
-                source.volume = soundVolume;
-
-                source.rolloffMode = AudioRolloffMode.Custom;
-                AnimationCurve curve = new AnimationCurve(
-                    new Keyframe(0f, 0.5f),           // 0m → 50% 볼륨
-                    new Keyframe(maxSoundDistance * 0.5f, 0.25f),  // 중간 거리 → 25%
-                    new Keyframe(maxSoundDistance, 0f)            // 최대 거리 → 0%
-                );
-                source.SetCustomCurve(AudioSourceCurveType.CustomRolloff, curve);
-                source.Play();
-
-                Destroy(soundObject, teleportSound.length + 0.5f);
-                Debug.Log($"[GhostTelePort] 사운드 재생: 플레이어 거리 {distanceToPlayer:F1}m");
-            }
-            else
-            {
-                Debug.Log($"[GhostTelePort] 사운드 생략: 플레이어 거리 {distanceToPlayer:F1}m (최대 {maxSoundDistance}m)");
-            }
-        }
+        PlayAudioGroup(teleportSources);
 
         Debug.Log("[MonsterTelePort] 몬스터가 텔레포트되었습니다!");
     }
@@ -189,5 +153,14 @@ public class MonsterTelePort : MonoBehaviour
     private void ResetPlayerTeleportedFlag()
     {
         playerTeleportedRecently = false;
+    }
+
+    private void PlayAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+        {
+            if (source != null && !source.isPlaying)
+                source.Play();
+        }
     }
 }

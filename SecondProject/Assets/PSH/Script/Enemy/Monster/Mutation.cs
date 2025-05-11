@@ -339,7 +339,7 @@ public class Mutation : MonoBehaviour
             pl.isInteractionLocked = true;
             pl.ResetHold(); 
             pl.TakeDamage(damage); // 데미지 처리
-
+            pl.TakeGrab(); // Grab 처리
             Invoke(nameof(EnablePlayer), 3.0f);
         }
 
@@ -360,6 +360,7 @@ public class Mutation : MonoBehaviour
                 Debug.Log("[Ghost] 3초 후 플레이어 E키 다시 허용!");
                 pl.isInteractionLocked = false;
 
+                pl.AfterGrab(); // Grab 해제
                 anim.SetBool("Grab", false);
                 anim.SetBool("Tracking", false);
                 anim.SetBool("Idle", true);

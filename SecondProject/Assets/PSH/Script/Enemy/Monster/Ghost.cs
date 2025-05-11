@@ -275,6 +275,7 @@ public class Ghost : MonoBehaviour
                 pl.isInteractionLocked = true;
                 pl.ResetHold();
                 pl.TakeDamage(damage);
+                pl.TakeGrab();
                 Invoke(nameof(ResumePlayerControl), 3.0f);
             }
 
@@ -288,6 +289,7 @@ public class Ghost : MonoBehaviour
         {
             player.isHiding = false;
             player.isInteractionLocked = false;
+            player.AfterGrab();
             anim.SetBool("Grab", false);
             anim.SetBool("Idle", true);
             anim.SetBool("Tracking", false);

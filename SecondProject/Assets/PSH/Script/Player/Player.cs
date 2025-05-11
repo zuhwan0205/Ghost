@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.Rendering;
 
 // 플레이어의 상태와 동작을 관리하는 클래스
 public class Player : PlayerManager
@@ -45,6 +46,15 @@ public class Player : PlayerManager
     [SerializeField] private TextMeshProUGUI coinText;      // 동전 개수 표시 UI
     [SerializeField] private GameObject vendingMachinePanel;// 자판기 UI 패널
 
+    [Header("사운드설정")]
+    [SerializeField] private AudioSource[] walkSources;     // 플레이어가 맞았을 때 재생되는 사운드
+    [SerializeField] private AudioSource[] dashSources;     // 대시할 때 재생되는 사운드
+    [SerializeField] private string hitPlayerSound = "player_hit";
+    [SerializeField] private string diePlayerSound = "player_die";
+    [SerializeField] private AudioSource[] grabSources;     // 잡혔을 당시 재생되는 사운드
+    [SerializeField] private AudioSource[] afterGrabSources;    //잡히고 나서의 재생되는 사운드 
+
+
     private float holdTimer = 0f;               // 상호작용 유지 시간 계산용 
     private bool isHolding = false;             // 상호작용 유지 중인지 여부
     private Interactable currentInteractable;   // 현재 상호작용 중인 오브젝트
@@ -63,6 +73,10 @@ public class Player : PlayerManager
 
     public bool isHiding = false; // 숨기 상태 여부
     public HidingSpot currentSpot = null; // 접촉 중인 숨는 구조체
+
+
+    private Animator anim;
+
     #endregion
 
     #region 플레이어 상태 접근 메서드
@@ -139,6 +153,9 @@ public class Player : PlayerManager
     protected override void Start()
     {
         base.Start();
+
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         originalMoveSpeed = moveSpeed;
         originalDashSpeed = dashSpeed;
@@ -220,6 +237,7 @@ public class Player : PlayerManager
             Debug.LogError("VendingMachinePanel이 할당되지 않았습니다!");
         vendingMachinePanel.SetActive(false);
         UpdateCoinUI();
+
     }
 
     // 매 프레임마다 호출 (플레이어 상태 업데이트)
@@ -279,9 +297,50 @@ public class Player : PlayerManager
         if (Player_Hp < 0)
         {
             Player_Hp = 0;
+            AudioManager.Instance.PlayAt(diePlayerSound, transform.position);
             GameManager.Instance.GameOver();
         }
     }
+
+    public void TakeGrab()
+    {
+        anim.SetBool("Grab", true);
+
+        StopAudioGroup(walkSources);
+        StopAudioGroup(dashSources);
+        PlayAudioGroup(grabSources);
+    }
+
+    public void AfterGrab()
+    {
+        anim.SetBool("Grab", false);
+        PlayAudioGroup(afterGrabSources);
+        StopAudioGroup(grabSources);
+    }
+
+
+
+    // 사운드 끄기 
+    private void StopAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+        {
+            if (source != null && source.isPlaying)
+                source.Stop();
+        }
+    }
+
+    // 사운드 재생 
+    private void PlayAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+        {
+            if (source != null && !source.isPlaying)
+                source.Play();
+        }
+    }
+
+
     #endregion
 
     #region 플레이어 조작
@@ -561,10 +620,24 @@ public class Player : PlayerManager
     {
         isHiding = hide;
 
-        // 시각 효과: 스프라이트 숨기/보이기
-        SpriteRenderer spriteRenderer = transform.Find("anim")?.GetComponent<SpriteRenderer>();
+        // 현재 오브젝트에서 바로 가져오기
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+
+        Transform light1 = transform.Find("플레이어 주변광");
+        Transform light2 = transform.Find("휴대폰 불빛");
+
+        if (light1 != null)
+            light1.gameObject.SetActive(!hide);
+
+        if (light2 != null)
+            light2.gameObject.SetActive(!hide);
+
+
         if (spriteRenderer != null)
             spriteRenderer.enabled = !hide;
+
+        if (anim != null)
+            anim.enabled = !hide;
 
         // 이동 제한 및 태그/레이어 변경
         moveSpeed = hide ? 0f : originalMoveSpeed;
@@ -581,7 +654,6 @@ public class Player : PlayerManager
         {
             // 숨기 해제 시 살짝 앞으로 이동 (현재 바라보는 방향 기준)
             transform.position += Vector3.right * 0.3f * transform.localScale.x;
-
             Debug.Log("[Player] 나왔습니다.");
         }
     }
@@ -605,6 +677,7 @@ public class Player : PlayerManager
             isDashing = true;
             Stemina -= Time.deltaTime * SteminaConsumed;
             dashTime = Time.deltaTime;
+
             if (Stemina < 0)
             {
                 Stemina = 0;
@@ -626,13 +699,44 @@ public class Player : PlayerManager
         if (isHiding)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y); // 강제로 정지
+            anim.SetBool("Run", false);
+            anim.SetBool("Walk", false);
+            StopAudioGroup(walkSources);
+            StopAudioGroup(dashSources);
+
             return;
         }
 
-        if (dashTime > 0)
+        bool isMoving = Mathf.Abs(xInput) > 0.01f;
+        bool isDashing = dashTime > 0;
+
+        if (isDashing)
+        {
             rb.linearVelocity = new Vector2(xInput * (moveSpeed + dashSpeed), rb.linearVelocity.y);
+            anim.SetBool("Run", true);
+            anim.SetBool("Walk", false);
+            PlayAudioGroup(dashSources);
+            StopAudioGroup(walkSources);
+        }
         else
+        {
             rb.linearVelocity = new Vector2(xInput * moveSpeed, rb.linearVelocity.y);
+
+            if (isMoving)
+            {
+                anim.SetBool("Run", false);
+                anim.SetBool("Walk", true);
+                PlayAudioGroup(walkSources);
+                StopAudioGroup(dashSources);
+            }
+            else
+            {
+                anim.SetBool("Run", false);
+                anim.SetBool("Walk", false);
+                StopAudioGroup(walkSources);
+                StopAudioGroup(dashSources);
+            }
+        }
     }
 
     // 플레이어 방향 전환 (좌우 반전)
@@ -650,7 +754,5 @@ public class Player : PlayerManager
         dashSpeed = speed;
     }
     #endregion
-
-
 
 }
