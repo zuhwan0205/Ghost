@@ -40,7 +40,7 @@ public class Mutation : MonoBehaviour
     private Vector3 lastSeenPosition; // 마지막 감지한 플레이어 위치
 
     [Header("유도 오브젝트")]
-    [SerializeField] private float lureDetectRange = 20f;
+    [SerializeField] private float lureDetectRange;
     [SerializeField] private LayerMask targetObjectLayer;
     private Vector2? lureTargetPos = null;
     private GameObject lureTargetObject = null;
