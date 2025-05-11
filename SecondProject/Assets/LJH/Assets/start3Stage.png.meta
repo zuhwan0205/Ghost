@@ -1,25 +1,10 @@
 fileFormatVersion: 2
-guid: e206e79240a55db46a7b58d5c019ac47
+guid: f5ce51a0892b9e648acd69dd3cef3898
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3101270965762488015
-    second: project_scary_0
-  - first:
-      213: 6283157710894837825
-    second: project_scary_1
-  - first:
-      213: -490602401821806893
-    second: project_scary_2
-  - first:
-      213: 3062304315000812974
-    second: project_scary_3
-  - first:
-      213: 8188618276479628192
-    second: project_scary_4
-  - first:
-      213: 8744684640465956677
-    second: project_scary_5
+      213: 2566319369760668696
+    second: start3Stage_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,9 +40,9 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -66,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -124,163 +109,115 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: project_scary_0
+      name: start3Stage_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 41
-        width: 31
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 0
+        y: 0
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc6718a138de90b20800000000000000
-      internalID: 3101270965762488015
+      spriteID: 81cf9ceaed56d9320800000000000000
+      internalID: 2566319369760668696
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: project_scary_1
+      name: start3Stage_1
       rect:
         serializedVersion: 2
-        x: 85
-        y: 43
-        width: 28
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1280
+        y: 0
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 140b4a106a2423750800000000000000
-      internalID: 6283157710894837825
+      spriteID: 242102f33fa7b8745b0b5aa4ae046bf2
+      internalID: -1287458614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: project_scary_2
+      name: start3Stage_2
       rect:
         serializedVersion: 2
-        x: 148
-        y: 42
-        width: 32
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 2560
+        y: 0
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3de257107b70139f0800000000000000
-      internalID: -490602401821806893
+      spriteID: 77e802c3fcfc21b49af6f408f54a6808
+      internalID: -1328029722
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: project_scary_3
+      name: start3Stage_3
       rect:
         serializedVersion: 2
-        x: 214
-        y: 43
-        width: 30
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 3840
+        y: 0
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ea5f4c9bc8d7f7a20800000000000000
-      internalID: 3062304315000812974
+      spriteID: 06dd681d4308d7143980bad1be10aa6a
+      internalID: 1315891712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: project_scary_4
+      name: start3Stage_4
       rect:
         serializedVersion: 2
-        x: 278
-        y: 41
-        width: 31
-        height: 65
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 5120
+        y: 0
+        width: 1280
+        height: 720
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0a3f6d2ffe0d3a170800000000000000
-      internalID: 8188618276479628192
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: project_scary_5
-      rect:
-        serializedVersion: 2
-        x: 342
-        y: 41
-        width: 32
-        height: 62
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54fa9c3695c5b5970800000000000000
-      internalID: 8744684640465956677
+      spriteID: ebe2809acc65f4c479ca24965e64dfa3
+      internalID: -304178412
       vertices: []
       indices: 
       edges: []
@@ -289,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0be012c5eb881834cb10775d37da6022
+    spriteID: c1bae25bcc497084f93191eeb8c149e1
     internalID: 0
     vertices: []
     indices: 
@@ -299,12 +236,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      project_scary_0: 3101270965762488015
-      project_scary_1: 6283157710894837825
-      project_scary_2: -490602401821806893
-      project_scary_3: 3062304315000812974
-      project_scary_4: 8188618276479628192
-      project_scary_5: 8744684640465956677
+      start3Stage_0: 2566319369760668696
+      start3Stage_1: -1287458614
+      start3Stage_2: -1328029722
+      start3Stage_3: 1315891712
+      start3Stage_4: -304178412
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
