@@ -1,12 +1,13 @@
 using UnityEngine;
 
-// ScriptableObject로 깡통 아이템 정의
 [CreateAssetMenu(fileName = "New Can Item", menuName = "Inventory/Can Item")]
 public class CanItem : Item
 {
-    public override void Use(Player player)
+    // 수정: Use 메서드 시그니처 변경 및 RemoveItem 호출
+    public override void Use(Player player, int slotIndex)
     {
-        Debug.Log($"{itemName}을(를) 사용했습니다! 깡통 투척!");
-        player.ThrowCan(); // 플레이어의 깡통 투척 함수 호출
+        Debug.Log($"[CanItem] {itemName} 사용: 깡통 투척, 슬롯: {slotIndex}");
+        player.ThrowCan();
+        player.RemoveItem(slotIndex);
     }
 }
