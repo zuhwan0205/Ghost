@@ -45,29 +45,122 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 0}
-  bgmClips: []
-  uiClips: []
-  itemClips: []
-  objectClips: []
-  eventClips:
-  - name: mutation_hit
-    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+  bgmClips:
+  - name: MainMenu
+    clip: {fileID: 8300000, guid: 169fd154b6e03b3429cee939275e7de0, type: 3}
     volume: 0.5
-  - name: ghost_hit
-    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+  - name: Toilet
+    clip: {fileID: 8300000, guid: ee0da641090b6d54aaa20a01c147c0f6, type: 3}
     volume: 0.5
-  - name: shadow_hit
-    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+  uiClips:
+  - name: Carpet
+    clip: {fileID: 8300000, guid: 50c8b76d7217ba844a291f1167ed7936, type: 3}
     volume: 0.5
-  - name: mannequin_hit
-    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+  - name: Fan
+    clip: {fileID: 8300000, guid: c3d45091607f71e43bac20ab3fa9a3e5, type: 3}
     volume: 0.5
-  - name: player_teleport
-    clip: {fileID: 8300000, guid: 6081d6db32cc97246ae78a9911f9dddd, type: 3}
-    volume: 1
-  - name: player_hit
+  - name: CrashGlass
+    clip: {fileID: 8300000, guid: a94e21afd48944a46acd84bd06a2dc51, type: 3}
+    volume: 0.5
+  - name: Glass
+    clip: {fileID: 8300000, guid: afe841edb0468f24b80ff0e864848c7f, type: 3}
+    volume: 0.5
+  - name: Lamp1
+    clip: {fileID: 8300000, guid: 5cb97efa750e48448b980b677f3b4b48, type: 3}
+    volume: 0.5
+  - name: Lamp2
+    clip: {fileID: 8300000, guid: d6b9dd51eb943d34595135fa45b18394, type: 3}
+    volume: 0.5
+  - name: Lamp3
+    clip: {fileID: 8300000, guid: 8eb1f63c61ff0a843910395bb74dd557, type: 3}
+    volume: 0.5
+  - name: Mannequin_Fix
+    clip: {fileID: 8300000, guid: c944cb928096de84ab835255ed65684c, type: 3}
+    volume: 0.5
+  - name: TrashCan
+    clip: {fileID: 8300000, guid: 0a3054ccc6778ec47b3732ed6c098af4, type: 3}
+    volume: 0.5
+  - name: WalkieTalkie
+    clip: {fileID: 8300000, guid: 71d86c7c1221fce4d8860eb0fb4af9ea, type: 3}
+    volume: 0.5
+  - name: Wiring
+    clip: {fileID: 8300000, guid: f398f98613260674fa41b5cff8199e76, type: 3}
+    volume: 0.5
+  - name: TVButton
+    clip: {fileID: 8300000, guid: a3059eda40017dd4496e7c3d5c119c31, type: 3}
+    volume: 0.5
+  - name: Vendingmachine
     clip: {fileID: 8300000, guid: ad22f83cc7940154dbca60a2348c6c78, type: 3}
-    volume: 1
-  - name: player_die
-    clip: {fileID: 8300000, guid: 810e88ebd4ec64141abedcc5a3a7a24d, type: 3}
-    volume: 1
+    volume: 0.5
+  - name: MissionSuccess
+    clip: {fileID: 8300000, guid: 77bad298772d005469172cc5c88f6ca4, type: 3}
+    volume: 0.5
+  objectClips:
+  - name: FakeItem
+    clip: {fileID: 8300000, guid: cbc592f3bdc8a574886f21776ae5939b, type: 3}
+    volume: 0.5
+  - name: GetItem
+    clip: {fileID: 8300000, guid: 3c1262bc588f2024b81cb4bc8d919471, type: 3}
+    volume: 0.5
+  - name: SecurityAlarm
+    clip: {fileID: 8300000, guid: 913a90fba862597408630645561c565e, type: 3}
+    volume: 0.5
+  - name: TVnoise
+    clip: {fileID: 8300000, guid: 90ff9bb1935be844c86bbe54ee94a547, type: 3}
+    volume: 0.5
+  - name: GarageDoor
+    clip: {fileID: 8300000, guid: b333bfd036130d34a98bfb8de1f9eae9, type: 3}
+    volume: 0.5
+  - name: NewMessage
+    clip: {fileID: 8300000, guid: 57d85c3b21409634bb4267fe9e2b6060, type: 3}
+    volume: 0.5
+  playerClips:
+  - name: Player_Walk
+    clip: {fileID: 8300000, guid: 310662abce44b79429010cc4240cfd49, type: 3}
+    volume: 0.5
+  - name: Player_Door
+    clip: {fileID: 8300000, guid: 6081d6db32cc97246ae78a9911f9dddd, type: 3}
+    volume: 0.5
+  - name: Player_Hide
+    clip: {fileID: 8300000, guid: d9e377ed3f66d0d4b8677407fd3ab028, type: 3}
+    volume: 0.5
+  - name: Player_QTE
+    clip: {fileID: 8300000, guid: a2e3508f7a7c7a842a1f1e7f8aa3119b, type: 3}
+    volume: 0.5
+  - name: Player_Heart
+    clip: {fileID: 8300000, guid: 0365769863128444dae60cc27821b0e1, type: 3}
+    volume: 0.5
+  - name: Player_Drink
+    clip: {fileID: 8300000, guid: e5f2142fb3390e84585c7308df826968, type: 3}
+    volume: 0.5
+  monsterClips:
+  - name: Mutation_Walk
+    clip: {fileID: 8300000, guid: 668c8559d542bd54e8c4732e20db3aa9, type: 3}
+    volume: 0.5
+  - name: Mutation_Chase
+    clip: {fileID: 8300000, guid: cac8c37eaf249a046a304f4cd47107ca, type: 3}
+    volume: 0.5
+  - name: Mutation_Catch
+    clip: {fileID: 8300000, guid: 84fe3ab9900a67a4dab981fea2c48877, type: 3}
+    volume: 0.5
+  - name: Mannequin_Respawn
+    clip: {fileID: 8300000, guid: 129d04bb3386d4348a4aa7be94332240, type: 3}
+    volume: 0.5
+  - name: Mannequin_Catch
+    clip: {fileID: 8300000, guid: 84fe3ab9900a67a4dab981fea2c48877, type: 3}
+    volume: 0.5
+  - name: Ghost_Cry
+    clip: {fileID: 8300000, guid: 8a49e56d6cfcacc488dae8e39fa1b84e, type: 3}
+    volume: 0.5
+  - name: Ghost_Catch1
+    clip: {fileID: 8300000, guid: 433c9977b174caf4488a251a6a051893, type: 3}
+    volume: 0.5
+  - name: Ghost_Catch2
+    clip: {fileID: 8300000, guid: 3f423c4626b9bcd448b7d4bf9d99af2c, type: 3}
+    volume: 0.5
+  - name: Monster_Door1
+    clip: {fileID: 8300000, guid: f0d1a80a77e64ed4c919b2ec205c83ad, type: 3}
+    volume: 0.5
+  - name: Monster_Door2
+    clip: {fileID: 8300000, guid: 411688b99dde3ea43b2f6b65b6f71664, type: 3}
+    volume: 0.5
