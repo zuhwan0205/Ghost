@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.34, y: -0.45, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4.8, y: 4.8, z: 4.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -4774448942049216214, guid: 301f5699bb7c60a48873e54ea5fbce41, type: 3}
+  m_Sprite: {fileID: 3173370536657488234, guid: ee32772d5a072ae48bd443f96aa24c3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,7 +127,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.015, y: 5.095}
+    oldSize: {x: 0.45, y: 0.64}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -154,5 +154,6 @@ MonoBehaviour:
   isDirtyMirror: 0
   isWireBox: 0
   cleanMirror: {fileID: 0}
+  closedWireBox: {fileID: 0}
   cleaningGame: {fileID: 0}
   wiringGameManager: {fileID: 0}
