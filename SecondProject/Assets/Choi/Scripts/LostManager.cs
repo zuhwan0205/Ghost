@@ -120,14 +120,10 @@ public class LostManager : MonoBehaviour
                     clearCount++;
                 }
             }
-
-            if (clearCount >= lostObjs.Length - fakeAmount)
-            {
-                clear = true;
-            }
-
+            
             if (clearCount >= spawnAmount - fakeAmount)
             {
+                clear = true;
                 OnEndLostGame?.Invoke();
             }
         }
