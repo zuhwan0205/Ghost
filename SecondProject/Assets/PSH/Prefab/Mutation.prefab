@@ -191,12 +191,13 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
+  lureLayer:
+    serializedVersion: 2
+    m_Bits: 0
   reDetectDelay: 7
   idleThreshold: 5
+  flipCooldownTime: 0.5
   lureDetectRange: 20
-  targetObjectLayer:
-    serializedVersion: 2
-    m_Bits: 4096
   hitPlayerSound: mutation_hit
   lureHitSound: can_hit
   audioSources:
@@ -236,7 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 0}
   destinationRoom: {fileID: 0}
-  teleportChance: 0.5
+  teleportChance: 0.4
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -435,7 +436,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 668c8559d542bd54e8c4732e20db3aa9, type: 3}
   m_Resource: {fileID: 8300000, guid: 668c8559d542bd54e8c4732e20db3aa9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
@@ -559,7 +560,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cac8c37eaf249a046a304f4cd47107ca, type: 3}
   m_Resource: {fileID: 8300000, guid: cac8c37eaf249a046a304f4cd47107ca, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

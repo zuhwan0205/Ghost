@@ -5,7 +5,7 @@ public class StainWiper : MonoBehaviour
     private Camera cam;
     private Vector2 lastSwipePos;
     private float swipeThreshold = 0.1f;
-    private bool hasSwipedOnce = false; // <- 처음 스와이프 감지 여부
+    private bool hasSwipedOnce = false;
     public static StainWiper Instance;
     public int cleanCount = 0;
 
@@ -14,39 +14,22 @@ public class StainWiper : MonoBehaviour
         Instance = this;
     }
 
-    
     private void Start()
     {
         cam = Camera.main;
     }
-    
+
     private void Update()
     {
-        Vector2 inputPos = Vector2.zero;
-        bool isTouching = false;
-
-#if UNITY_EDITOR
+        // PC에서는 마우스 버튼만 체크
         if (Input.GetMouseButton(0))
         {
+            // 화면 좌표 → 월드 좌표 변환
             Vector3 screenPos = Input.mousePosition;
             screenPos.z = Mathf.Abs(cam.transform.position.z);
+            Vector3 worldPos3 = cam.ScreenToWorldPoint(screenPos);
+            Vector2 inputPos = new Vector2(worldPos3.x, worldPos3.y);
 
-            Vector3 worldPos = cam.ScreenToWorldPoint(screenPos);
-            worldPos.z = 0f;
-
-            inputPos = worldPos;
-            isTouching = true;
-        }
-#else
-    if (Input.touchCount > 0)
-    {
-        inputPos = cam.ScreenToWorldPoint(Input.GetTouch(0).position);
-        isTouching = true;
-    }
-#endif
-
-        if (isTouching)
-        {
             if (!hasSwipedOnce)
             {
                 lastSwipePos = inputPos;
@@ -61,7 +44,7 @@ public class StainWiper : MonoBehaviour
         }
         else
         {
-            hasSwipedOnce = false; // 손을 뗐을 때 초기화
+            hasSwipedOnce = false;
         }
     }
 
@@ -70,12 +53,12 @@ public class StainWiper : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapPointAll(position);
         foreach (var hit in hits)
         {
-            if (hit.TryGetComponent(out Dust_LJH dust))
+            if (hit.TryGetComponent<Dust_LJH>(out var dust))
             {
                 dust.Clean(position);
                 return;
             }
-            else if (hit.TryGetComponent(out Stain stain))
+            if (hit.TryGetComponent<Stain>(out var stain))
             {
                 stain.Clean(position);
                 return;
