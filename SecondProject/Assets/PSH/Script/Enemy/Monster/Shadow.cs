@@ -100,39 +100,43 @@ public class Shadow : MonoBehaviour
     {
         if (playerTransform == null || isPaused || !IsSameRoom()) return;
 
+        Vector2 direction;
+        float speed;
+
         if (isChasing)
         {
-            // 추적 모드: 플레이어 위치로 직진
-            Vector2 dir = (playerTransform.position - transform.position).normalized;
-            rb.linearVelocity = dir * chaseSpeed;
-
-            anim?.SetBool("Tracking", true);
-            anim?.SetBool("Idle", false);
+            direction = (playerTransform.position - transform.position).normalized;
+            speed = chaseSpeed;
         }
         else if (isTrackingBehindPlayer)
         {
-            // 기본 상태: 플레이어 뒤쪽 위치 따라가기
             Vector3 targetPos = playerTransform.position - playerTransform.right * spawnDistance;
-            Vector2 dir = (targetPos - transform.position).normalized;
+            direction = (targetPos - transform.position).normalized;
 
             float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
-            float moveSpeedToUse = distanceToPlayer >= 7f ? chaseSpeed : moveSpeed;
-
-            float distToTarget = Vector2.Distance(transform.position, targetPos);
-
-            if (distToTarget > 0.1f)
-            {
-                rb.linearVelocity = dir * moveSpeedToUse;
-                anim?.SetBool("Tracking", true);
-                anim?.SetBool("Idle", false);
-            }
-            else
-            {
-                rb.linearVelocity = Vector2.zero;
-                anim?.SetBool("Tracking", false);
-                anim?.SetBool("Idle", true);
-            }
+            speed = distanceToPlayer >= 7f ? chaseSpeed : moveSpeed;
         }
+        else
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        // 벽 감지
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, 0.5f, LayerMask.GetMask("Wall"));
+        if (hit.collider != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+
+            anim?.SetBool("Tracking", false);
+            anim?.SetBool("Idle", true);
+            return;
+        }
+
+        rb.linearVelocity = direction * speed;
+
+        anim?.SetBool("Tracking", true);
+        anim?.SetBool("Idle", false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -182,8 +186,12 @@ public class Shadow : MonoBehaviour
 
     private bool PlayerLookingAtMe()
     {
+        // 같은 방에 있을 때만 감지 가능
+        if (!IsSameRoom()) return false;
+
         Vector2 toEnemy = (transform.position - playerTransform.position).normalized;
         Vector2 playerLookDir = playerTransform.right;
+
         if (playerTransform.localScale.x < 0)
             playerLookDir *= -1;
 
