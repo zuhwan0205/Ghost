@@ -1177,10 +1177,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monitor
       objectReference: {fileID: 0}
-    - target: {fileID: 8666869143598814697, guid: b14f85fdd05513842b4827d4d50a77ef, type: 3}
-      propertyPath: isWorking
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2992,6 +2988,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7722603983549606345, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8562967095215157264, guid: f30a4f25f903a754aa8b4c38da4e88a7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4584,15 +4584,7 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2009753406}
-    - target: {fileID: 3102418580316283965, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3150178249765570498, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 2009753406}
-    - target: {fileID: 3437737049584597266, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2009753406}
@@ -4604,22 +4596,10 @@ PrefabInstance:
       propertyPath: CarpetInteract
       value: 
       objectReference: {fileID: 1505994814}
-    - target: {fileID: 4273567080041640276, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5413747516874751228, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: staticNoise
       value: 
       objectReference: {fileID: 1621323217}
-    - target: {fileID: 5925590219135163168, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6037704896519282272, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7421411100991798751, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
       propertyPath: m_Camera
       value: 
@@ -4672,10 +4652,6 @@ PrefabInstance:
       propertyPath: CarpetInteract
       value: 
       objectReference: {fileID: 1505994814}
-    - target: {fileID: 8630742924801043617, guid: 5689c9b433e99ee4c9589273ae85ecfb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5061,10 +5037,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 742124287}
     - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
-      propertyPath: MG_Light
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
       propertyPath: MG_Radio
       value: 
       objectReference: {fileID: 1621323211}
@@ -5084,10 +5056,6 @@ PrefabInstance:
       propertyPath: MG_GlassPanel
       value: 
       objectReference: {fileID: 1958634078}
-    - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
-      propertyPath: MG_LightPanel
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4958264590290505385, guid: 79c28d84a8675ba47bd1f75d6d667ba9, type: 3}
       propertyPath: MG_RadioPanel
       value: 
