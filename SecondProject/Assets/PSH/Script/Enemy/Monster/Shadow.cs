@@ -24,13 +24,15 @@ public class Shadow : MonoBehaviour
     private GhostRoomChase roomChase;
     private CameraZoomController zoomController;
 
-    private bool isChasing = false;
-    private bool isTrackingBehindPlayer = true;
-    private bool isPaused = false;
+    [Header("상태 확인")]
+    [SerializeField] private bool isChasing = false;
+    [SerializeField] private bool isTrackingBehindPlayer = true;
+    [SerializeField] private bool isPaused = false;
     private bool hasTriggered = false;
     private bool hasBeenSeen = false;
 
     private float despawnTimer = 0f;
+    private string lastKnownRoomID = "";
 
     private void Awake()
     {
@@ -69,21 +71,44 @@ public class Shadow : MonoBehaviour
             return;
         }
 
+        string currentRoom = roomChase?.currentRoomID;
+        string playerRoom = roomChase?.playerRoom?.currentRoomID;
+
+        // 포탈 통해 같은 방 도착 시 상태 초기화
+        if (currentRoom != null && playerRoom != null)
+        {
+            if (currentRoom == playerRoom && lastKnownRoomID != currentRoom)
+            {
+                Debug.Log("[Shadow] 포탈 통해 같은 방 도달 → 상태 초기화");
+
+                isChasing = false;
+                isTrackingBehindPlayer = true;
+                hasBeenSeen = false;
+
+                anim?.SetBool("Tracking", false);
+                anim?.SetBool("Idle", true);
+                StopAudioGroup(chaseSources);
+                PlayAudioGroup(idleSources);
+            }
+
+            lastKnownRoomID = currentRoom;
+        }
+
+        // 다른 방이면 포탈 추적 요청
         if (!IsSameRoom())
         {
-            roomChase?.TryChaseOnBlocked(); // 포탈 경로 요청
-            hasBeenSeen = false;
-            anim?.SetBool("Tracking", true);
-            anim?.SetBool("Idle", false);
+            roomChase?.TryChaseOnBlocked();
             return;
         }
 
-        if (!isChasing && PlayerLookingAtMe())
+        // 추적 시작 조건
+        if (!isChasing && !isPaused && !hasBeenSeen && PlayerLookingAtMe())
         {
             isChasing = true;
             isTrackingBehindPlayer = false;
             hasBeenSeen = true;
 
+            Debug.Log("[Shadow] 추적 시작!");
             anim?.SetBool("Tracking", true);
             anim?.SetBool("Idle", false);
             StopAudioGroup(idleSources);
@@ -97,7 +122,7 @@ public class Shadow : MonoBehaviour
     {
         if (playerTransform == null || isPaused) return;
 
-        // ✅ 다른 방일 경우: 포탈까지 직접 이동
+        // 포탈 추적 이동
         if (!IsSameRoom())
         {
             if (roomChase != null && roomChase.ghostTelePort != null && roomChase.ghostTelePort.HasRoute())
@@ -106,9 +131,7 @@ public class Shadow : MonoBehaviour
                 Vector2 dirToPortal = (portalTarget - (Vector2)transform.position).normalized;
                 float _movespeed = moveSpeed;
 
-                float checkDistance = _movespeed * Time.fixedDeltaTime;
-                RaycastHit2D wallHit = Physics2D.Raycast(transform.position, dirToPortal, checkDistance, LayerMask.GetMask("Wall"));
-
+                RaycastHit2D wallHit = Physics2D.Raycast(transform.position, dirToPortal, _movespeed * Time.fixedDeltaTime, LayerMask.GetMask("Wall"));
                 if (wallHit.collider == null)
                 {
                     rb.linearVelocity = dirToPortal * _movespeed;
@@ -125,7 +148,7 @@ public class Shadow : MonoBehaviour
             return;
         }
 
-        // ✅ 같은 방일 경우 기존 이동 로직
+        // 같은 방일 경우 기본 추적/추적대기 상태 처리
         Vector2 direction;
         float speed;
 
@@ -157,7 +180,7 @@ public class Shadow : MonoBehaviour
             return;
         }
 
-        // 벽 충돌 감지
+        // 벽 충돌 검사
         float checkDist = Mathf.Max(speed * Time.fixedDeltaTime, 0.3f);
         RaycastHit2D wall = Physics2D.Raycast(transform.position, direction, checkDist, LayerMask.GetMask("Wall"));
         if (wall.collider != null)
@@ -179,6 +202,8 @@ public class Shadow : MonoBehaviour
         {
             hasTriggered = true;
             isPaused = true;
+            isChasing = false;
+            isTrackingBehindPlayer = false;
             rb.linearVelocity = Vector2.zero;
 
             anim?.SetBool("Grab", true);
@@ -223,8 +248,7 @@ public class Shadow : MonoBehaviour
         if (!IsSameRoom()) return false;
 
         Vector2 toEnemy = (transform.position - playerTransform.position).normalized;
-        Vector2 playerLookDir = playerTransform.right;
-        if (playerTransform.localScale.x < 0) playerLookDir *= -1;
+        Vector2 playerLookDir = (playerTransform.localScale.x >= 0f) ? Vector2.right : Vector2.left;
 
         float angle = Vector2.Angle(playerLookDir, toEnemy);
         return angle < 60f;

@@ -180,10 +180,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 3363471137841835300, guid: a8a53103dd8eee54390630e7db4f098a, type: 3}
   player: {fileID: 0}
-  spawnRange: 8
-  safeZone: 1
+  spawnRange: 20
+  safeZone: 9.5
   despawnTime: 6
-  RespawnTime: 20
+  RespawnTime: 8
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
