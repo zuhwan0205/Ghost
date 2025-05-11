@@ -133,6 +133,9 @@ MonoBehaviour:
   - name: Player_Drink
     clip: {fileID: 8300000, guid: e5f2142fb3390e84585c7308df826968, type: 3}
     volume: 0.5
+  - name: player_teleport
+    clip: {fileID: 8300000, guid: 6081d6db32cc97246ae78a9911f9dddd, type: 3}
+    volume: 0.5
   monsterClips:
   - name: mutation_hit
     clip: {fileID: 8300000, guid: 84fe3ab9900a67a4dab981fea2c48877, type: 3}
