@@ -3,10 +3,10 @@ using UnityEngine;
 public class Shadow : MonoBehaviour
 {
     [Header("이동 설정")]
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float chaseSpeed = 7f;
-    [SerializeField] private float spawnDistance = 5f;
-    [SerializeField] private float despawnDelay = 10f;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float chaseSpeed;
+    [SerializeField] private float spawnDistance;
+    [SerializeField] private float despawnDelay;
     [SerializeField] private LayerMask playerLayer;
 
     [Header("사운드")]

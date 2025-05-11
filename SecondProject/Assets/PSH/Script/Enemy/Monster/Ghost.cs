@@ -4,11 +4,11 @@ using UnityEngine.UIElements;
 public class Ghost : MonoBehaviour
 {
     [Header("이동 설정")]
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private float chaseSpeed = 4f;
-    [SerializeField] private float shortDetectRange = 3f;
-    [SerializeField] private float longDetectRange = 30f;
-    [SerializeField] private float chaseDetectRange = 6f;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float chaseSpeed;
+    [SerializeField] private float shortDetectRange;
+    [SerializeField] private float longDetectRange;
+    [SerializeField] private float chaseDetectRange;
 
     [Header("레이어 설정")]
     [SerializeField] private LayerMask playerLayer;
@@ -62,15 +62,6 @@ public class Ghost : MonoBehaviour
 
         HandleBreathingSound();
 
-        DetectLureObject();
-
-        if (lureTargetPos.HasValue)
-        {
-            rb.linearVelocity = Vector2.zero;
-            ChaseToLure(lureTargetPos.Value);
-            return;
-        }
-
         DetectPlayerSide();
         DetectPlayerShortRange();
         HandleChaseTimer();
@@ -83,62 +74,6 @@ public class Ghost : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.transform.position);
     }
 
-    private void DetectLureObject()
-    {
-        Vector2 origin = transform.position;
-        RaycastHit2D leftHit = Physics2D.Raycast(origin, Vector2.left, lureDetectRange, targetObjectLayer);
-        RaycastHit2D rightHit = Physics2D.Raycast(origin, Vector2.right, lureDetectRange, targetObjectLayer);
-
-        bool foundLeft = leftHit.collider != null;
-        bool foundRight = rightHit.collider != null;
-
-        if (!foundLeft && !foundRight)
-        {
-            lureTargetPos = null;
-            lureTargetObject = null;
-            return;
-        }
-
-        if (foundLeft && !foundRight)
-        {
-            lureTargetPos = leftHit.point;
-            lureTargetObject = leftHit.collider.gameObject;
-        }
-        else if (!foundLeft && foundRight)
-        {
-            lureTargetPos = rightHit.point;
-            lureTargetObject = rightHit.collider.gameObject;
-        }
-        else
-        {
-            float distLeft = Vector2.Distance(origin, leftHit.point);
-            float distRight = Vector2.Distance(origin, rightHit.point);
-            if (distLeft <= distRight)
-            {
-                lureTargetPos = leftHit.point;
-                lureTargetObject = leftHit.collider.gameObject;
-            }
-            else
-            {
-                lureTargetPos = rightHit.point;
-                lureTargetObject = rightHit.collider.gameObject;
-            }
-        }
-
-        isChasing = false;
-        isPaused = false;
-    }
-
-    private void ChaseToLure(Vector2 targetPos)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-
-        if ((targetPos.x < transform.position.x && transform.localScale.x > 0) ||
-            (targetPos.x > transform.position.x && transform.localScale.x < 0))
-        {
-            Flip();
-        }
-    }
 
     private void DetectPlayerSide()
     {

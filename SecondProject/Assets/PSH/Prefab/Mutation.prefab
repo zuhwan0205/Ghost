@@ -185,9 +185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy_Hp: 0
   Enemy_Move_Speed: 2
-  Enemy_AwareDist: 3.5
+  Enemy_AwareDist: 6
   Enemy_Chasing_Speed: 4
-  Enemy_Chasing_AwareDis: 5.5
+  Enemy_Chasing_AwareDis: 10
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDestination: {fileID: 0}
   destinationRoom: {fileID: 0}
-  teleportChance: 0.7
+  teleportChance: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0

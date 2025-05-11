@@ -51,9 +51,9 @@ public class Can : MonoBehaviour
             // 기존 EventMonsterChase 호출 (유지)
             RoomIdentifier room = null;
             Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1f, LayerMask.GetMask("Room"));
-            foreach (var delan in hits)
+            foreach (var hit in hits)
             {
-                room = delan.GetComponent<RoomIdentifier>();
+                room = hit.GetComponent<RoomIdentifier>();
                 if (room != null) break;
             }
 
