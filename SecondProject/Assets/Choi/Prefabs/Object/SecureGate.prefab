@@ -241,6 +241,7 @@ MonoBehaviour:
   interactionTime: 0
   needTime: 0.5
   isWorking: 0
+  targetRoomID: 3-1
 --- !u!1 &7919754631888776348
 GameObject:
   m_ObjectHideFlags: 0

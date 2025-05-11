@@ -1788,6 +1788,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 132565013}
     m_Modifications:
+    - target: {fileID: 84684552348259066, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 181011409197024322, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 944541777172035126, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109015283020290482, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468611874712903887, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593749267729829707, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753867432383628291, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015701609233732283, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155180917508694361, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653357551133030304, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
     - target: {fileID: 5037338459162255583, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.7480707
@@ -1831,6 +1871,22 @@ PrefabInstance:
     - target: {fileID: 5835817358708924215, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
       propertyPath: m_Name
       value: SecureGate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972736661682519390, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057946530954101639, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8550561805022811518, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772451361994959783, guid: b9f58d99b56313843acfb1d2fac920b4, type: 3}
+      propertyPath: targetRoomID
+      value: 1-1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
