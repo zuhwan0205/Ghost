@@ -39,11 +39,6 @@ public class PhoneManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
         }
 
         if (phoneIconButton == null) Debug.LogError("PhoneIconButton�� �Ҵ���� �ʾҽ��ϴ�!");
