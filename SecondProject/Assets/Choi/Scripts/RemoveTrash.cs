@@ -7,6 +7,8 @@ public class RemoveTrash : EventObject
 
     private void Start()
     {
+        trashObj.SetActive(false);
+        if(!MissionManager.Instance.activeMissionNames.Contains("TrashManager")) return;
         if (isWorking) trashObj.SetActive(true);
     }
 
