@@ -52,6 +52,7 @@ public class Shadow : MonoBehaviour
         if (playerTransform != null)
         {
             Vector3 spawnPos = playerTransform.position - playerTransform.right * spawnDistance;
+            spawnPos.y += 2f;
             transform.position = spawnPos;
             LookAt(playerTransform.position);
         }
