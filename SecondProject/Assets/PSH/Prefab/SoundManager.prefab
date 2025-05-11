@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3417949708824129792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6526065793524448953}
+  - component: {fileID: 7175748421428107496}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6526065793524448953
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417949708824129792}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.164788, y: -12.7911215, z: -0.17768931}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7175748421428107496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417949708824129792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e1bf4e9a975a54591800b8eba66ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmSource: {fileID: 0}
+  bgmClips: []
+  uiClips: []
+  itemClips: []
+  objectClips: []
+  eventClips:
+  - name: mutation_hit
+    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+    volume: 0.5
+  - name: ghost_hit
+    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+    volume: 0.5
+  - name: shadow_hit
+    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+    volume: 0.5
+  - name: mannequin_hit
+    clip: {fileID: 8300000, guid: 4027343ba48a61b4ea45b61936913dc0, type: 3}
+    volume: 0.5
+  - name: player_teleport
+    clip: {fileID: 8300000, guid: 6081d6db32cc97246ae78a9911f9dddd, type: 3}
+    volume: 1
+  - name: player_hit
+    clip: {fileID: 8300000, guid: ad22f83cc7940154dbca60a2348c6c78, type: 3}
+    volume: 1
+  - name: player_die
+    clip: {fileID: 8300000, guid: 810e88ebd4ec64141abedcc5a3a7a24d, type: 3}
+    volume: 1
