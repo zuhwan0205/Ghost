@@ -3,18 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public string startSceneName = "stage1"; // ½ÃÀÛÇÒ ¾À ÀÌ¸§
+    public string startSceneName = "Stage01"; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¸ï¿½
 
     public void OnStartButton()
     {
-        SceneManager.LoadScene(startSceneName);
+        SceneManager.LoadScene("Stage01");
     }
 
     public void OnExitButton()
     {
         Application.Quit();
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // ¿¡µðÅÍ¿¡¼­´Â °­Á¦ Á¾·á
+        UnityEditor.EditorApplication.isPlaying = false; // ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #endif
     }
 }
