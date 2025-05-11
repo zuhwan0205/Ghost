@@ -176,6 +176,25 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(data.clip);
     }
 
+    public AudioSource PlayLoopSFX(string name, Vector3 position)
+    {
+        if (!clipDict.TryGetValue(name, out var data))
+        {
+            Debug.LogWarning($"[AudioManager] '{name}' 사운드를 찾을 수 없습니다.");
+            return null;
+        }
+
+        AudioSource sfxSource = GetNextAvailableSFXSource();
+        sfxSource.clip = data.clip;
+        sfxSource.loop = true;
+        sfxSource.volume = data.volume;
+        sfxSource.transform.position = position;
+        sfxSource.Play();
+
+        return sfxSource;
+    }
+
+
     public void StopSFX(string soundName)
     {
         // 사운드 멈추기 (재생 중인 사운드가 해당 사운드면 멈춤)
