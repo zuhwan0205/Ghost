@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 public class Monitor : EventObject
@@ -7,6 +8,7 @@ public class Monitor : EventObject
     private Animator anim;
     private AudioSource tvNoise;
     private bool seReady = true;
+    private Light2D light;
     [SerializeField] private float workingTime;
     [SerializeField] private float failTime;
     [SerializeField] private GameObject ghost;
@@ -14,6 +16,7 @@ public class Monitor : EventObject
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        light = GetComponentInChildren<Light2D>();
     }
 
     protected override void Update()
@@ -28,6 +31,7 @@ public class Monitor : EventObject
             if (seReady)
             {
                 tvNoise = AudioManager.Instance.PlayLoopSFX("TVnoise", transform.position);
+                light.enabled = true;
                 seReady = false;
             }
         }
@@ -43,7 +47,7 @@ public class Monitor : EventObject
         if (workingTime > failTime)
         {
             Deactivate();
-            Instantiate(ghost, transform.position, Quaternion.identity);
+            Instantiate(ghost, new Vector2(transform.position.x, transform.position.y - 2), Quaternion.identity);
         }
     }
 
@@ -52,6 +56,7 @@ public class Monitor : EventObject
         isWorking = false;
         tvNoise.Stop();
         tvNoise.loop = false;
+        light.enabled = false;
         workingTime = 0;
         seReady = true;
     }

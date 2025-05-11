@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-using System.Collections.Generic;
-using Unity.Android.Gradle.Manifest;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Action = System.Action;
 
@@ -122,14 +120,10 @@ public class LostManager : MonoBehaviour
                     clearCount++;
                 }
             }
-
-            if (clearCount >= lostObjs.Length - fakeAmount)
-            {
-                clear = true;
-            }
-
+            
             if (clearCount >= spawnAmount - fakeAmount)
             {
+                clear = true;
                 OnEndLostGame?.Invoke();
             }
         }

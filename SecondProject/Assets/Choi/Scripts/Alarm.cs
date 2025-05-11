@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class Alram : MonoBehaviour
+public class Alarm : MonoBehaviour
 {
     private Light2D light;
 
