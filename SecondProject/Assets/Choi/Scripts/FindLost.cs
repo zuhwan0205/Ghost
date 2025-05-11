@@ -6,10 +6,12 @@ public class FindLost : EventObject
     [Header("Lost INFO")]
     public bool isFake;
     private Light2D light;
+    private RandomObjManager rom;
 
     private void Start()
     {
         light = GetComponentInChildren<Light2D>();
+        rom = GameObject.Find("RandObjManager").GetComponent<RandomObjManager>();
     }
 
     protected override void Update()
@@ -28,7 +30,8 @@ public class FindLost : EventObject
                 } else
                 {
                     isWorking = false;
-                    Debug.Log("가짜 분실물 이벤트 발생!");
+                    rom.Mtime -= 15;
+                    rom.Stime -= 15;
                 }
             }
 

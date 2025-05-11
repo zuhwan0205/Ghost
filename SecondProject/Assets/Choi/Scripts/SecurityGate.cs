@@ -6,10 +6,12 @@ using UnityEngine.Rendering.Universal;
 public class SecurityGate : EventObject
 {
     private Animator anim;
+    private RandomObjManager rom;
 
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        rom = GameObject.Find("RandObjManager").GetComponent<RandomObjManager>();
     }
 
     protected override void Update()
