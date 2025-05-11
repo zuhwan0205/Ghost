@@ -19,6 +19,12 @@ public class GhostTelePort : MonoBehaviour
     public List<GhostPortal> allPortals;
     private LineRenderer lineRenderer;
 
+    private GhostRoomChase roomChase;
+    private void Awake()
+    {
+        roomChase = GetComponent<GhostRoomChase>(); // 또는 필요한 컴포넌트에서 받아옴
+    }
+
     private void Start()
     {
         rend = GetComponent<Renderer>();
@@ -135,4 +141,28 @@ public class GhostTelePort : MonoBehaviour
                 source.Play();
         }
     }
+
+    public Vector3 GetCurrentTargetPortalPosition()
+    {
+        if (routeQueue.Count == 0 || roomChase == null) return transform.position;
+
+        string currentRoomID = roomChase.currentRoomID;
+        string nextRoomID = routeQueue.Peek();
+
+        // Unity 6 방식으로 포탈 탐색
+        GhostPortal[] portals = Object.FindObjectsByType<GhostPortal>(FindObjectsSortMode.None);
+
+        foreach (var portal in portals)
+        {
+            if (portal.fromRoomID == currentRoomID && portal.toRoomID == nextRoomID)
+            {
+                return portal.transform.position;
+            }
+        }
+
+        return transform.position;
+    }
+
+
+
 }
