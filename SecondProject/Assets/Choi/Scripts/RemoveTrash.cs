@@ -5,8 +5,12 @@ public class RemoveTrash : EventObject
     [Header("Can INFO")]
     [SerializeField] GameObject trashObj;
 
+    private AudioSource aud;
+
     private void Start()
     {
+        aud = GetComponent<AudioSource>();
+
         if (isWorking) trashObj.SetActive(true);
     }
 
@@ -20,6 +24,7 @@ public class RemoveTrash : EventObject
             {
                 isWorking = false;
                 trashObj.SetActive(false);
+                aud.Play();
             }
         }
     }

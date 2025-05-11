@@ -11,6 +11,8 @@ public class MissionManager : MonoBehaviour
     public GameObject Carpet;
     public GameObject MirrorSystem;
     public GameObject WireBoxSystem;
+    public GameObject LostPropertyManager;
+    public GameObject TrashManager;
 
     public static MissionManager Instance;
 
@@ -26,7 +28,8 @@ public class MissionManager : MonoBehaviour
         allMiniGames = new List<GameObject>
         {
             Mannequin, Glass, Vent,
-            Radio, Carpet, MirrorSystem, WireBoxSystem
+            Radio, Carpet, MirrorSystem, WireBoxSystem,
+            LostPropertyManager, TrashManager
         };
         
         missionDescriptions = new Dictionary<string, string>
@@ -37,7 +40,9 @@ public class MissionManager : MonoBehaviour
             { "Radio", "Tune the radio to zero." },
             { "Carpet", "Organize the carpet." },
             { "MirrorSystem", "Wipe the glass clean." },
-            { "WireBoxSystem", "Organize the tangled wires." }
+            { "WireBoxSystem", "Organize the tangled wires." },
+            {"LostPropertyManager","Find Lost Property."},
+            {"TrashManager","Clear the trash."}
         };
     }
 

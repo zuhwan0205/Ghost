@@ -27,8 +27,8 @@ public class Player : PlayerManager
     [Header("대쉬 정보")]
     [SerializeField] public float dashSpeed;           // 대시 속도
     [SerializeField] private float dashTime;            // 대시 지속 시간
-    [SerializeField] private bool isDashing;            // 대시 중인지 여부
-
+    [SerializeField] private bool isDashing = false;     // 대시 중인지 여부
+     
     [Header("상호작용")]
     [SerializeField] private float interactionRadius = 1f;  // 상호작용 범위
     [SerializeField] private LayerMask interactableLayer;   // 상호작용 가능한 오브젝트 레이어
@@ -253,7 +253,6 @@ public class Player : PlayerManager
             Debug.LogError("VendingMachinePanel이 할당되지 않았습니다!");
         vendingMachinePanel.SetActive(false);
         UpdateCoinUI();
-
     }
 
     // 매 프레임마다 호출 (플레이어 상태 업데이트)

@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Monitor : EventObject
 {
     private Animator anim;
+    private AudioSource aud;
     [SerializeField] private float workingTime;
     [SerializeField] private float failTime;
     [SerializeField] private GameObject ghost;
@@ -10,6 +12,7 @@ public class Monitor : EventObject
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        aud = GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -18,7 +21,11 @@ public class Monitor : EventObject
 
         anim.SetBool("isWorking", isWorking);
 
-        if (isWorking ) workingTime += Time.deltaTime;
+        if (isWorking)
+        {
+            workingTime += Time.deltaTime;
+            if (!aud.isPlaying) aud.Play();
+        }
 
         // needTime까지 상호작용 완료시 해제
         if (detected && interactionTime > needTime)
@@ -30,7 +37,7 @@ public class Monitor : EventObject
         if (workingTime > failTime)
         {
             Deactivate();
-            Instantiate(ghost);
+            Instantiate(ghost, transform.position, Quaternion.identity);
         }
     }
 
@@ -38,5 +45,6 @@ public class Monitor : EventObject
     {
         isWorking = false;
         workingTime = 0;
+        aud.Stop();
     }
 }
