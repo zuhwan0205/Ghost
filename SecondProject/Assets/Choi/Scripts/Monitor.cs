@@ -43,7 +43,7 @@ public class Monitor : EventObject
         if (workingTime > failTime)
         {
             Deactivate();
-            Instantiate(ghost, transform.position, Quaternion.identity);
+            Instantiate(ghost, new Vector2(transform.position.x, transform.position.y - 2), Quaternion.identity);
         }
     }
 

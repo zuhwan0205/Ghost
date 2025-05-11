@@ -9,6 +9,7 @@ public class SecurityGate : EventObject
     private RandomObjManager rom;
     private AudioManager aud;
     private AudioSource alarm;
+    private bool alarmOn = false;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class SecurityGate : EventObject
         if (detected && interactionTime > needTime) 
         { 
             isWorking = false;
+            alarmOn = false;
             if (alarm.isPlaying) { alarm.Stop(); alarm.loop = false; }
             anim.SetBool("AlramOn", false);
         }
@@ -41,7 +43,11 @@ public class SecurityGate : EventObject
         // 켜진상태로 닿으면 알람 시작
         if (isWorking && collision.gameObject.CompareTag("Player"))
         {
-            alarm = aud.PlayLoopSFX("SecurityAlarm", transform.position);
+            if (!alarmOn)
+            {
+                alarm = aud.PlayLoopSFX("SecurityAlarm", transform.position);
+                alarmOn = true;
+            }
             anim.SetBool("StandBy", false);
             anim.SetBool("AlramOn", true);
         }
