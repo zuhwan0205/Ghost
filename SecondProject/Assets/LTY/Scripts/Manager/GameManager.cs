@@ -91,16 +91,17 @@ public class GameManager : MonoBehaviour
     // ���� �������� �ε�
     void LoadNextStage()
     {
-        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        if (CurrentStage <= 2)
         {
-            SceneManager.LoadScene(nextSceneIndex);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            ResetStage();
         }
         else
         {
+            // 스테이지 3은 게임 완료 처리
             Debug.Log("Game Completed!");
+            //엔딩씬
         }
-        ResetStage();
     }
 
     // �������� �����
