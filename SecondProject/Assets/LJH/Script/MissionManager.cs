@@ -24,6 +24,13 @@ public class MissionManager : MonoBehaviour
     public List<string> activeMissionNames = new List<string>();
     
     public Dictionary<string, string> missionDescriptions = new Dictionary<string, string>();
+    
+    private readonly Dictionary<int, int> stageMissionCount = new Dictionary<int, int>
+    {
+        { 1, 3 },
+        { 2, 5 },
+        { 3, 7 }
+    };
 
     private void Awake()
     {
@@ -49,7 +56,22 @@ public class MissionManager : MonoBehaviour
             {"TrashManager","Clear the trash."}
         };
         
-        ActivateRandomMiniGames(3);
+        int count = stageMissionCount.TryGetValue(GameManager.Instance.CurrentStage, out var c) ? c : 3;
+        ActivateRandomMiniGames(count);
+        
+        // if (GameManager.Instance.CurrentStage == 1)
+        // {
+        //     ActivateRandomMiniGames(3);
+        // }
+        // else if (GameManager.Instance.CurrentStage == 2)
+        // {
+        //     ActivateRandomMiniGames(5);
+        // }
+        // else if (GameManager.Instance.CurrentStage == 3)
+        // {
+        //     ActivateRandomMiniGames(7);
+        // }
+        
 
         if (activeMissionNames.Contains("LostPropertyManager"))
         {
