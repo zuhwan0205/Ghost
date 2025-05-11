@@ -1254,7 +1254,7 @@ MonoBehaviour:
   m_LightType: 4
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.007843138, g: 0.007843138, b: 0.007843138, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
@@ -4162,6 +4162,22 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
+    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.45003474
+      objectReference: {fileID: 0}
+    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6190665
+      objectReference: {fileID: 0}
+    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.00000008940697
+      objectReference: {fileID: 0}
+    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.009236351
+      objectReference: {fileID: 0}
     - target: {fileID: 1335712294562512407, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4764,6 +4780,22 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
+      propertyPath: m_Size.x
+      value: 0.41222352
+      objectReference: {fileID: 0}
+    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64694977
+      objectReference: {fileID: 0}
+    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.00005567074
+      objectReference: {fileID: 0}
     - target: {fileID: 7712178011485937977, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: m_Layer
       value: 13
@@ -4875,7 +4907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3960553117898616622, guid: 2c74d74b6ab293d408b5f88000e668f6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5287,6 +5319,22 @@ PrefabInstance:
     - target: {fileID: 4178278817249936456, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4296022
+      objectReference: {fileID: 0}
+    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64454967
+      objectReference: {fileID: 0}
+    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.005642891
+      objectReference: {fileID: 0}
+    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.009885758
       objectReference: {fileID: 0}
     - target: {fileID: 4597370844812879804, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: m_LocalScale.x

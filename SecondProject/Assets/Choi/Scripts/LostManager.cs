@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-using System.Collections.Generic;
-using Unity.Android.Gradle.Manifest;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Action = System.Action;
 
