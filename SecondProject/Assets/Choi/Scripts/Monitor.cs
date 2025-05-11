@@ -4,7 +4,6 @@ using UnityEngine.Audio;
 public class Monitor : EventObject
 {
     private Animator anim;
-    private AudioSource aud;
     [SerializeField] private float workingTime;
     [SerializeField] private float failTime;
     [SerializeField] private GameObject ghost;
@@ -12,7 +11,6 @@ public class Monitor : EventObject
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        aud = GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -45,6 +43,5 @@ public class Monitor : EventObject
     {
         isWorking = false;
         workingTime = 0;
-        aud.Stop();
     }
 }
