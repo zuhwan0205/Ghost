@@ -36,6 +36,7 @@ public class Monitor : EventObject
         if (detected && interactionTime > needTime)
         {
             Deactivate();
+            AudioManager.Instance.Play("TVButton");
         }
 
         // failTime까지 상호작용 못하면 실패 이벤트
