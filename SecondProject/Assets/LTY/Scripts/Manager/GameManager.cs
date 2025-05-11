@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance; // �̱��� ����
-    public int missionQuota = 3; // �� ���������� �ʿ��� �̼� �� (3��)
+    private int missionQuota; // �� ���������� �ʿ��� �̼� �� (3��)
     private int currentMissions = 0; // �Ϸ��� �̼� ��
     private bool isGameOver = false;
     private bool isCleared = false;
@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         if (CurrentStage == 1)
         {
             missionQuota = 3;
@@ -36,6 +35,11 @@ public class GameManager : MonoBehaviour
         {
             missionQuota = 7;
         }
+    }
+
+    void Start()
+    {
+       
     }
 
     // �̼� �Ϸ� �� ȣ��
