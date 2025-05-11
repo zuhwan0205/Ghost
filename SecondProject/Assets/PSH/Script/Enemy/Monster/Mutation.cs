@@ -22,6 +22,7 @@ public class Mutation : MonoBehaviour
 
     [Header("감지 설정")]
     [SerializeField] private LayerMask playerLayer; // 플레이어 감지용 레이어마스크
+    [SerializeField] private LayerMask lureLayer; // 깡통 감지용 레이어마스크
 
     [Header("감지 쿨타임 설정")]
     [SerializeField] private float reDetectDelay; // 재감지 대기 시간
@@ -29,7 +30,8 @@ public class Mutation : MonoBehaviour
     private bool isDetectable = true; // 감지 가능 여부
 
     [Header("상태 관리")]
-    private bool isChasing = false; // 추격 중 여부
+    private bool isChasing = false; // 플레이어 추격 중 여부
+    private bool isChasingLure = false; // 깡통 추격 중 여부
     private bool isWaitingAfterChase = false; // 추격 후 대기 상태
     private bool isPatrolling = true; // 순찰 상태
     private bool isPaused = false; // 멈춤 상태 여부
@@ -38,12 +40,14 @@ public class Mutation : MonoBehaviour
     [SerializeField] private float idleThreshold = 5f; // 순찰 복귀 기준 시간
     private float lastXPosition; // 마지막 기록된 X 위치
     private Vector3 lastSeenPosition; // 마지막 감지한 플레이어 위치
+    private float flipCooldown = 0f; // 방향 전환 쿨다운
+    [SerializeField] private float flipCooldownTime = 0.5f; // 방향 전환 쿨다운 시간
 
     [Header("유도 오브젝트")]
-    [SerializeField] private float lureDetectRange;
-    [SerializeField] private LayerMask targetObjectLayer;
+    [SerializeField] private float lureDetectRange = 20f;
     private Vector2? lureTargetPos = null;
     private GameObject lureTargetObject = null;
+    private int lastMoveDirection = 1; // 마지막 이동 방향 (순찰 복귀 시 사용)
 
     [Header("사운드 설정")]
     [SerializeField] private string hitPlayerSound = "mutation_hit";
@@ -76,28 +80,35 @@ public class Mutation : MonoBehaviour
     {
         if (isPaused) return;
 
-        // 1. 깡통(유도 오브젝트) 추적 중이면
-        if (lureTargetPos.HasValue)
+        // 방향 전환 쿨다운 감소
+        if (flipCooldown > 0)
+            flipCooldown -= Time.deltaTime;
+
+        // 1. 깡통 추적 중이면 다른 로직 무시
+        if (isChasingLure && lureTargetPos.HasValue)
         {
             ChaseToLure(lureTargetPos.Value);
-            return; // 플레이어 감지 및 기타 로직 완전 무시
+            return;
         }
 
         // 2. 깡통이 없으면 유도 오브젝트 감지 시도
         DetectLureObject();
 
-        // 3. 감지에 성공했다면 다음 프레임부터 이동
+        // 3. 깡통 감지 성공 시 추적 시작
         if (lureTargetPos.HasValue)
+        {
+            isChasingLure = true;
             return;
+        }
 
-        // 4. 깡통/유도 오브젝트 없으면 플레이어 추적 또는 순찰
+        // 4. 깡통 없으면 플레이어 추적 또는 순찰
         PlayerTracking();
         CheckForStuck();
     }
 
     private void LateUpdate()
     {
-        // Flip 방향은 유지하면서 Y, Z는 원본 유지
+        // Flip 방향 유지, Y, Z는 원본 유지
         float direction = Mathf.Sign(transform.localScale.x);
         transform.localScale = new Vector3(originalScale.x * direction, originalScale.y, originalScale.z);
     }
@@ -105,80 +116,87 @@ public class Mutation : MonoBehaviour
     // 깡통 위치를 외부에서 설정하는 메서드
     public void SetLureTarget(Vector2 targetPos, GameObject targetObject)
     {
+        if (isChasingLure) return; // 이미 깡통 추적 중이면 무시
         lureTargetPos = targetPos;
         lureTargetObject = targetObject;
         isChasing = false; // 플레이어 추적 중지
-        isPaused = false;  // 멈춤 상태 해제
+        isPatrolling = false; // 순찰 중지
+        isChasingLure = true; // 깡통 추적 시작
+        isPaused = false; // 멈춤 상태 해제
         Debug.Log($"[Mutation] 깡통 목표 설정: {targetPos}, 오브젝트: {targetObject.name}");
     }
 
     private void DetectLureObject()
     {
-        Vector2 origin = transform.position;
-
-        RaycastHit2D leftHit = Physics2D.Raycast(origin, Vector2.left, lureDetectRange, targetObjectLayer);
-        RaycastHit2D rightHit = Physics2D.Raycast(origin, Vector2.right, lureDetectRange, targetObjectLayer);
-
-        bool foundLeft = leftHit.collider != null;
-        bool foundRight = rightHit.collider != null;
-
-        if (!foundLeft && !foundRight)
-        {
-            // 깡통이 이미 목표로 설정된 경우 유지
+        // 깡통 추적 중이거나 목표가 이미 있으면 감지 중지
+        if (isChasingLure || (lureTargetPos.HasValue && lureTargetObject != null))
             return;
-        }
 
-        if (foundLeft && !foundRight)
+        // 범위 내 깡통 감지
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, lureDetectRange, lureLayer);
+        foreach (var hit in hits)
         {
-            lureTargetPos = leftHit.point;
-            lureTargetObject = leftHit.collider.gameObject;
-        }
-        else if (!foundLeft && foundRight)
-        {
-            lureTargetPos = rightHit.point;
-            lureTargetObject = rightHit.collider.gameObject;
-        }
-        else
-        {
-            float distLeft = Vector2.Distance(origin, leftHit.point);
-            float distRight = Vector2.Distance(origin, rightHit.point);
-
-            if (distLeft <= distRight)
+            if (hit.CompareTag("Can"))
             {
-                lureTargetPos = leftHit.point;
-                lureTargetObject = leftHit.collider.gameObject;
-            }
-            else
-            {
-                lureTargetPos = rightHit.point;
-                lureTargetObject = rightHit.collider.gameObject;
+                lureTargetPos = hit.transform.position;
+                lureTargetObject = hit.gameObject;
+                isChasing = false;
+                isPatrolling = false;
+                isChasingLure = true;
+                isPaused = false;
+                Debug.Log($"[Mutation] 깡통 감지: {lureTargetObject.name}, 위치: {lureTargetPos}");
+                return;
             }
         }
-
-        isChasing = false;
-        isPaused = false;
-        Debug.Log($"[Mutation] 유도 오브젝트 감지: {lureTargetObject.name}, 위치: {lureTargetPos}");
     }
 
     private void ChaseToLure(Vector2 targetPos)
     {
+        // 깡통이 사라졌으면 추적 중지
+        if (lureTargetObject == null)
+        {
+            lureTargetPos = null;
+            isChasingLure = false;
+            isPatrolling = true;
+            rb.linearVelocity = Vector2.zero;
+            if (anim != null)
+            {
+                anim.SetBool("Tracking", false);
+                anim.SetBool("Idle", true);
+            }
+            // 순찰 복귀 시 마지막 이동 방향으로 스프라이트 방향 설정
+            transform.localScale = new Vector3(originalScale.x * lastMoveDirection, originalScale.y, originalScale.z);
+            Debug.Log("[Mutation] 깡통 사라짐, 순찰로 복귀");
+            return;
+        }
+
         // 물리 기반 이동
         Vector2 direction = (targetPos - (Vector2)transform.position).normalized;
-        rb.linearVelocity = new Vector2(direction.x * Enemy_Move_Speed, rb.linearVelocity.y);
+        float moveSpeed = Enemy_Move_Speed;
+        rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
 
-        // 벽 충돌 체크
-        if (WallAhead())
-        {
-            Flip();
-            rb.linearVelocity = new Vector2(-rb.linearVelocity.x, rb.linearVelocity.y);
-            Debug.Log("[Mutation] 벽 감지: 방향 전환");
-        }
+        // 이동 방향 저장
+        lastMoveDirection = direction.x > 0 ? 1 : -1;
 
         // 방향 전환
         if ((targetPos.x < transform.position.x && transform.localScale.x > 0) ||
             (targetPos.x > transform.position.x && transform.localScale.x < 0))
         {
+            if (flipCooldown <= 0)
+            {
+                Flip();
+                flipCooldown = flipCooldownTime;
+                Debug.Log("[Mutation] 깡통 추적 중 방향 전환");
+            }
+        }
+
+        // 벽 충돌 체크
+        if (flipCooldown <= 0 && WallAhead())
+        {
             Flip();
+            rb.linearVelocity = new Vector2(-rb.linearVelocity.x, rb.linearVelocity.y);
+            flipCooldown = flipCooldownTime;
+            Debug.Log("[Mutation] 벽 감지: 방향 전환");
         }
 
         // 애니메이션 및 사운드
@@ -193,7 +211,7 @@ public class Mutation : MonoBehaviour
 
     private void PlayerTracking()
     {
-        if (player == null || isWaitingAfterChase) return;
+        if (player == null || isWaitingAfterChase || isChasingLure) return;
 
         if (!isDetectable)
         {
@@ -226,7 +244,7 @@ public class Mutation : MonoBehaviour
             {
                 MoveToTarget(lastSeenPosition);
                 LookAt(lastSeenPosition);
-                if (WallAhead()) Flip();
+                if (flipCooldown <= 0 && WallAhead()) Flip();
             }
             else
             {
@@ -243,11 +261,19 @@ public class Mutation : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(patrolDirection * is_Enemy_Move_Speed, rb.linearVelocity.y);
 
-        if (WallAhead())
+        // 이동 방향 저장
+        lastMoveDirection = patrolDirection;
+
+        // 방향 전환
+        if (flipCooldown <= 0 && WallAhead())
         {
             Flip();
             patrolDirection *= -1;
+            flipCooldown = flipCooldownTime;
         }
+
+        // 스프라이트 방향 동기화
+        transform.localScale = new Vector3(originalScale.x * patrolDirection, originalScale.y, originalScale.z);
     }
 
     private void MoveToTarget(Vector3 targetPosition)
@@ -260,12 +286,19 @@ public class Mutation : MonoBehaviour
         }
         direction.Normalize();
         rb.linearVelocity = new Vector2(direction.x * is_Enemy_Move_Speed, rb.linearVelocity.y);
+
+        // 이동 방향 저장
+        lastMoveDirection = direction.x > 0 ? 1 : -1;
     }
 
     private void LookAt(Vector3 targetPosition)
     {
         Vector3 direction = targetPosition - transform.position;
-        transform.localScale = new Vector3(direction.x > 0 ? 1 : -1, 1, 1);
+        if (flipCooldown <= 0)
+        {
+            transform.localScale = new Vector3(originalScale.x * (direction.x > 0 ? 1 : -1), originalScale.y, originalScale.z);
+            flipCooldown = flipCooldownTime;
+        }
     }
 
     public virtual bool PlayerInSight()
@@ -317,13 +350,14 @@ public class Mutation : MonoBehaviour
             OnPlayerTrigger(collision);
         }
 
-        if (((1 << collision.gameObject.layer) & targetObjectLayer) != 0)
+        if (collision.CompareTag("Can"))
         {
-            Debug.Log($"[Mutation] 유도 오브젝트와 충돌: {collision.gameObject.name} → 제거 및 5초 정지");
+            Debug.Log($"[Mutation] 깡통과 충돌: {collision.gameObject.name} → 제거 및 5초 정지");
             AudioManager.Instance.PlayAt(lureHitSound, transform.position);
             Destroy(collision.gameObject);
             lureTargetPos = null;
             lureTargetObject = null;
+            isChasingLure = false;
 
             rb.linearVelocity = Vector2.zero;
             isPaused = true;
@@ -346,6 +380,7 @@ public class Mutation : MonoBehaviour
 
         rb.linearVelocity = Vector2.zero;
         isChasing = false;
+        isChasingLure = false;
         isPaused = true;
 
         StopAudioGroup(audioSources);
@@ -391,6 +426,7 @@ public class Mutation : MonoBehaviour
         isPaused = false;
         isPatrolling = true;
         isChasing = false;
+        isChasingLure = false;
         ResetToDefaultStats();
 
         PlayAudioGroup(audioSources);
@@ -402,6 +438,8 @@ public class Mutation : MonoBehaviour
             anim.SetBool("Idle", true);
         }
 
+        // 순찰 복귀 시 마지막 이동 방향으로 스프라이트 방향 설정
+        transform.localScale = new Vector3(originalScale.x * lastMoveDirection, originalScale.y, originalScale.z);
         Debug.Log("[Mutation] 5초 후 몬스터 이동 재개!");
     }
 
@@ -421,7 +459,11 @@ public class Mutation : MonoBehaviour
 
         isWaitingAfterChase = false;
         isPatrolling = true;
+        isChasingLure = false;
         ResetToDefaultStats();
+
+        // 순찰 복귀 시 마지막 이동 방향으로 스프라이트 방향 설정
+        transform.localScale = new Vector3(originalScale.x * lastMoveDirection, originalScale.y, originalScale.z);
     }
 
     private void ResetToDefaultStats()
@@ -432,7 +474,7 @@ public class Mutation : MonoBehaviour
 
     private void CheckForStuck()
     {
-        if (isChasing && !isPatrolling && !isWaitingAfterChase)
+        if (isChasing && !isPatrolling && !isWaitingAfterChase && !isChasingLure)
         {
             float currentX = transform.position.x;
 
@@ -444,8 +486,12 @@ public class Mutation : MonoBehaviour
                     isPatrolling = true;
                     isWaitingAfterChase = false;
                     isChasing = false;
+                    isChasingLure = false;
                     ResetToDefaultStats();
                     idleTimer = 0f;
+
+                    // 순찰 복귀 시 마지막 이동 방향으로 스프라이트 방향 설정
+                    transform.localScale = new Vector3(originalScale.x * lastMoveDirection, originalScale.y, originalScale.z);
                 }
             }
             else
@@ -491,5 +537,17 @@ public class Mutation : MonoBehaviour
         foreach (var source in sources)
             if (source != null && !source.isPlaying)
                 source.Play();
+    }
+
+    // 외부에서 호출되는 방 이동 명령 (깡통 추적 중 무시)
+    public void TriggerMoveToRoom(string roomID)
+    {
+        if (isChasingLure)
+        {
+            Debug.Log($"[Mutation] 깡통 추적 중, 방 이동 명령 무시: {roomID}");
+            return;
+        }
+        // 여기에 기존 TriggerMoveToRoom 로직 추가 (필요 시)
+        Debug.Log($"[Mutation] 방 이동 명령 수락: {roomID}");
     }
 }
