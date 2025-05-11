@@ -186,13 +186,20 @@ public class AudioManager : MonoBehaviour
 
         AudioSource sfxSource = GetNextAvailableSFXSource();
         sfxSource.clip = data.clip;
-        sfxSource.loop = true;
         sfxSource.volume = data.volume;
-        sfxSource.transform.position = position;
-        sfxSource.Play();
+        sfxSource.loop = true;
 
+        sfxSource.transform.position = position;
+
+        sfxSource.spatialBlend = 1f;
+        sfxSource.minDistance = 1f;
+        sfxSource.maxDistance = 500f;
+        sfxSource.rolloffMode = AudioRolloffMode.Logarithmic;
+
+        sfxSource.Play();
         return sfxSource;
     }
+
 
 
     public void StopSFX(string soundName)
