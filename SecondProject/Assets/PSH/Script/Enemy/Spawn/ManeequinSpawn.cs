@@ -60,38 +60,10 @@ public class MannequinSpawn : MonoBehaviour
             while (currentMonster != null)
                 yield return null;
 
-            // 몬스터가 사라진 후 타이머 시작
-            isRespawning = true;
-            respawnCountdown = currentRespawnTime;
-
-            while (respawnCountdown > 0f)
-            {
-                respawnCountdown -= Time.deltaTime;
-                yield return null;
-            }
-
-            isRespawning = false;
+            yield return new WaitForSeconds(currentRespawnTime);
         }
     }
 
-    void OnGUI()
-    {
-        if (isRespawning)
-        {
-            string text = $"[Mannequin] 다음 소환까지: {respawnCountdown:F1}초";
-
-            GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 20;
-            style.normal.textColor = Color.red;
-
-            float width = 350f;
-            float height = 30f;
-            float x = Screen.width - width - 10f;
-            float y = 10f;
-
-            GUI.Label(new Rect(x, y, width, height), text, style);
-        }
-    }
 
     // 외부에서 난이도 설정할 수 있는 함수
     public void SetSpawnLevel(int level)
@@ -192,24 +164,4 @@ public class MannequinSpawn : MonoBehaviour
         }
     }
 
-    // 디버그용: Scene 뷰에서 소환 범위 표시
-    void OnDrawGizmosSelected()
-    {
-        if (player == null) return;
-
-        Player playerComp = player.GetComponent<Player>();
-        if (playerComp == null) return;
-
-        float dir = playerComp.facingRight ? 1f : -1f;
-        Vector3 pos = player.position;
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(pos, pos + Vector3.right * spawnRange * dir);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(pos, pos + Vector3.right * safeZone * dir);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(pos, 0.2f);
-    }
 }

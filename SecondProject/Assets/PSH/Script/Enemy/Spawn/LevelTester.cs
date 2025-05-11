@@ -11,15 +11,6 @@ public class LevelTester : MonoBehaviour
         mutationSpawner = FindObjectOfType<MutationSpawner>();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            SetLevel(1);
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            SetLevel(2);
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-            SetLevel(3);
-    }
 
     void SetLevel(int level)
     {
@@ -29,6 +20,5 @@ public class LevelTester : MonoBehaviour
         if (mutationSpawner != null)
             mutationSpawner.SetSpawnLevel(level);
 
-        Debug.Log($"[LevelTester] 레벨 {level} 적용 완료");
     }
 }
