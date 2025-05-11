@@ -50,6 +50,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "1\uCE35 \uBCF5\uB3C4"
       objectReference: {fileID: 0}
+    - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 4186563648555053011, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.4904785
@@ -111,6 +115,10 @@ PrefabInstance:
     - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_Name
       value: "3\uCE35 \uBCF5\uB3C4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
       objectReference: {fileID: 0}
     - target: {fileID: 4186563648555053011, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_LocalScale.x
@@ -190,6 +198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "1\uCE35 \uACBD\uBE44\uC2E4"
       objectReference: {fileID: 0}
+    - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 4186563648555053011, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.1302
@@ -255,6 +267,10 @@ PrefabInstance:
     - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_Name
       value: "1\uCE35 \uC637\uAC00\uAC8C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
       objectReference: {fileID: 0}
     - target: {fileID: 4186563648555053011, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_LocalScale.x
@@ -350,6 +366,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "3\uCE35 \uC601\uD654\uAD00"
       objectReference: {fileID: 0}
+    - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 4186563648555053011, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.0781
@@ -420,6 +440,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "2\uCE35 \uC77C\uB809\uD2B8\uB85C\uB9C8\uD2B8"
       objectReference: {fileID: 0}
+    - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 4186563648555053011, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.613
@@ -489,6 +513,10 @@ PrefabInstance:
     - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_Name
       value: "2\uCE35 \uB098\uC774\uD0A4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 51337936512308310, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
       objectReference: {fileID: 0}
     - target: {fileID: 4186563648555053011, guid: 2bb024dc9b4e2f84e87ef5b97f5a0b94, type: 3}
       propertyPath: m_LocalScale.x

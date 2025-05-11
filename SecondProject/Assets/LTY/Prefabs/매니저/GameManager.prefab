@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbfc868891250046a11bd8d80f85e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionQuota: 3
   door: {fileID: 0}
+  CurrentStage: 1
