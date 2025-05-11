@@ -47,12 +47,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mannequin: {fileID: 0}
   Glass: {fileID: 0}
-  Light: {fileID: 0}
   Vent: {fileID: 0}
   Radio: {fileID: 0}
   Carpet: {fileID: 0}
-  CleanGlass: {fileID: 0}
-  Wire: {fileID: 0}
+  MirrorSystem: {fileID: 0}
+  WireBoxSystem: {fileID: 0}
+  LostPropertyManager: {fileID: 0}
+  TrashManager: {fileID: 0}
+  OnLostManager: 0
+  OnTrashManager: 0
   activeMissionNames: []
 --- !u!114 &8591069563199900229
 MonoBehaviour:
@@ -66,6 +69,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b1e8abb396208b46b3b72c323f0d872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scheduleText01: {fileID: 0}
-  scheduleText02: {fileID: 0}
-  scheduleText03: {fileID: 0}
+  scheduleTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
