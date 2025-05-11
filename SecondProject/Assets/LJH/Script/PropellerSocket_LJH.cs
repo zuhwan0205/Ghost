@@ -12,6 +12,7 @@ public class PropellerSocket_LJH : MonoBehaviour
             other.transform.position = Vector2.zero;
             other.GetComponent<DragGlass>().enabled = false;
             Debug.Log("교체완료");
+            AudioManager.Instance.PlaySFX("Vendingmachine", transform.position);
             CompleteVentMission();
         }
     }

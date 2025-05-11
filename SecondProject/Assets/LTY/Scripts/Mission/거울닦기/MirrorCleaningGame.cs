@@ -316,6 +316,7 @@ public class MirrorCleaningGame : MonoBehaviour
             dirtImage.texture = originalTexture;
         }
         Debug.Log("[MirrorCleaningGame] 미니게임 완료: 거울 깨끗!");
+        AudioManager.Instance.PlaySFX("Glass", transform.position);
     }
 
     void OnDestroy()

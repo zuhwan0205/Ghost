@@ -45,6 +45,7 @@ public class Stain : MonoBehaviour
         {
             CompleteClean();
             Debug.Log("Clean Complete");
+            AudioManager.Instance.PlaySFX("MissionSuccess", transform.position);
         }
     }
 

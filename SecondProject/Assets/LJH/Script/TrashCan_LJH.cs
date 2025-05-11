@@ -46,6 +46,7 @@ public class TrashCan : MonoBehaviour
     void CompleteGlassMission()
     {
         OnGlassMiniGameEnd?.Invoke();
+        AudioManager.Instance.PlaySFX("MissionSuccess", transform.position);
     }
 
     void CompleteTrashMission()

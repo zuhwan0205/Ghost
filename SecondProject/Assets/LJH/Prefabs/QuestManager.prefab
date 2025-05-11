@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1bbf0f67f65784fbb52cf5c31a7b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapPhoto: {fileID: 645411862609229670, guid: 0ae403592549720429dc451812da28e6, type: 3}
+  MapPhoto: {fileID: 645411862609229670, guid: a6ee75de3cd4ada43ab589e995ac9ee7, type: 3}
   JustPhoto1: {fileID: -2092873029290315568, guid: 97837d34f8ca61c4989b97f843ac96cd, type: 3}
   JustPhoto2: {fileID: -8164817174499150267, guid: eddbd5f072125244bb30f67c02ecc2b3, type: 3}
   JustPhoto3: {fileID: -6949834616961307612, guid: dd9fce2002865b9419356b84a5dc4a4a, type: 3}
