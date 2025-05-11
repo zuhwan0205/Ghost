@@ -20,6 +20,7 @@ public class RemoveTrash : EventObject
 
             if (interactionTime > needTime)
             {
+                AudioManager.Instance.Play("TrashCan");
                 isWorking = false;
                 trashObj.SetActive(false);
             }
