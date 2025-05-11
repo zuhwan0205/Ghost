@@ -1,6 +1,8 @@
 ﻿using JetBrains.Annotations;
 using System.Collections.Generic;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
+using Action = System.Action;
 
 public class LostManager : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class LostManager : MonoBehaviour
         ("Wallet", 0),
         ("Wristwatch", 0)
     };
+
+    public static event Action OnEndLostGame;
 
     private void Start()
     {
@@ -121,6 +125,11 @@ public class LostManager : MonoBehaviour
             if (clearCount >= lostObjs.Length - fakeAmount)
             {
                 clear = true;
+            }
+
+            if (clearCount == 3)
+            {
+                OnEndLostGame?.Invoke();
             }
         }
     }

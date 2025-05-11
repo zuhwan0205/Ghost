@@ -42,6 +42,8 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         GlassInteract.OnGlassInteract += GlassPanelOn;
         RadioInteract.OnRadioInteract += RadioPanelOn;
         VentInteract.OnVentInteract += VentPanelOn;
+        LostManager.OnEndLostGame += EndLostGame;
+        TrashManager.OnEndTrashGame += EndTrashGame;
     }
 
     private void OnDisable()
@@ -56,6 +58,8 @@ public class MiniGameManagaer_LJH : MonoBehaviour
         GlassInteract.OnGlassInteract -= GlassPanelOn;
         RadioInteract.OnRadioInteract -= RadioPanelOn;
         VentInteract.OnVentInteract -= VentPanelOn;
+        LostManager.OnEndLostGame -= EndLostGame;
+        TrashManager.OnEndTrashGame -= EndTrashGame;
     }
 
     private void Update()
@@ -166,5 +170,15 @@ public class MiniGameManagaer_LJH : MonoBehaviour
             MG_CarpetPanel.SetActive(false);
             isMiniGaming = false;
         }
+    }
+
+    void EndLostGame()
+    {
+        ScheduleManager.Instance.CompleteMission("LostPropertyManager");
+    }
+
+    void EndTrashGame()
+    {
+        ScheduleManager.Instance.CompleteMission("TrashManager");
     }
 }
