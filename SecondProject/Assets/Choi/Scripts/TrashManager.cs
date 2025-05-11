@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TrashManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class TrashManager : MonoBehaviour
     [SerializeField] private int clearCount = 0;
     [SerializeField] private bool clear = false;
     private GameObject[] canObjs;
+    
+    public static event Action OnEndTrashGame;
 
     private void Start()
     {
@@ -37,6 +40,7 @@ public class TrashManager : MonoBehaviour
             if (clearCount == canObjs.Length)
             {
                 clear = true;
+                OnEndTrashGame?.Invoke();
             }
             else
             {
