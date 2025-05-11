@@ -14,6 +14,7 @@ public class LightSocket : MonoBehaviour
             other.transform.position = transform.position;
             other.GetComponent<DragGlass>().enabled = false;
             Debug.Log("교체완료");
+            AudioManager.Instance.PlaySFX("Lamp3", transform.position);
             CompleteChangeLight();
         }
     }

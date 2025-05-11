@@ -251,6 +251,7 @@ public class WiringGameManager : MonoBehaviour
             }
             // ScheduleManager에 미션 완료 알림
             ScheduleManager.Instance.CompleteMission("WireBoxSystem");
+            AudioManager.Instance.PlaySFX("Wiring", transform.position);
         }
     }
 }
