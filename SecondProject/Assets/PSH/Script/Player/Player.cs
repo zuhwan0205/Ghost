@@ -52,7 +52,9 @@ public class Player : PlayerManager
     [SerializeField] private string hitPlayerSound = "player_hit";
     [SerializeField] private string diePlayerSound = "player_die";
     [SerializeField] private AudioSource[] grabSources;     // 잡혔을 당시 재생되는 사운드
-    [SerializeField] private AudioSource[] afterGrabSources;    //잡히고 나서의 재생되는 사운드 
+    [SerializeField] private AudioSource[] afterGrabSources;    //잡히고 나서의 재생되는 사운드
+    [SerializeField] private AudioSource[] hideSources;         //잡히고 나서의 재생되는 사운드
+
 
     // === [추가] 깡통 투척용 프리팹 ===
     [Header("깡통 투척")]
@@ -664,12 +666,17 @@ public class Player : PlayerManager
         {
             currentSpot = spot;
             Debug.Log("[Player] 숨었습니다.");
+
+            PlayAudioGroup(hideSources);
+
         }
         else
         {
             // 숨기 해제 시 살짝 앞으로 이동 (현재 바라보는 방향 기준)
             transform.position += Vector3.right * 0.3f * transform.localScale.x;
             Debug.Log("[Player] 나왔습니다.");
+
+            PlayAudioGroup(hideSources);
         }
     }
 
