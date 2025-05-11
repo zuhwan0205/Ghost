@@ -76,22 +76,27 @@ public class Mutation : MonoBehaviour
     {
         if (isPaused) return;
 
-        DetectLureObject(); // 유도 오브젝트 감지 우선 처리
-
+        // 1. 이미 유도 오브젝트를 추적 중이면 → 끝까지 쫓아간다
         if (lureTargetPos.HasValue)
         {
             rb.linearVelocity = Vector2.zero;
             ChaseToLure(lureTargetPos.Value);
-            return;
-        }
-        else
-        {
-            // 감지되지 않았다면 플레이어 추적 또는 순찰
-            PlayerTracking();
+            return; // ★ 플레이어 감지 완전 무시
         }
 
-        CheckForStuck(); // 이동 중 멈춤 상태 확인
+        // 2. 유도 오브젝트 감지 시도 (오직 추적 중이 아닐 때만)
+        DetectLureObject();
+
+        // 3. 감지에 성공했다면 다음 프레임부터 이동 처리
+        if (lureTargetPos.HasValue)
+            return;
+
+        // 4. 유도 오브젝트도 없고 멈춤도 아니라면 → 플레이어 추적 또는 순찰
+        PlayerTracking();
+        CheckForStuck();
     }
+
+
     private void LateUpdate()
     {
         // Flip 방향은 유지하면서 Y, Z는 원본 유지
@@ -117,7 +122,6 @@ public class Mutation : MonoBehaviour
         {
             lureTargetPos = null;
             lureTargetObject = null;
-            Debug.Log("[Mutation] 유도 오브젝트 감지되지 않음");
             return;
         }
 
@@ -125,13 +129,11 @@ public class Mutation : MonoBehaviour
         {
             lureTargetPos = leftHit.point;
             lureTargetObject = leftHit.collider.gameObject;
-            Debug.Log($"[Mutation] 좌측 유도 오브젝트 감지: {leftHit.collider.name} at {leftHit.point}");
         }
         else if (!foundLeft && foundRight)
         {
             lureTargetPos = rightHit.point;
             lureTargetObject = rightHit.collider.gameObject;
-            Debug.Log($"[Mutation] 우측 유도 오브젝트 감지: {rightHit.collider.name} at {rightHit.point}");
         }
         else
         {
@@ -142,19 +144,18 @@ public class Mutation : MonoBehaviour
             {
                 lureTargetPos = leftHit.point;
                 lureTargetObject = leftHit.collider.gameObject;
-                Debug.Log($"[Mutation] 좌측(가까움) 유도 오브젝트 선택: {leftHit.collider.name} (거리: {distLeft})");
             }
             else
             {
                 lureTargetPos = rightHit.point;
                 lureTargetObject = rightHit.collider.gameObject;
-                Debug.Log($"[Mutation] 우측(가까움) 유도 오브젝트 선택: {rightHit.collider.name} (거리: {distRight})");
             }
         }
 
         isChasing = false;
         isPaused = false;
     }
+
 
     // 유도 오브젝트 위치로 이동
     private void ChaseToLure(Vector2 targetPos)
@@ -164,9 +165,10 @@ public class Mutation : MonoBehaviour
         if ((targetPos.x < transform.position.x && transform.localScale.x > 0) ||
             (targetPos.x > transform.position.x && transform.localScale.x < 0))
         {
-            Flip();
+            Flip(); // 방향 전환
         }
     }
+
     // 플레이어 추적 및 순찰 관리
     private void PlayerTracking()
     {
