@@ -6,8 +6,8 @@ public class RandomObjManager : MonoBehaviour
     [SerializeField] private GameObject[] monitor;
 
     private float timer = 0;
-    private float Stime = 60;
-    private float Mtime = 90;
+    public float Stime = 60;
+    public float Mtime = 90;
 
     private void Update()
     {
@@ -18,6 +18,8 @@ public class RandomObjManager : MonoBehaviour
             int rand = Random.Range(0, secureGate.Length);
 
             secureGate[rand].GetComponent<SecurityGate>().isWorking = true;
+
+            timer = 0;
         }
 
         if (timer >= Mtime)
@@ -25,6 +27,8 @@ public class RandomObjManager : MonoBehaviour
             int rand = Random.Range(0, monitor.Length);
 
             monitor[rand].GetComponent<Monitor>().isWorking = true;
+
+            timer = 0;
         }
     }
 }
