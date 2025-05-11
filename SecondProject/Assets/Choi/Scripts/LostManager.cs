@@ -30,6 +30,7 @@ public class LostManager : MonoBehaviour
 
     private void Start()
     {
+        if(MissionManager.Instance.OnLostManager == false) return;
         lostObjs = new GameObject[spawnPoint.Length];
         List<int> spawnIndices = new List<int>();
         List<int> fakeIndices = new List<int>();
@@ -127,7 +128,7 @@ public class LostManager : MonoBehaviour
                 clear = true;
             }
 
-            if (clearCount == 3)
+            if (clearCount >= spawnAmount - fakeAmount)
             {
                 OnEndLostGame?.Invoke();
             }

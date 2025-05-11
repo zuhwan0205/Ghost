@@ -14,6 +14,10 @@ public class MissionManager : MonoBehaviour
     public GameObject LostPropertyManager;
     public GameObject TrashManager;
 
+    public bool OnLostManager;
+    public bool OnTrashManager;
+    
+
     public static MissionManager Instance;
 
     private List<GameObject> allMiniGames;
@@ -44,11 +48,31 @@ public class MissionManager : MonoBehaviour
             {"LostPropertyManager","Find Lost Property."},
             {"TrashManager","Clear the trash."}
         };
+        
+        ActivateRandomMiniGames(3);
+
+        if (activeMissionNames.Contains("LostPropertyManager"))
+        {
+            OnLostManager = true;
+        }
+        else
+        {
+            OnLostManager = false;
+        }
+
+        if (activeMissionNames.Contains("TrashManager"))
+        {
+            OnTrashManager = true;
+        }
+        else
+        {
+            OnTrashManager = false;
+        }
     }
 
     private void Start()
     {
-        ActivateRandomMiniGames(3);
+        
     }
 
     private void ActivateRandomMiniGames(int count)
