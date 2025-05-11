@@ -18,28 +18,46 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
         }
         else
         {
             Destroy(gameObject);
-        }
-        if (CurrentStage == 1)
-        {
-            missionQuota = 3;
-        }
-        else if (CurrentStage == 2)
-        {
-            missionQuota = 5;
-        }
-        else
-        {
-            missionQuota = 7;
         }
     }
 
     void Start()
     {
        
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 1) 씬 이름 기준으로 미션 개수 매핑
+        switch (scene.name)
+        {
+            case "Stage1":
+                missionQuota = 3;
+                CurrentStage = 1;
+                break;
+            case "Stage2":
+                missionQuota = 5;
+                CurrentStage = 2;
+                break;
+            case "Stage3":
+                missionQuota = 7;
+                CurrentStage = 3;
+                break;
+            default:
+                Debug.LogWarning($"Unknown scene: {scene.name}, defaulting to 3");
+                missionQuota = 3;
+                break;
+        }
+
+        
+        // 2) 진행 상황 초기화
+        ResetStage();
     }
 
     // �̼� �Ϸ� �� ȣ��
@@ -91,16 +109,15 @@ public class GameManager : MonoBehaviour
     // ���� �������� �ε�
     void LoadNextStage()
     {
-        if (CurrentStage <= 2)
+        if (CurrentStage < 3)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            ResetStage();
+            //CurrentStage++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         else
         {
-            // 스테이지 3은 게임 완료 처리
-            Debug.Log("Game Completed!");
-            //엔딩씬
+            // 3단계 클리어 시 엔딩으로
+            //SceneManager.LoadScene("EndingScene");
         }
     }
 
