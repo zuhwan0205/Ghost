@@ -57,9 +57,12 @@ public class MissionManager : MonoBehaviour
         };
         
         int count = stageMissionCount.TryGetValue(GameManager.Instance.CurrentStage, out var c) ? c : 3;
+        
         ActivateRandomMiniGames(count);
         
-        if (GameManager.Instance.CurrentStage == 1)
+        TrashManager.SetActive(true);
+        
+        //if (GameManager.Instance.CurrentStage == 1)
         // {
         //     ActivateRandomMiniGames(3);
         // }
@@ -81,20 +84,6 @@ public class MissionManager : MonoBehaviour
         {
             OnLostManager = false;
         }
-
-        if (activeMissionNames.Contains("TrashManager"))
-        {
-            OnTrashManager = true;
-        }
-        else
-        {
-            OnTrashManager = false;
-        }
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void ActivateRandomMiniGames(int count)
