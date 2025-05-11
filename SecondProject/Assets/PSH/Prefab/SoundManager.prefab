@@ -134,33 +134,15 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e5f2142fb3390e84585c7308df826968, type: 3}
     volume: 0.5
   monsterClips:
-  - name: Mutation_Walk
-    clip: {fileID: 8300000, guid: 668c8559d542bd54e8c4732e20db3aa9, type: 3}
-    volume: 0.5
-  - name: Mutation_Chase
-    clip: {fileID: 8300000, guid: cac8c37eaf249a046a304f4cd47107ca, type: 3}
-    volume: 0.5
-  - name: Mutation_Catch
+  - name: mutation_hit
     clip: {fileID: 8300000, guid: 84fe3ab9900a67a4dab981fea2c48877, type: 3}
+    volume: 0.7
+  - name: mannequin_hit
+    clip: {fileID: 8300000, guid: ebe30f4315ade554a90acfd62bc1e8ba, type: 3}
     volume: 0.5
-  - name: Mannequin_Respawn
-    clip: {fileID: 8300000, guid: 129d04bb3386d4348a4aa7be94332240, type: 3}
-    volume: 0.5
-  - name: Mannequin_Catch
-    clip: {fileID: 8300000, guid: 84fe3ab9900a67a4dab981fea2c48877, type: 3}
-    volume: 0.5
-  - name: Ghost_Cry
-    clip: {fileID: 8300000, guid: 8a49e56d6cfcacc488dae8e39fa1b84e, type: 3}
-    volume: 0.5
-  - name: Ghost_Catch1
-    clip: {fileID: 8300000, guid: 433c9977b174caf4488a251a6a051893, type: 3}
-    volume: 0.5
-  - name: Ghost_Catch2
+  - name: ghost_hit
     clip: {fileID: 8300000, guid: 3f423c4626b9bcd448b7d4bf9d99af2c, type: 3}
     volume: 0.5
-  - name: Monster_Door1
-    clip: {fileID: 8300000, guid: f0d1a80a77e64ed4c919b2ec205c83ad, type: 3}
-    volume: 0.5
-  - name: Monster_Door2
-    clip: {fileID: 8300000, guid: 411688b99dde3ea43b2f6b65b6f71664, type: 3}
+  - name: shadow_hit
+    clip: {fileID: 8300000, guid: 38b9c4bc8558d3945b1ee3d7a94d54d6, type: 3}
     volume: 0.5
