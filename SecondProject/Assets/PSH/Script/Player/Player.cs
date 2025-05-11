@@ -51,8 +51,10 @@ public class Player : PlayerManager
     [SerializeField] private AudioSource[] dashSources;
     [SerializeField] private string hitPlayerSound = "player_hit";
     [SerializeField] private string diePlayerSound = "player_die";
-    [SerializeField] private AudioSource[] grabSources;
-    [SerializeField] private AudioSource[] afterGrabSources;
+    [SerializeField] private AudioSource[] grabSources;     // 잡혔을 당시 재생되는 사운드
+    [SerializeField] private AudioSource[] afterGrabSources;    //잡히고 나서의 재생되는 사운드
+    [SerializeField] private AudioSource[] hideSources;         //잡히고 나서의 재생되는 사운드
+
 
     [Header("깡통 투척")]
     [SerializeField] private GameObject canPrefab;
@@ -628,11 +630,16 @@ public class Player : PlayerManager
         {
             currentSpot = spot;
             Debug.Log("[Player] 숨었습니다.");
+
+            PlayAudioGroup(hideSources);
+
         }
         else
         {
             transform.position += Vector3.right * 0.3f * transform.localScale.x;
             Debug.Log("[Player] 나왔습니다.");
+
+            PlayAudioGroup(hideSources);
         }
     }
 

@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
 
 
     protected int facingDir = 1;
-    protected bool facingRight = true;
+    public bool facingRight = true;
 
 
     protected virtual void Start()
