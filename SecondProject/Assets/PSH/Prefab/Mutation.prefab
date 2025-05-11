@@ -240,7 +240,7 @@ MonoBehaviour:
   teleportChance: 0.4
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   teleportDelay: 1
   teleportSources:
   - {fileID: 8816034485002274757}
