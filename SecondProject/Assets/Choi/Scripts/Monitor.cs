@@ -54,8 +54,11 @@ public class Monitor : EventObject
     private void Deactivate()
     {
         isWorking = false;
-        tvNoise.Stop();
-        tvNoise.loop = false;
+        if (tvNoise != null)
+        {
+            tvNoise.Stop();
+            tvNoise.loop = false;
+        }
         light.enabled = false;
         workingTime = 0;
         seReady = true;
