@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
@@ -79,8 +79,6 @@ public class Player : PlayerManager
     public HidingSpot currentSpot = null;
 
     private Animator anim;
-    
-    private bool isInEventZone = false;
 
     #endregion
 
@@ -348,15 +346,10 @@ public class Player : PlayerManager
 
     private void CheckHoldInteraction()
     {
-        if (isInteractionLocked && !isInEventZone)
+        if (isInteractionLocked)
         {
             interactionHint.SetActive(false);
             holdProgressBar.gameObject.SetActive(false);
-        }
-        else if (isInEventZone)
-        {
-            interactionHint.SetActive(true);
-            holdProgressBar.gameObject.SetActive(true);
             return;
         }
 
@@ -776,21 +769,4 @@ public class Player : PlayerManager
         dashSpeed = speed;
     }
     #endregion
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("EventObject"))
-        {
-            isInEventZone = true;
-            interactionHint.SetActive(true);
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("EventObject"))
-        {
-            isInEventZone = false;
-            interactionHint.SetActive(false);
-        }
-    }
 }
