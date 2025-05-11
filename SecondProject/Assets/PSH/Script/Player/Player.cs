@@ -54,6 +54,10 @@ public class Player : PlayerManager
     [SerializeField] private AudioSource[] grabSources;     // 잡혔을 당시 재생되는 사운드
     [SerializeField] private AudioSource[] afterGrabSources;    //잡히고 나서의 재생되는 사운드 
 
+    // === [추가] 깡통 투척용 프리팹 ===
+    [Header("깡통 투척")]
+    [SerializeField] private GameObject canPrefab; // 깡통 프리팹
+    [SerializeField] private string throwCanSound = "can_throw"; // 깡통 투척 사운드
 
     private float holdTimer = 0f;               // 상호작용 유지 시간 계산용 
     private bool isHolding = false;             // 상호작용 유지 중인지 여부
@@ -228,6 +232,18 @@ public class Player : PlayerManager
             }
             else
                 Debug.LogError($"테두리 슬롯 {i}가 연결되지 않았습니다!");
+        }
+
+        // === [추가] 테스트용 깡통 아이템 추가 ===
+        Item canItem = Resources.Load<Item>("Can");
+        if (canItem != null)
+        {
+            AddItem(canItem);
+            Debug.Log("[Player] 테스트용 깡통 아이템 추가됨");
+        }
+        else
+        {
+            Debug.LogError("[Player] 깡통 아이템(Can)을 Resources에서 찾을 수 없음. 경로: Assets/Resources/Can.asset 확인!");
         }
 
         // 동전 및 자판기 UI 초기화
@@ -664,7 +680,30 @@ public class Player : PlayerManager
         return isHiding;
     }
 
-
+    // === [추가] 깡통 투척 메서드 ===
+    public void ThrowCan()
+    {
+        if (canPrefab == null)
+        {
+            Debug.LogError("[Player] 깡통 프리팹이 인스펙터에 할당되지 않았습니다!");
+            return;
+        }
+        // 생성 위치: 플레이어 앞(2f), 어깨 높이(y=1.2f)
+        Vector3 spawnPos = transform.position + new Vector3(facingRight ? 1f : -2f, 3f, 0);
+        GameObject can = Instantiate(canPrefab, spawnPos, Quaternion.identity);
+        Rigidbody2D canRb = can.GetComponent<Rigidbody2D>();
+        if (canRb == null)
+        {
+            Debug.LogError("[Player] 깡통 프리팹에 Rigidbody2D가 없습니다!");
+            return;
+        }
+        // 방향: 수평+위쪽 포물선
+        Vector2 throwDirection = (facingRight ? Vector2.right : Vector2.left) + Vector2.up * 0.5f;
+        float throwForce = 15f;
+        canRb.AddForce(throwDirection.normalized * throwForce, ForceMode2D.Impulse);
+        AudioManager.Instance.PlayAt(throwCanSound, transform.position);
+        Debug.Log($"[Player] 깡통을 던졌다! 생성 위치: {spawnPos}, 방향: {throwDirection}, 힘: {throwForce}");
+    }
 
     #endregion
 
