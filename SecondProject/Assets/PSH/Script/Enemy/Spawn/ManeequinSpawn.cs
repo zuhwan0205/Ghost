@@ -4,19 +4,26 @@ using Unity.Cinemachine;
 
 public class MannequinSpawn : MonoBehaviour
 {
-    public GameObject monsterPrefab;         // 생성할 몬스터 프리팹
-    public Transform player;                 // 플레이어 Transform
+    public GameObject monsterPrefab;
+    public Transform player;
 
     [Header("몬스터 소환조건")]
-    [SerializeField] float spawnRange = 20f;     // 소환 최대 거리
-    [SerializeField] float safeZone = 8f;        // 플레이어 주변 소환 금지 구간
-    [SerializeField] private float despawnTime = 6f;
-    [SerializeField] private float RespawnTime = 20f;
+    [SerializeField] float spawnRange = 20f;
+    [SerializeField] float safeZone = 8f;
+    private float despawnTime = 6f;
+    private float currentRespawnTime = 20f;
+
+    [Header("스폰 난이도 설정")]
+    [SerializeField] private int spawnLevel = 1; // 1~3
     public LayerMask wallLayer;
 
     private GameObject currentMonster;
     private Coroutine checkVisibilityCoroutine;
     private CinemachineCamera virtualCamera;
+
+
+    private float respawnCountdown = 0f;
+    private bool isRespawning = false;
 
     void Start()
     {
@@ -27,16 +34,16 @@ public class MannequinSpawn : MonoBehaviour
             return;
         }
 
-        StartCoroutine(MonsterCycle());
+        ApplySpawnLevel(); // 시작 시 현재 레벨 기반 시간 적용
+        StartCoroutine(InitialSpawnDelay());
     }
 
-    void Update()
+    // 첫 스폰만 30초 지연 후 루프 시작
+    IEnumerator InitialSpawnDelay()
     {
-        // G 키로 강제 테스트 소환
-        if (Input.GetKeyDown(KeyCode.G) && currentMonster == null)
-        {
-            SpawnMonsterOnce();
-        }
+        Debug.Log("[MannequinSpawn] 첫 스폰까지 30초 대기");
+        yield return new WaitForSeconds(30f);
+        StartCoroutine(MonsterCycle());
     }
 
     // 몬스터 생성-소멸 반복 루프
@@ -53,18 +60,57 @@ public class MannequinSpawn : MonoBehaviour
             while (currentMonster != null)
                 yield return null;
 
-            yield return new WaitForSeconds(RespawnTime);
+            // 몬스터가 사라진 후 타이머 시작
+            isRespawning = true;
+            respawnCountdown = currentRespawnTime;
+
+            while (respawnCountdown > 0f)
+            {
+                respawnCountdown -= Time.deltaTime;
+                yield return null;
+            }
+
+            isRespawning = false;
         }
     }
 
-    // G 키로 수동 소환
-    void SpawnMonsterOnce()
+    void OnGUI()
     {
-        Vector3 spawnPos = CalculateSpawnPosition();
-        currentMonster = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
-        Debug.Log("[G 키] 몬스터 강제 소환 위치: " + spawnPos);
+        if (isRespawning)
+        {
+            string text = $"[Mannequin] 다음 소환까지: {respawnCountdown:F1}초";
 
-        checkVisibilityCoroutine = StartCoroutine(CheckVisibilityAndDespawn());
+            GUIStyle style = new GUIStyle(GUI.skin.label);
+            style.fontSize = 20;
+            style.normal.textColor = Color.red;
+
+            float width = 350f;
+            float height = 30f;
+            float x = Screen.width - width - 10f;
+            float y = 10f;
+
+            GUI.Label(new Rect(x, y, width, height), text, style);
+        }
+    }
+
+    // 외부에서 난이도 설정할 수 있는 함수
+    public void SetSpawnLevel(int level)
+    {
+        spawnLevel = Mathf.Clamp(level, 1, 3);
+        ApplySpawnLevel();
+        Debug.Log($"[MannequinSpawn] 스폰 레벨 {spawnLevel} → 주기 {currentRespawnTime}초로 설정됨");
+    }
+
+    // 레벨에 따라 주기 적용
+    private void ApplySpawnLevel()
+    {
+        currentRespawnTime = spawnLevel switch
+        {
+            1 => 20f,
+            2 => 15f,
+            3 => 10f,
+            _ => 20f
+        };
     }
 
     // 플레이어 방향 기준 소환 위치 계산
@@ -73,7 +119,7 @@ public class MannequinSpawn : MonoBehaviour
         Player playerComp = player.GetComponent<Player>();
         if (playerComp == null)
         {
-            Debug.LogWarning("Player 컴포넌트를 찾을 수 없습니다!");
+            Debug.LogWarning("Player 컴포넌트를 찾지 못했습니다.");
             return player.position;
         }
 
@@ -99,7 +145,7 @@ public class MannequinSpawn : MonoBehaviour
                 Mathf.Max(minSpawnX, maxSpawnX));
 
             if (playerDir > 0)
-                spawnY += 1f; // 오른쪽일 때 Y 보정
+                spawnY += 1f;
         }
         else
         {
@@ -111,8 +157,7 @@ public class MannequinSpawn : MonoBehaviour
         return new Vector3(spawnX, spawnY, 0f);
     }
 
-
-    // 카메라에서 안 보일 경우 디스폰
+    // 카메라에서 보이지 않으면 제거
     IEnumerator CheckVisibilityAndDespawn()
     {
         float invisibleTime = 0f;
@@ -147,7 +192,7 @@ public class MannequinSpawn : MonoBehaviour
         }
     }
 
-    // Scene 뷰에서 레이 시각화
+    // 디버그용: Scene 뷰에서 소환 범위 표시
     void OnDrawGizmosSelected()
     {
         if (player == null) return;
@@ -158,15 +203,12 @@ public class MannequinSpawn : MonoBehaviour
         float dir = playerComp.facingRight ? 1f : -1f;
         Vector3 pos = player.position;
 
-        // 전체 소환 가능 범위
         Gizmos.color = Color.green;
         Gizmos.DrawLine(pos, pos + Vector3.right * spawnRange * dir);
 
-        // 소환 금지 범위
         Gizmos.color = Color.red;
         Gizmos.DrawLine(pos, pos + Vector3.right * safeZone * dir);
 
-        // 기준점
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(pos, 0.2f);
     }

@@ -17,14 +17,19 @@ public class MutationSpawner : MonoBehaviour
     [SerializeField] private List<Floor> floors;                // 층 리스트
     [SerializeField] private LayerMask playerLayer;             // 플레이어 감지 레이어
     [SerializeField] private LayerMask enemyLayer;              // 몬스터 감지 레이어
-    [SerializeField] private int maxEnemyCount = 5;             // 전체 맵 기준 최대 몬스터 수
     [SerializeField] private float spawnInterval = 10f;         // 소환 주기
+
+    [Header("스폰 난이도 설정")]
+    [SerializeField] private int spawnLevel = 1; // 1~3 (외부에서 설정)
+    private int maxEnemyCount = 3;              // 자동 설정됨
 
     private float spawnTimer;
 
     private void Start()
     {
+        ApplySpawnLevel();
         spawnTimer = spawnInterval;
+
         if (spawnPoints.Count == 0)
             Debug.LogError("[MutationSpawner] 스폰 포인트가 없습니다!");
     }
@@ -156,6 +161,27 @@ public class MutationSpawner : MonoBehaviour
         Debug.Log($"[Spawner] 몬스터 소환됨: {enemyPrefab.name} at {spawnPoint.position}");
     }
 
+    // 외부에서 스폰 레벨을 설정하는 함수
+    public void SetSpawnLevel(int level)
+    {
+        spawnLevel = Mathf.Clamp(level, 1, 3);
+        ApplySpawnLevel();
+        Debug.Log($"[Spawner] 레벨 {spawnLevel} → 최대 몬스터 수 {maxEnemyCount} 설정됨");
+    }
+
+    // 레벨에 따라 최대 마리 수 결정
+    private void ApplySpawnLevel()
+    {
+        maxEnemyCount = spawnLevel switch
+        {
+            1 => 4,
+            2 => 5,
+            3 => 6,
+            _ => 4
+        };
+    }
+
+    // 스폰 포인트/방 디버그 시각화
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
