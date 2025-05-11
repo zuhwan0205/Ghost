@@ -5,12 +5,10 @@ public class RemoveTrash : EventObject
     [Header("Can INFO")]
     [SerializeField] GameObject trashObj;
 
-    private AudioSource aud;
-
     private void Start()
     {
-        aud = GetComponent<AudioSource>();
-
+        trashObj.SetActive(false);
+        if(!MissionManager.Instance.activeMissionNames.Contains("TrashManager")) return;
         if (isWorking) trashObj.SetActive(true);
     }
 
@@ -22,9 +20,9 @@ public class RemoveTrash : EventObject
 
             if (interactionTime > needTime)
             {
+                AudioManager.Instance.Play("TrashCan");
                 isWorking = false;
                 trashObj.SetActive(false);
-                aud.Play();
             }
         }
     }

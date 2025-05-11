@@ -47,6 +47,7 @@ public class Mutation : MonoBehaviour
 
     [Header("사운드 설정")]
     [SerializeField] private string hitPlayerSound = "mutation_hit";
+    [SerializeField] private string lureHitSound = "can_hit"; // === [추가] 깡통 충돌 사운드 ===
     [SerializeField] private AudioSource[] audioSources;
 
     [Header("데미지")]
@@ -101,6 +102,7 @@ public class Mutation : MonoBehaviour
 
     // 유도 오브젝트 좌우 감지
     // 유도 오브젝트 좌우 감지 + 거리 비교로 더 가까운 쪽 선택
+    // === [수정] 유도 오브젝트 감지 (디버그 로그 강화) ===
     private void DetectLureObject()
     {
         Vector2 origin = transform.position;
@@ -115,6 +117,7 @@ public class Mutation : MonoBehaviour
         {
             lureTargetPos = null;
             lureTargetObject = null;
+            Debug.Log("[Mutation] 유도 오브젝트 감지되지 않음");
             return;
         }
 
@@ -122,13 +125,13 @@ public class Mutation : MonoBehaviour
         {
             lureTargetPos = leftHit.point;
             lureTargetObject = leftHit.collider.gameObject;
-            Debug.Log("[Ghost] 좌측 유도 오브젝트 감지 → 이동");
+            Debug.Log($"[Mutation] 좌측 유도 오브젝트 감지: {leftHit.collider.name} at {leftHit.point}");
         }
         else if (!foundLeft && foundRight)
         {
             lureTargetPos = rightHit.point;
             lureTargetObject = rightHit.collider.gameObject;
-            Debug.Log("[Ghost] 우측 유도 오브젝트 감지 → 이동");
+            Debug.Log($"[Mutation] 우측 유도 오브젝트 감지: {rightHit.collider.name} at {rightHit.point}");
         }
         else
         {
@@ -139,13 +142,13 @@ public class Mutation : MonoBehaviour
             {
                 lureTargetPos = leftHit.point;
                 lureTargetObject = leftHit.collider.gameObject;
-                Debug.Log("[Ghost] 좌측(가까움) 유도 오브젝트 선택");
+                Debug.Log($"[Mutation] 좌측(가까움) 유도 오브젝트 선택: {leftHit.collider.name} (거리: {distLeft})");
             }
             else
             {
                 lureTargetPos = rightHit.point;
                 lureTargetObject = rightHit.collider.gameObject;
-                Debug.Log("[Ghost] 우측(가까움) 유도 오브젝트 선택");
+                Debug.Log($"[Mutation] 우측(가까움) 유도 오브젝트 선택: {rightHit.collider.name} (거리: {distRight})");
             }
         }
 
@@ -289,6 +292,7 @@ public class Mutation : MonoBehaviour
     }
 
     // 트리거 충돌 처리
+    // === [수정] 트리거 충돌 처리 (깡통 충돌 사운드 추가) ===
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -299,7 +303,8 @@ public class Mutation : MonoBehaviour
 
         if (((1 << collision.gameObject.layer) & targetObjectLayer) != 0)
         {
-            Debug.Log("[Ghost] 유도 오브젝트와 충돌 → 오브젝트 제거 및 5초 정지");
+            Debug.Log($"[Mutation] 유도 오브젝트와 충돌: {collision.gameObject.name} → 제거 및 5초 정지");
+            AudioManager.Instance.PlayAt(lureHitSound, transform.position); // 깡통 충돌 사운드
             Destroy(collision.gameObject);
             lureTargetPos = null;
             lureTargetObject = null;

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 21b5e2b6cc8b73241aee9ca1622d20cb
+guid: e0046057e529948458375fc5d2b504f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2034770396966673073
-    second: 3floor_0
+      213: 8124805455868072746
+    second: toilet_woman_last_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,42 +96,16 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 3floor_0
+      name: toilet_woman_last_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2017
+        width: 300
         height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f452259ca1b03c3e0800000000000000
-      internalID: -2034770396966673073
+      spriteID: a231c2ad38b11c070800000000000000
+      internalID: 8124805455868072746
       vertices: []
       indices: 
       edges: []
@@ -161,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      3floor_0: -2034770396966673073
+      toilet_woman_last_0: 8124805455868072746
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

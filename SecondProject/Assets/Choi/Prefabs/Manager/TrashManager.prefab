@@ -44,7 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c38ab25d9bf6348b09677588b78bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: []
+  spawnPoint:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   canObj: {fileID: 558376100242441897, guid: 5a835b08c508bb147887c8c846a48e3d, type: 3}
   clearCount: 0
   clear: 0

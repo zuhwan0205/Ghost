@@ -19,6 +19,7 @@ TagManager:
   - Room
   - Lure
   - Hide
+  - Can
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Interactable
   - Hide
   - Lure
-  - 
+  - Room
   - 
   - 
   - 
