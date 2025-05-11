@@ -104,7 +104,7 @@ public class MannequinSpawn : MonoBehaviour
             spawnX = player.position.x; // 기본 fallback 위치
         }
 
-        float spawnY = player.position.y+1f;           // Y는 플레이어 기준으로 고정
+        float spawnY = player.position.y;           // Y는 플레이어 기준으로 고정
         float spawnZ = 0f;                           // 2D에서는 보통 Z는 0으로 고정
 
         return new Vector3(spawnX, spawnY, spawnZ);
