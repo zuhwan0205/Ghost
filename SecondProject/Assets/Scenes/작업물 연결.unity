@@ -1488,7 +1488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6846892115671462515, guid: 22596b223a3a68945bdd71833ffb99ef, type: 3}
       propertyPath: Mtime
-      value: 90
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6846892115671462515, guid: 22596b223a3a68945bdd71833ffb99ef, type: 3}
       propertyPath: Stime
