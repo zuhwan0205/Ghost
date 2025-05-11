@@ -96,9 +96,10 @@ GameObject:
   - component: {fileID: 1336924104742009498}
   - component: {fileID: 3282305730561987458}
   - component: {fileID: 1565498952099165191}
+  - component: {fileID: 919829460497851134}
   m_Layer: 0
   m_Name: SecureGate
-  m_TagString: Untagged
+  m_TagString: EventObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,6 +242,29 @@ MonoBehaviour:
   interactionTime: 0
   needTime: 0.5
   isWorking: 0
+--- !u!114 &919829460497851134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2661575974380893685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a051aa6c61ea743ae8fa2bafb1dbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isHoldInteraction: 0
+  item: {fileID: 0}
+  coin: {fileID: 0}
+  isVendingMachine: 0
+  isDirtyMirror: 0
+  isWireBox: 0
+  cleanMirror: {fileID: 0}
+  closedWireBox: {fileID: 0}
+  cleaningGame: {fileID: 0}
+  wiringGameManager: {fileID: 0}
+  targetRoomID: 3-1
 --- !u!1 &7919754631888776348
 GameObject:
   m_ObjectHideFlags: 0

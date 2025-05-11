@@ -47,7 +47,7 @@ public class Mutation : MonoBehaviour
 
     [Header("사운드 설정")]
     [SerializeField] private string hitPlayerSound = "mutation_hit";
-    [SerializeField] private string lureHitSound = "can_hit"; // === [추가] 깡통 충돌 사운드 ===
+    [SerializeField] private string lureHitSound = "can_hit";
     [SerializeField] private AudioSource[] audioSources;
     [SerializeField] private AudioSource[] walkingSources;
     [SerializeField] private AudioSource[] chasingSources;
@@ -70,36 +70,30 @@ public class Mutation : MonoBehaviour
         ResetToDefaultStats();
 
         originalScale = transform.localScale;
-
-
     }
-
-
 
     private void Update()
     {
         if (isPaused) return;
 
-        // 1. 이미 유도 오브젝트를 추적 중이면 → 끝까지 쫓아간다
+        // 1. 깡통(유도 오브젝트) 추적 중이면
         if (lureTargetPos.HasValue)
         {
-            rb.linearVelocity = Vector2.zero;
             ChaseToLure(lureTargetPos.Value);
-            return; // ★ 플레이어 감지 완전 무시
+            return; // 플레이어 감지 및 기타 로직 완전 무시
         }
 
-        // 2. 유도 오브젝트 감지 시도 (오직 추적 중이 아닐 때만)
+        // 2. 깡통이 없으면 유도 오브젝트 감지 시도
         DetectLureObject();
 
-        // 3. 감지에 성공했다면 다음 프레임부터 이동 처리
+        // 3. 감지에 성공했다면 다음 프레임부터 이동
         if (lureTargetPos.HasValue)
             return;
 
-        // 4. 유도 오브젝트도 없고 멈춤도 아니라면 → 플레이어 추적 또는 순찰
+        // 4. 깡통/유도 오브젝트 없으면 플레이어 추적 또는 순찰
         PlayerTracking();
         CheckForStuck();
     }
-
 
     private void LateUpdate()
     {
@@ -108,10 +102,16 @@ public class Mutation : MonoBehaviour
         transform.localScale = new Vector3(originalScale.x * direction, originalScale.y, originalScale.z);
     }
 
+    // 깡통 위치를 외부에서 설정하는 메서드
+    public void SetLureTarget(Vector2 targetPos, GameObject targetObject)
+    {
+        lureTargetPos = targetPos;
+        lureTargetObject = targetObject;
+        isChasing = false; // 플레이어 추적 중지
+        isPaused = false;  // 멈춤 상태 해제
+        Debug.Log($"[Mutation] 깡통 목표 설정: {targetPos}, 오브젝트: {targetObject.name}");
+    }
 
-    // 유도 오브젝트 좌우 감지
-    // 유도 오브젝트 좌우 감지 + 거리 비교로 더 가까운 쪽 선택
-    // === [수정] 유도 오브젝트 감지 (디버그 로그 강화) ===
     private void DetectLureObject()
     {
         Vector2 origin = transform.position;
@@ -124,8 +124,7 @@ public class Mutation : MonoBehaviour
 
         if (!foundLeft && !foundRight)
         {
-            lureTargetPos = null;
-            lureTargetObject = null;
+            // 깡통이 이미 목표로 설정된 경우 유지
             return;
         }
 
@@ -158,22 +157,40 @@ public class Mutation : MonoBehaviour
 
         isChasing = false;
         isPaused = false;
+        Debug.Log($"[Mutation] 유도 오브젝트 감지: {lureTargetObject.name}, 위치: {lureTargetPos}");
     }
 
-
-    // 유도 오브젝트 위치로 이동
     private void ChaseToLure(Vector2 targetPos)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPos, Enemy_Move_Speed * Time.deltaTime);
+        // 물리 기반 이동
+        Vector2 direction = (targetPos - (Vector2)transform.position).normalized;
+        rb.linearVelocity = new Vector2(direction.x * Enemy_Move_Speed, rb.linearVelocity.y);
 
+        // 벽 충돌 체크
+        if (WallAhead())
+        {
+            Flip();
+            rb.linearVelocity = new Vector2(-rb.linearVelocity.x, rb.linearVelocity.y);
+            Debug.Log("[Mutation] 벽 감지: 방향 전환");
+        }
+
+        // 방향 전환
         if ((targetPos.x < transform.position.x && transform.localScale.x > 0) ||
             (targetPos.x > transform.position.x && transform.localScale.x < 0))
         {
-            Flip(); // 방향 전환
+            Flip();
+        }
+
+        // 애니메이션 및 사운드
+        if (anim != null)
+        {
+            anim.SetBool("Tracking", true);
+            anim.SetBool("Idle", false);
+            PlayAudioGroup(chasingSources);
+            StopAudioGroup(walkingSources);
         }
     }
 
-    // 플레이어 추적 및 순찰 관리
     private void PlayerTracking()
     {
         if (player == null || isWaitingAfterChase) return;
@@ -197,7 +214,6 @@ public class Mutation : MonoBehaviour
             {
                 anim.SetBool("Tracking", true);
                 anim.SetBool("Idle", false);
-                
                 PlayAudioGroup(chasingSources);
                 StopAudioGroup(walkingSources);
             }
@@ -223,10 +239,9 @@ public class Mutation : MonoBehaviour
         }
     }
 
-    // 순찰 이동
     private void Patrol()
     {
-        rb.linearVelocity = new Vector2(patrolDirection * is_Enemy_Move_Speed, 0);
+        rb.linearVelocity = new Vector2(patrolDirection * is_Enemy_Move_Speed, rb.linearVelocity.y);
 
         if (WallAhead())
         {
@@ -235,7 +250,6 @@ public class Mutation : MonoBehaviour
         }
     }
 
-    // 목표 지점으로 이동
     private void MoveToTarget(Vector3 targetPosition)
     {
         Vector2 direction = (targetPosition - transform.position);
@@ -245,17 +259,15 @@ public class Mutation : MonoBehaviour
             return;
         }
         direction.Normalize();
-        rb.linearVelocity = direction * is_Enemy_Move_Speed;
+        rb.linearVelocity = new Vector2(direction.x * is_Enemy_Move_Speed, rb.linearVelocity.y);
     }
 
-    // 목표 방향 바라보기
     private void LookAt(Vector3 targetPosition)
     {
         Vector3 direction = targetPosition - transform.position;
         transform.localScale = new Vector3(direction.x > 0 ? 1 : -1, 1, 1);
     }
 
-    // 플레이어가 감지 범위 안에 있는지 확인
     public virtual bool PlayerInSight()
     {
         float circleRadius = is_Enemy_AwareDist;
@@ -274,13 +286,11 @@ public class Mutation : MonoBehaviour
         return false;
     }
 
-    // 바라보는 방향 반환
     private Vector2 GetFacingDirection()
     {
         return transform.localScale.x > 0 ? Vector2.right : Vector2.left;
     }
 
-    // 벽 감지
     private bool WallAhead()
     {
         float checkDistance = 0.5f;
@@ -292,7 +302,6 @@ public class Mutation : MonoBehaviour
         return hit.collider != null;
     }
 
-    // 방향 반전
     private void Flip()
     {
         Vector3 scale = transform.localScale;
@@ -300,8 +309,6 @@ public class Mutation : MonoBehaviour
         transform.localScale = scale;
     }
 
-    // 트리거 충돌 처리
-    // === [수정] 트리거 충돌 처리 (깡통 충돌 사운드 추가) ===
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -313,7 +320,7 @@ public class Mutation : MonoBehaviour
         if (((1 << collision.gameObject.layer) & targetObjectLayer) != 0)
         {
             Debug.Log($"[Mutation] 유도 오브젝트와 충돌: {collision.gameObject.name} → 제거 및 5초 정지");
-            AudioManager.Instance.PlayAt(lureHitSound, transform.position); // 깡통 충돌 사운드
+            AudioManager.Instance.PlayAt(lureHitSound, transform.position);
             Destroy(collision.gameObject);
             lureTargetPos = null;
             lureTargetObject = null;
@@ -321,11 +328,16 @@ public class Mutation : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             isPaused = true;
 
+            if (anim != null)
+            {
+                anim.SetBool("Tracking", false);
+                anim.SetBool("Idle", true);
+            }
+
             Invoke(nameof(ResumeMutationMovement), 5.0f);
         }
     }
 
-    // 플레이어와 충돌 시 처리
     private void OnPlayerTrigger(Collider2D collision)
     {
         anim.SetBool("Grab", true);
@@ -335,7 +347,6 @@ public class Mutation : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         isChasing = false;
         isPaused = true;
-
 
         StopAudioGroup(audioSources);
         StopAudioGroup(chasingSources);
@@ -348,7 +359,7 @@ public class Mutation : MonoBehaviour
         {
             pl.isHiding = true; // 이동 불가
             pl.isInteractionLocked = true;
-            pl.ResetHold(); 
+            pl.ResetHold();
             pl.TakeDamage(damage); // 데미지 처리
             pl.TakeGrab(); // Grab 처리
             Invoke(nameof(EnablePlayer), 3.0f);
@@ -357,7 +368,6 @@ public class Mutation : MonoBehaviour
         Invoke(nameof(ResumeMutationMovement), 5.0f);
     }
 
-    // 플레이어 이동 복구
     private void EnablePlayer()
     {
         if (player != null)
@@ -367,10 +377,7 @@ public class Mutation : MonoBehaviour
             {
                 Debug.Log("[Mutation] 3초 후 플레이어 이동 재개!");
                 pl.isHiding = false;
-
-                Debug.Log("[Ghost] 3초 후 플레이어 E키 다시 허용!");
                 pl.isInteractionLocked = false;
-
                 pl.AfterGrab(); // Grab 해제
                 anim.SetBool("Grab", false);
                 anim.SetBool("Tracking", false);
@@ -379,14 +386,12 @@ public class Mutation : MonoBehaviour
         }
     }
 
-    // 몬스터 이동 복구
     private void ResumeMutationMovement()
     {
         isPaused = false;
         isPatrolling = true;
         isChasing = false;
         ResetToDefaultStats();
-
 
         PlayAudioGroup(audioSources);
 
@@ -400,13 +405,12 @@ public class Mutation : MonoBehaviour
         Debug.Log("[Mutation] 5초 후 몬스터 이동 재개!");
     }
 
-    // 감지 후 대기 후 순찰 복귀
     private IEnumerator WaitThenReturnToPatrol()
     {
         isChasing = false;
         isWaitingAfterChase = true;
         rb.linearVelocity = Vector2.zero;
-        
+
         if (anim != null)
         {
             anim.SetBool("Tracking", false);
@@ -420,14 +424,12 @@ public class Mutation : MonoBehaviour
         ResetToDefaultStats();
     }
 
-    // 이동속도 및 감지 거리 초기화
     private void ResetToDefaultStats()
     {
         is_Enemy_AwareDist = Enemy_AwareDist;
         is_Enemy_Move_Speed = Enemy_Move_Speed;
     }
 
-    // 추적 중 멈춘 경우 체크
     private void CheckForStuck()
     {
         if (isChasing && !isPatrolling && !isWaitingAfterChase)
@@ -459,27 +461,24 @@ public class Mutation : MonoBehaviour
         }
     }
 
-    // 디버그용 감지 범위 및 벽 감지 시각화
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, Enemy_AwareDist); // 감지 반경
 
-        // 플레이어 감지 방향 디버그 선
         Gizmos.color = Color.red;
         Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-        Gizmos.DrawRay(transform.position, direction * is_Enemy_AwareDist); // ★ 감지거리만큼 길게!
+        Gizmos.DrawRay(transform.position, direction * is_Enemy_AwareDist);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, lureDetectRange); // 유도 오브젝트 감지 범위
     }
 
-    //현재 몬스터가 플레이어를 추격중인지 반환 
     public bool IsChasingPlayer()
     {
         return isChasing;
     }
 
-
-
-    
     private void StopAudioGroup(AudioSource[] sources)
     {
         foreach (var source in sources)
@@ -493,5 +492,4 @@ public class Mutation : MonoBehaviour
             if (source != null && !source.isPlaying)
                 source.Play();
     }
-
 }

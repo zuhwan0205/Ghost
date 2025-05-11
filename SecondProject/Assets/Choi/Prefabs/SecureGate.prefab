@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "2\uCE35 \uB098\uC774\uD0A4 \uC6B0\uCE21"
       objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.193375
@@ -113,6 +117,10 @@ PrefabInstance:
     - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_Name
       value: "1\uCE35 \uC911\uC559"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
       objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
@@ -176,6 +184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "3\uCE35 \uB7ED\uC154\uB9AC\uAD00"
       objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
       value: -35.886505
@@ -237,6 +249,10 @@ PrefabInstance:
     - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_Name
       value: "1\uCE35 \uC637\uAC00\uAC8C \uC88C\uCE21"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
       objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
@@ -300,6 +316,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "2\uCE35 \uC77C\uB809\uD2B8\uB85C\uB9C8\uD2B8 \uC6B0\uCE21"
       objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.9995308
@@ -361,6 +381,10 @@ PrefabInstance:
     - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_Name
       value: "2\uCE35 \uB098\uC774\uD0A4 \uC88C\uCE21"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
       objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
@@ -424,6 +448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "2\uCE35 \uC77C\uB809\uD2B8\uB85C\uB9C8\uD2B8 \uC88C\uCE21"
       objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18.815224
@@ -486,6 +514,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "3\uCE35 \uC7A5\uB09C\uAC10\uAC00\uAC8C"
       objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
+      objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x
       value: 36.069473
@@ -547,6 +579,10 @@ PrefabInstance:
     - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_Name
       value: "1\uCE35 \uC637\uAC00\uAC8C \uC6B0\uCE21"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661575974380893685, guid: 64618b67f5ae911499af53472ff80347, type: 3}
+      propertyPath: m_TagString
+      value: EventObject
       objectReference: {fileID: 0}
     - target: {fileID: 2988921895601169251, guid: 64618b67f5ae911499af53472ff80347, type: 3}
       propertyPath: m_LocalPosition.x

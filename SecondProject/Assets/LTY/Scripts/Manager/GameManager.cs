@@ -54,8 +54,6 @@ public class GameManager : MonoBehaviour
                 missionQuota = 3;
                 break;
         }
-
-        
         // 2) 진행 상황 초기화
         ResetStage();
     }
