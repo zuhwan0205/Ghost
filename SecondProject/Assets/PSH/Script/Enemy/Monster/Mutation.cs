@@ -49,6 +49,8 @@ public class Mutation : MonoBehaviour
     [SerializeField] private string hitPlayerSound = "mutation_hit";
     [SerializeField] private string lureHitSound = "can_hit"; // === [추가] 깡통 충돌 사운드 ===
     [SerializeField] private AudioSource[] audioSources;
+    [SerializeField] private AudioSource[] walkingSources;
+    [SerializeField] private AudioSource[] chasingSources;
 
     [Header("데미지")]
     [SerializeField] private float damage;
@@ -68,6 +70,8 @@ public class Mutation : MonoBehaviour
         ResetToDefaultStats();
 
         originalScale = transform.localScale;
+
+
     }
 
 
@@ -193,6 +197,9 @@ public class Mutation : MonoBehaviour
             {
                 anim.SetBool("Tracking", true);
                 anim.SetBool("Idle", false);
+                
+                PlayAudioGroup(chasingSources);
+                StopAudioGroup(walkingSources);
             }
         }
 
@@ -330,12 +337,9 @@ public class Mutation : MonoBehaviour
         isPaused = true;
 
 
-        // 오디오 일시 정지
-        foreach (var source in audioSources)
-        {
-            if (source.isPlaying)
-                source.Pause();
-        }
+        StopAudioGroup(audioSources);
+        StopAudioGroup(chasingSources);
+        StopAudioGroup(walkingSources);
 
         AudioManager.Instance.PlayAt(hitPlayerSound, transform.position);
 
@@ -384,12 +388,7 @@ public class Mutation : MonoBehaviour
         ResetToDefaultStats();
 
 
-        // 오디오 재생 복구
-        foreach (var source in audioSources)
-        {
-            source.UnPause(); // Stop()을 썼다면 source.Play()로 변경
-        }
-
+        PlayAudioGroup(audioSources);
 
         if (anim != null)
         {
@@ -476,6 +475,23 @@ public class Mutation : MonoBehaviour
     public bool IsChasingPlayer()
     {
         return isChasing;
+    }
+
+
+
+    
+    private void StopAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+            if (source != null && source.isPlaying)
+                source.Stop();
+    }
+
+    private void PlayAudioGroup(AudioSource[] sources)
+    {
+        foreach (var source in sources)
+            if (source != null && !source.isPlaying)
+                source.Play();
     }
 
 }

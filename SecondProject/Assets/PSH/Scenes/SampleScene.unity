@@ -14807,6 +14807,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &2684687162247529931
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 702720063005827525, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4082738286513363140, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
+      propertyPath: m_Name
+      value: Mutation
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf2d91ad49c0df34dbed480a464f51dc, type: 3}
 --- !u!1001 &2934234696209489405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14995,6 +15052,82 @@ PrefabInstance:
     - target: {fileID: 6526065793524448953, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 84fe3ab9900a67a4dab981fea2c48877, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[0].name
+      value: mutation_hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 129d04bb3386d4348a4aa7be94332240, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[1].name
+      value: Mannequin_Respawn
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 84fe3ab9900a67a4dab981fea2c48877, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[2].name
+      value: Mannequin_Catch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8a49e56d6cfcacc488dae8e39fa1b84e, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[3].name
+      value: Ghost_Cry
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 433c9977b174caf4488a251a6a051893, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[4].name
+      value: Ghost_Catch1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3f423c4626b9bcd448b7d4bf9d99af2c, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[5].name
+      value: Ghost_Catch2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f0d1a80a77e64ed4c919b2ec205c83ad, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[6].name
+      value: Monster_Door1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 411688b99dde3ea43b2f6b65b6f71664, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[7].name
+      value: Monster_Door2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[8].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 411688b99dde3ea43b2f6b65b6f71664, type: 3}
+    - target: {fileID: 7175748421428107496, guid: d98cec504ad489a4f83a225c0ac12ba6, type: 3}
+      propertyPath: monsterClips.Array.data[8].name
+      value: Monster_Door2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15208,3 +15341,4 @@ SceneRoots:
   - {fileID: 7467666870051698969}
   - {fileID: 7711838805818339928}
   - {fileID: 1476522976}
+  - {fileID: 2684687162247529931}
