@@ -59,7 +59,7 @@ public class MissionManager : MonoBehaviour
         int count = stageMissionCount.TryGetValue(GameManager.Instance.CurrentStage, out var c) ? c : 3;
         ActivateRandomMiniGames(count);
         
-        // if (GameManager.Instance.CurrentStage == 1)
+        if (GameManager.Instance.CurrentStage == 1)
         // {
         //     ActivateRandomMiniGames(3);
         // }
