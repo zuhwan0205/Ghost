@@ -3,16 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance; // ½Ì±ÛÅæ ÆÐÅÏ
-    public int missionQuota = 3; // ÇÑ ½ºÅ×ÀÌÁö´ç ÇÊ¿äÇÑ ¹Ì¼Ç ¼ö (3°³)
-    private int currentMissions = 0; // ¿Ï·áÇÑ ¹Ì¼Ç ¼ö
+    public static GameManager Instance; // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public int missionQuota = 3; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Ì¼ï¿½ ï¿½ï¿½ (3ï¿½ï¿½)
+    private int currentMissions = 0; // ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½Ì¼ï¿½ ï¿½ï¿½
     private bool isGameOver = false;
     private bool isCleared = false;
-    public DoorUnlockScript door; // ¹® ½ºÅ©¸³Æ® ÂüÁ¶
+    public DoorUnlockScript door; // ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+    public int CurrentStage = 1;
 
     void Awake()
     {
-        // ½Ì±ÛÅæ ¼³Á¤
+        // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Instance == null)
         {
             Instance = this;
@@ -22,9 +23,22 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (CurrentStage == 1)
+        {
+            missionQuota = 3;
+        }
+        else if (CurrentStage == 2)
+        {
+            missionQuota = 5;
+        }
+        else
+        {
+            missionQuota = 7;
+        }
     }
 
-    // ¹Ì¼Ç ¿Ï·á ½Ã È£Ãâ
+    // ï¿½Ì¼ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
     public void AddMissionProgress()
     {
         if (isGameOver || isCleared) return;
@@ -32,7 +46,7 @@ public class GameManager : MonoBehaviour
         currentMissions++;
         Debug.Log($"Missions Completed: {currentMissions}/{missionQuota}");
 
-        // ¹Ì¼Ç Á¶°Ç ÃæÁ· ½Ã ¹® ¿­±â
+        // ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (currentMissions >= missionQuota)
         {
             if (door != null)
@@ -42,7 +56,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Ãâ±¸¿¡¼­ ½ºÅ×ÀÌÁö Å¬¸®¾î Ã¼Å©
+    // ï¿½â±¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
     public void CheckStageClear()
     {
         if (isGameOver || isCleared) return;
@@ -51,7 +65,8 @@ public class GameManager : MonoBehaviour
         {
             isCleared = true;
             Debug.Log("Stage Cleared!");
-            Invoke("LoadNextStage", 2f); // 2ÃÊ ÈÄ ´ÙÀ½ ½ºÅ×ÀÌÁö
+            CurrentStage++;
+            Invoke("LoadNextStage", 2f); // 2ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         else
         {
@@ -59,17 +74,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // °ÔÀÓ ¿À¹ö Ã³¸®
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
     public void GameOver()
     {
         if (isGameOver || isCleared) return;
 
         isGameOver = true;
         Debug.Log("Game Over!");
-        Invoke("RestartStage", 2f); // 2ÃÊ ÈÄ Àç½ÃÀÛ
+        Invoke("RestartStage", 2f); // 2ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
-    // ´ÙÀ½ ½ºÅ×ÀÌÁö ·Îµå
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
     void LoadNextStage()
     {
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
@@ -84,14 +99,14 @@ public class GameManager : MonoBehaviour
         ResetStage();
     }
 
-    // ½ºÅ×ÀÌÁö Àç½ÃÀÛ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     void RestartStage()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         ResetStage();
     }
 
-    // ½ºÅ×ÀÌÁö ÃÊ±âÈ­
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     void ResetStage()
     {
         currentMissions = 0;
@@ -99,13 +114,13 @@ public class GameManager : MonoBehaviour
         isCleared = false;
     }
 
-    // ÇöÀç ¹Ì¼Ç ÁøÇàµµ ¹ÝÈ¯
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½àµµ ï¿½ï¿½È¯
     public int GetCurrentMissions()
     {
         return currentMissions;
     }
 
-    // ¹Ì¼Ç ÇÒ´ç·® ¹ÝÈ¯
+    // ï¿½Ì¼ï¿½ ï¿½Ò´ç·® ï¿½ï¿½È¯
     public int GetMissionQuota()
     {
         return missionQuota;
