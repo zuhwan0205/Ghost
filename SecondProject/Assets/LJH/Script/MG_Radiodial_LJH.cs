@@ -64,6 +64,7 @@ public class MG_Radio_LJH : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (diff < frequencyTolerance)
         {
             CompleteFrequencyMatch();
+            AudioManager.Instance.PlaySFX("WalkieTalkie", transform.position);
         }
 
         prevMousePos = currentMousePos;
