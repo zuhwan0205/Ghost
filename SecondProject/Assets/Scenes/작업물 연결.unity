@@ -4076,22 +4076,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
-      propertyPath: m_Size.x
-      value: 0.45003474
-      objectReference: {fileID: 0}
-    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
-      propertyPath: m_Size.y
-      value: 0.6190665
-      objectReference: {fileID: 0}
-    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.00000008940697
-      objectReference: {fileID: 0}
-    - target: {fileID: 533346166709008914, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.009236351
-      objectReference: {fileID: 0}
     - target: {fileID: 1335712294562512407, guid: 0882b523c7e55a0419b55cd01371082f, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4346,18 +4330,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 180091953348545565, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 203875349874020083, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46277332
-      objectReference: {fileID: 0}
-    - target: {fileID: 203875349874020083, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.4109
-      objectReference: {fileID: 0}
     - target: {fileID: 265269792087739273, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4366,18 +4338,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 699302943089989619, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067862688148738730, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45193365
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067862688148738730, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.8713
-      objectReference: {fileID: 0}
     - target: {fileID: 1081624846153168730, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: teleport
       value: 
@@ -4386,22 +4346,6 @@ PrefabInstance:
       propertyPath: destinationRoom
       value: 
       objectReference: {fileID: 235241163}
-    - target: {fileID: 1110701216705707312, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.44098973
-      objectReference: {fileID: 0}
-    - target: {fileID: 1110701216705707312, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.6712
-      objectReference: {fileID: 0}
-    - target: {fileID: 1128563925599382568, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1140352973234167677, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1146881671698888891, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: teleport
       value: 
@@ -4410,18 +4354,6 @@ PrefabInstance:
       propertyPath: destinationRoom
       value: 
       objectReference: {fileID: 1864632815}
-    - target: {fileID: 1258280707979426759, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4591152
-      objectReference: {fileID: 0}
-    - target: {fileID: 1258280707979426759, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.2245
-      objectReference: {fileID: 0}
-    - target: {fileID: 1332179917740392652, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1454336798108666647, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4430,14 +4362,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 1671115239411487308, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.44816428
-      objectReference: {fileID: 0}
-    - target: {fileID: 1671115239411487308, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.0694
-      objectReference: {fileID: 0}
     - target: {fileID: 1963357593468557826, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: box2
       value: 
@@ -4454,14 +4378,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 2092234855339646462, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2142590072223384975, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2172236985488374847, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4470,10 +4386,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 2305327779075879550, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2631348227042810409, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4482,54 +4394,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 2659133799579402027, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45918307
-      objectReference: {fileID: 0}
-    - target: {fileID: 2659133799579402027, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.2981
-      objectReference: {fileID: 0}
-    - target: {fileID: 3018550424978396975, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4591426
-      objectReference: {fileID: 0}
-    - target: {fileID: 3018550424978396975, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.4109
-      objectReference: {fileID: 0}
-    - target: {fileID: 3148279675168613211, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46277332
-      objectReference: {fileID: 0}
-    - target: {fileID: 3148279675168613211, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.4109
-      objectReference: {fileID: 0}
-    - target: {fileID: 3217440872217818346, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3324120139361995158, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.44829544
-      objectReference: {fileID: 0}
-    - target: {fileID: 3324120139361995158, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.6158
-      objectReference: {fileID: 0}
-    - target: {fileID: 3450724990886527792, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3466453789127604822, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46276432
-      objectReference: {fileID: 0}
-    - target: {fileID: 3466453789127604822, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.2255
-      objectReference: {fileID: 0}
     - target: {fileID: 3533199471633800496, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: m_Name
       value: "2\uCE35"
@@ -4542,18 +4406,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 3643935991836241282, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3934523015089127587, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3961943020386747727, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4337676927864697925, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4562,10 +4414,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 4454813447214860946, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4635789801712601250, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: box2
       value: 
@@ -4582,74 +4430,10 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 4816840407264899328, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4847859725166507854, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45188972
-      objectReference: {fileID: 0}
-    - target: {fileID: 4847859725166507854, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.4016
-      objectReference: {fileID: 0}
-    - target: {fileID: 5194876042364365321, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5196104766517297692, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.30654553
-      objectReference: {fileID: 0}
-    - target: {fileID: 5196104766517297692, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.9292
-      objectReference: {fileID: 0}
-    - target: {fileID: 5279649407638131479, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5289861333666057426, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5328611774295411259, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5487489377886850694, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46642122
-      objectReference: {fileID: 0}
-    - target: {fileID: 5487489377886850694, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.34
-      objectReference: {fileID: 0}
     - target: {fileID: 5520778778269938870, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: teleport
       value: 
       objectReference: {fileID: 1841710927}
-    - target: {fileID: 5588476345305629509, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46639746
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588476345305629509, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.4109
-      objectReference: {fileID: 0}
-    - target: {fileID: 5614105505761559828, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698714289801692855, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45911977
-      objectReference: {fileID: 0}
-    - target: {fileID: 5698714289801692855, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.1217
-      objectReference: {fileID: 0}
     - target: {fileID: 5813874423985514000, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4658,14 +4442,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 6128535436698814511, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6727546536182081766, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 6743532552196898381, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4690,38 +4466,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 7686675109578168961, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Size.x
-      value: 0.41222352
-      objectReference: {fileID: 0}
-    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Size.y
-      value: 0.64694977
-      objectReference: {fileID: 0}
-    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.00000023841858
-      objectReference: {fileID: 0}
-    - target: {fileID: 7706911559953491319, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.00005567074
-      objectReference: {fileID: 0}
-    - target: {fileID: 7712178011485937977, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 7791436740899506088, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.31018114
-      objectReference: {fileID: 0}
-    - target: {fileID: 7791436740899506088, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.5632
-      objectReference: {fileID: 0}
     - target: {fileID: 8191971979495757667, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4738,14 +4482,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 8442077503392487113, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8468520973182892561, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 8818008434123542737, guid: 6d05ac291773da5478590a104ea88799, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -4754,14 +4490,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 9103183738801586253, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.55846673
-      objectReference: {fileID: 0}
-    - target: {fileID: 9103183738801586253, guid: 6d05ac291773da5478590a104ea88799, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.8386
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5014,42 +4742,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 142267180195230155, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 319686841682895627, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 603332593800285817, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45550236
-      objectReference: {fileID: 0}
-    - target: {fileID: 603332593800285817, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 6.0659
-      objectReference: {fileID: 0}
-    - target: {fileID: 666198164447845231, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 684860308809006553, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.47006357
-      objectReference: {fileID: 0}
-    - target: {fileID: 684860308809006553, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 1061585936991421630, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.470053
-      objectReference: {fileID: 0}
-    - target: {fileID: 1061585936991421630, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.4109
-      objectReference: {fileID: 0}
     - target: {fileID: 1148130992374453633, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5074,22 +4766,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 1705999381554587881, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2013765812034188030, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2069028653046681402, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45546097
-      objectReference: {fileID: 0}
-    - target: {fileID: 2069028653046681402, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.6723
-      objectReference: {fileID: 0}
     - target: {fileID: 2097237923927275594, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5098,30 +4774,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 2106489601488772256, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2130720313078251377, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46277332
-      objectReference: {fileID: 0}
-    - target: {fileID: 2130720313078251377, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.3409
-      objectReference: {fileID: 0}
-    - target: {fileID: 2216506862098976305, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45555013
-      objectReference: {fileID: 0}
-    - target: {fileID: 2216506862098976305, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.8811
-      objectReference: {fileID: 0}
-    - target: {fileID: 2509636892937860085, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2512912514121521465, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: box2
       value: 
@@ -5138,14 +4790,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 2595218976774662613, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46639746
-      objectReference: {fileID: 0}
-    - target: {fileID: 2595218976774662613, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.4091
-      objectReference: {fileID: 0}
     - target: {fileID: 2670808861019636308, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5154,14 +4798,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 2678392373687799158, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2754246041947409345, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 2890490500213563910, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5178,14 +4814,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 2962819314440527472, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3206388455060007813, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3301066299146333677, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5210,70 +4838,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 3621860141305527757, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46641704
-      objectReference: {fileID: 0}
-    - target: {fileID: 3621860141305527757, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.2245
-      objectReference: {fileID: 0}
-    - target: {fileID: 3623863713423736763, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3859605581148196707, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4154377541563342031, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4178278817249936456, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Size.x
-      value: 0.4296022
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Size.y
-      value: 0.64454967
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.005642891
-      objectReference: {fileID: 0}
-    - target: {fileID: 4186452682420968545, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.009885758
-      objectReference: {fileID: 0}
-    - target: {fileID: 4597370844812879804, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.45187268
-      objectReference: {fileID: 0}
-    - target: {fileID: 4597370844812879804, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.1252
-      objectReference: {fileID: 0}
-    - target: {fileID: 4724682619958476094, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4806288263510710796, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974774615291603341, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.31015164
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974774615291603341, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.5671
-      objectReference: {fileID: 0}
     - target: {fileID: 5284429368454309144, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45
@@ -5338,14 +4902,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 5470173085782818357, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.44826233
-      objectReference: {fileID: 0}
-    - target: {fileID: 5470173085782818357, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.6186
-      objectReference: {fileID: 0}
     - target: {fileID: 5559376595495417048, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5354,14 +4910,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 5849096128754511380, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.31020358
-      objectReference: {fileID: 0}
-    - target: {fileID: 5849096128754511380, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.9258
-      objectReference: {fileID: 0}
     - target: {fileID: 5998157407724165590, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: teleport
       value: 
@@ -5370,14 +4918,6 @@ PrefabInstance:
       propertyPath: destinationRoom
       value: 
       objectReference: {fileID: 401134740}
-    - target: {fileID: 6022921615461516782, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5597822
-      objectReference: {fileID: 0}
-    - target: {fileID: 6022921615461516782, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.8349
-      objectReference: {fileID: 0}
     - target: {fileID: 6227604986169223596, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5386,42 +4926,6 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 6329319162630365991, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674677221114527843, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.43012547
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674677221114527843, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8.4018
-      objectReference: {fileID: 0}
-    - target: {fileID: 7451741932467455036, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46642223
-      objectReference: {fileID: 0}
-    - target: {fileID: 7451741932467455036, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.2227
-      objectReference: {fileID: 0}
-    - target: {fileID: 7537151412407399920, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 7691175346630501973, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7997761758756207123, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8109826202734606642, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8329314211848142476, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: virtualCamera
       value: 
@@ -5430,33 +4934,9 @@ PrefabInstance:
       propertyPath: cinemachineConfiner
       value: 
       objectReference: {fileID: 1028903963}
-    - target: {fileID: 8706451906114591280, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.46635413
-      objectReference: {fileID: 0}
-    - target: {fileID: 8706451906114591280, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.4091
-      objectReference: {fileID: 0}
-    - target: {fileID: 8872086383364976363, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8907011965463759588, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8916129234201092035, guid: 10a832ca031137348823a4cabf44be48, type: 3}
       propertyPath: m_Name
       value: "3\uCE35"
-      objectReference: {fileID: 0}
-    - target: {fileID: 9177560849537008037, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4591955
-      objectReference: {fileID: 0}
-    - target: {fileID: 9177560849537008037, guid: 10a832ca031137348823a4cabf44be48, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.3001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

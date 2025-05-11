@@ -557,7 +557,7 @@ GameObject:
   - component: {fileID: 7389980899915358836}
   - component: {fileID: 1624611643363399393}
   - component: {fileID: 674234516959652901}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (5)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1679,7 +1679,7 @@ GameObject:
   - component: {fileID: 6327877249612585127}
   - component: {fileID: 3438665456696863983}
   - component: {fileID: 5281591254485068013}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (11)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2262,7 +2262,7 @@ GameObject:
   - component: {fileID: 5747764186870773517}
   - component: {fileID: 8117401240942792968}
   - component: {fileID: 6329804449856353012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (4)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2424,7 +2424,7 @@ GameObject:
   - component: {fileID: 714830695237824237}
   - component: {fileID: 8590103795479558225}
   - component: {fileID: 1459228422704474535}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC67C\uCABD"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2586,7 +2586,7 @@ GameObject:
   - component: {fileID: 1426035689597365665}
   - component: {fileID: 764938493678944387}
   - component: {fileID: 1663372866884639849}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3447,7 +3447,7 @@ GameObject:
   - component: {fileID: 5163541076596488390}
   - component: {fileID: 7688366592673289261}
   - component: {fileID: 7513146091375928982}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (12)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3609,7 +3609,7 @@ GameObject:
   - component: {fileID: 1518641405019121360}
   - component: {fileID: 7005541115868473697}
   - component: {fileID: 2973968729736098003}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (7)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4030,7 +4030,7 @@ GameObject:
   - component: {fileID: 3943837977307862817}
   - component: {fileID: 922767903409563764}
   - component: {fileID: 617399909124581278}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (8)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4233,7 +4233,7 @@ GameObject:
   - component: {fileID: 1373827605685304105}
   - component: {fileID: 2197365442160790732}
   - component: {fileID: 2933149782859457571}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (13)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4395,7 +4395,7 @@ GameObject:
   - component: {fileID: 1886107129226626665}
   - component: {fileID: 3132835693255904969}
   - component: {fileID: 1161313460017814996}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (10)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4826,7 +4826,7 @@ GameObject:
   - component: {fileID: 5645412880517656762}
   - component: {fileID: 8082960241872995277}
   - component: {fileID: 3776370818195703255}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (2)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5766,7 +5766,7 @@ GameObject:
   - component: {fileID: 2528333764291639613}
   - component: {fileID: 5720006100645428219}
   - component: {fileID: 1053285038332749462}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (9)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -6109,7 +6109,7 @@ GameObject:
   - component: {fileID: 3271955543726648900}
   - component: {fileID: 1722820054917460291}
   - component: {fileID: 2796818772395278602}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (6)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -7127,7 +7127,7 @@ GameObject:
   - component: {fileID: 1792798057510150}
   - component: {fileID: 5810166802631780835}
   - component: {fileID: 6224706908167561532}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (3)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -8047,7 +8047,7 @@ GameObject:
   - component: {fileID: 7137379638918105229}
   - component: {fileID: 2321833868501355640}
   - component: {fileID: 324170973302524522}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\uBCBD_\uC624\uB978\uCABD (1)"
   m_TagString: Wall
   m_Icon: {fileID: 0}
