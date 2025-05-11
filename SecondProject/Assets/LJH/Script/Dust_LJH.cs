@@ -41,6 +41,7 @@ public class Dust_LJH : MonoBehaviour
         {
             CompleteCleanDust();
             Debug.Log("Clean Complete");
+            AudioManager.Instance.PlaySFX("MissionSuccess", transform.position);
         }
     }
 

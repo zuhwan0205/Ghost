@@ -64,15 +64,21 @@ public class Mannequin : MonoBehaviour
                 if (Random.value < 0.5f)
                 {
                     QTEManager_LJH.Instance.StartSmashQte();
+                    player.isHiding = true;
+                    player.isInteractionLocked = true;
                     player.TakeGrab();
                     player.TakeDamage(damage);
+                    player.ResetHold();
 
                 }
                 else
                 {
                     QTEManager_LJH.Instance.StartStarForceQte();
+                    player.isHiding = true;
+                    player.isInteractionLocked = true;
                     player.TakeGrab();
                     player.TakeDamage(damage);
+                    player.ResetHold();
                 }
 
                 Debug.Log("마네킹이 플레이어를 붙잡았습니다!");
@@ -90,17 +96,14 @@ public class Mannequin : MonoBehaviour
 
         isGrabbed = false;
         isActive = false;
+        player.isHiding = false;
+        player.isInteractionLocked = false;
         player.AfterGrab();
 
         anim.SetBool("Grab", false);
         anim.SetBool("Idle", true);
 
 
-
-        if (player != null)
-        {
-            player.isHiding = false; // 플레이어 이동금지 
-        }
 
         // 마네킹 충돌 비활성화
         GetComponent<Collider2D>().enabled = false;

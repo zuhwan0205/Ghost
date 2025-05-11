@@ -182,10 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144128474d0d0cf4584577f56a20b72b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  chaseSpeed: 4
-  shortDetectRange: 3
-  longDetectRange: 30
+  moveSpeed: 3
+  chaseSpeed: 5
+  shortDetectRange: 10
+  longDetectRange: 5000
   chaseDetectRange: 6
   playerLayer:
     serializedVersion: 2
