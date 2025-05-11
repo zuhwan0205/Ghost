@@ -12,7 +12,7 @@ public class LevelTester : MonoBehaviour
     }
 
 
-    void SetLevel(int level)
+    public void SetLevel(int level)
     {
         if (mannequinSpawner != null)
             mannequinSpawner.SetSpawnLevel(level);

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private bool isCleared = false;
     public DoorUnlockScript door; // �� ��ũ��Ʈ ����
     public int CurrentStage = 1;
+    private LevelTester levelTester;
 
     void Awake()
     {
@@ -26,11 +27,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    void Start()
-    {
-       
-    }
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -38,16 +34,19 @@ public class GameManager : MonoBehaviour
         switch (scene.name)
         {
             case "Stage1":
-                missionQuota = 3;
+                missionQuota = 3;       //3
                 CurrentStage = 1;
+                levelTester.SetLevel(1);
                 break;
             case "Stage2":
                 missionQuota = 5;
                 CurrentStage = 2;
+                levelTester.SetLevel(2);
                 break;
             case "Stage3":
                 missionQuota = 7;
                 CurrentStage = 3;
+                levelTester.SetLevel(3);
                 break;
             default:
                 Debug.LogWarning($"Unknown scene: {scene.name}, defaulting to 3");

@@ -27,7 +27,7 @@ public class MissionManager : MonoBehaviour
     
     private readonly Dictionary<int, int> stageMissionCount = new Dictionary<int, int>
     {
-        { 1, 3 },
+        { 1, 9 },       //시연 후 3으로 바꿔야 함
         { 2, 5 },
         { 3, 7 }
     };
@@ -61,20 +61,6 @@ public class MissionManager : MonoBehaviour
         ActivateRandomMiniGames(count);
         
         TrashManager.SetActive(true);
-        
-        //if (GameManager.Instance.CurrentStage == 1)
-        // {
-        //     ActivateRandomMiniGames(3);
-        // }
-        // else if (GameManager.Instance.CurrentStage == 2)
-        // {
-        //     ActivateRandomMiniGames(5);
-        // }
-        // else if (GameManager.Instance.CurrentStage == 3)
-        // {
-        //     ActivateRandomMiniGames(7);
-        // }
-        
 
         if (activeMissionNames.Contains("LostPropertyManager"))
         {
