@@ -13,16 +13,16 @@ public class AudioManager : MonoBehaviour
     [SerializeField, Header("UI Clips")]
     private List<AudioClipData> uiClips;
 
-    [SerializeField, Header("Item Clips")]
-    private List<AudioClipData> itemClips;
-
     [SerializeField, Header("Object Clips")]
     private List<AudioClipData> objectClips;
 
-    [SerializeField, Header("Event Clips")]
-    private List<AudioClipData> eventClips;
+    [SerializeField, Header("Player Clips")]
+    private List<AudioClipData> playerClips;
 
-    public enum SFXCategory { UI, Item, Monster, Object, Event, BGM }
+    [SerializeField, Header("Monster Clips")]
+    private List<AudioClipData> monsterClips;
+
+    public enum SFXCategory { UI, Monster, Object, Player, BGM }
 
     [System.Serializable]
     public class AudioClipData
@@ -72,9 +72,9 @@ public class AudioManager : MonoBehaviour
         clipDict = new Dictionary<string, AudioClipData>();
         AddClipListToDict(bgmClips);
         AddClipListToDict(uiClips);
-        AddClipListToDict(itemClips);
         AddClipListToDict(objectClips);
-        AddClipListToDict(eventClips);
+        AddClipListToDict(playerClips);
+        AddClipListToDict(monsterClips);
     }
     private void AddClipListToDict(List<AudioClipData> clipList)
     {
